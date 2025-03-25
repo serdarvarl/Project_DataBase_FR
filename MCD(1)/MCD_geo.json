@@ -1,0 +1,32 @@
+{
+  "width": 389,
+  "height": 390,
+  "cx": [
+    [ "AVOIRAPE", 57 ],
+    [ "APEGEN", 194 ],
+    [ "SOCIETE", 57 ],
+    [ "COMPTABILITE", 194 ],
+    [ "COMPTERESULTA", 326 ],
+    [ "AVOIRCHIFFRE", 57 ],
+    [ "CHIFFRESOCIETE", 194 ]
+  ],
+  "cy": [
+    [ "AVOIRAPE", 94 ],
+    [ "APEGEN", 94 ],
+    [ "SOCIETE", 229 ],
+    [ "COMPTABILITE", 229 ],
+    [ "COMPTERESULTA", 229 ],
+    [ "AVOIRCHIFFRE", 347 ],
+    [ "CHIFFRESOCIETE", 347 ]
+  ],
+  "shift": [
+    [ "AVOIRAPE,SOCIETE,0", 0 ],
+    [ "AVOIRAPE,APEGEN,0", 0 ],
+    [ "COMPTABILITE,COMPTERESULTA,0", 0 ],
+    [ "COMPTABILITE,SOCIETE,0", 0 ],
+    [ "COMPTABILITE,CHIFFRESOCIETE,0", 0 ],
+    [ "AVOIRCHIFFRE,CHIFFRESOCIETE,0", 0 ],
+    [ "AVOIRCHIFFRE,SOCIETE,0", 0 ]
+  ],
+  "ratio": []
+}
