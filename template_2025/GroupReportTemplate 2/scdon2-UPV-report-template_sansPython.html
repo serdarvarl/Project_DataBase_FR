@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="MOUTCHACHOU Lydia,hazem,BERETTI–PRENANT Esteban,VAROL Serdar" />
+<meta name="author" content />
 
-<meta name="date" content="2025-03-24" />
+<meta name="date" content="2025-04-03" />
 
 <title>Rapport de groupe des UE Bases de données + Sciences des Données 2</title>
 
@@ -2879,9 +2879,8 @@ display: none;
 
 <h1 class="title toc-ignore">Rapport de groupe des UE Bases de données +
 Sciences des Données 2</h1>
-<h4 class="author">MOUTCHACHOU Lydia,hazem,BERETTI–PRENANT Esteban,VAROL
-Serdar</h4>
-<h4 class="date">24 March 2025</h4>
+<h4 class="author"></h4>
+<h4 class="date">03 April 2025</h4>
 
 </div>
 
@@ -2890,11 +2889,11 @@ Serdar</h4>
 <ul>
 <li><a href="#introduction" id="toc-introduction">Introduction</a>
 <ul>
-<li><a href="#contenu-dune-introduction" id="toc-contenu-dune-introduction">Contenu d’une introduction</a></li>
+<li><a href="#présentation-du-projet" id="toc-présentation-du-projet">Présentation du projet</a></li>
 <li><a href="#responsabilités-et-composition-de-léquipe" id="toc-responsabilités-et-composition-de-léquipe">Responsabilités et
 composition de l’équipe</a></li>
-<li><a href="#quelques-détails-techniques" id="toc-quelques-détails-techniques">Quelques détails
-techniques</a></li>
+<li><a href="#objectifs-et-questions-de-recherche" id="toc-objectifs-et-questions-de-recherche">Objectifs et questions de
+recherche</a></li>
 </ul></li>
 <li><a href="#base-de-données" id="toc-base-de-données">Base de
 données</a>
@@ -2907,7 +2906,7 @@ MCD et MOD</a></li>
 données</a></li>
 <li><a href="#requêtes-réalisées" id="toc-requêtes-réalisées">Requêtes
 réalisées</a></li>
-<li><a href="#quelques-détails-techniques-1" id="toc-quelques-détails-techniques-1">Quelques détails
+<li><a href="#quelques-détails-techniques" id="toc-quelques-détails-techniques">Quelques détails
 techniques</a></li>
 </ul></li>
 <li><a href="#matériel-et-méthodes" id="toc-matériel-et-méthodes">Matériel et Méthodes</a>
@@ -2938,149 +2937,138 @@ de régression linéaire : un premier exemple</a></li>
 
 <div id="introduction" class="section level1 label:s-intro">
 <h1 class="label:s-intro">Introduction</h1>
-<div id="contenu-dune-introduction" class="section level2">
-<h2>Contenu d’une introduction</h2>
-<p>Une bonne introduction débute par une présentation du contexte, avant
-de définir votre ou vos questions de recherche. Il peut être bon
-d’afficher votre question de recherche en gras, séparée du reste du
-texte, comme ceci:</p>
-<p>Il est important ensuite de bien motiver l’importance de la (des)
-question(s), et leur actualité. Pour qui et en quoi cette question
-est-elle importante? Quelles actions pourront être menées si l’on dipose
-d’éléments de réponse ?</p>
-<p>Notez que la question de recherche ci-haut doit servir de fil
-conducteur, de guide, tout au long de votre rapport (dans le choix des
-données à collecter, des analyses à effectuer, de comment présenter les
-résultats, de vos analyses et conclusions, etc.).</p>
-<p>Nous suggérons que vous organisiez votre rapport en utilisant des
-chapitres mais, en fonction de votre projet, rien ne vous empêche
-d’adopter une structure différente.</p>
+<div id="présentation-du-projet" class="section level2">
+<h2>Présentation du projet</h2>
+<p>Les données financières des entreprises jouent un rôle crucial dans
+la compréhension de leur santé économique. Ce projet se concentre sur
+l’analyse des performances financières des entreprises françaises entre
+2018 et 2022, en utilisant les données fournies par le Registre National
+du Commerce et des Sociétés (RNCS).</p>
 </div>
 <div id="responsabilités-et-composition-de-léquipe" class="section level2">
 <h2>Responsabilités et composition de l’équipe</h2>
-<p>Vous devez décrire les principaux rôles de chaque membre du groupe
-dans l’équipe.</p>
-<p>Victor HUGO : Étudiant n°XXXX, Resp. de la collecte des données.</p>
-<p>Albert ENSTEIN : Étudiant n°XXXX, Resp. du rapport.</p>
-<p>….</p>
+<p>MOUTCHACHOU Lydia : Étudiant n°22212656</p>
+<p>IBNMTAR Hazem : Étudiant n°22309227</p>
+<p>BERETTI–PRENANT Esteban : Étudiant n°22208752</p>
+<p>VAROL Serdar : Étudiant n°22009668</p>
 </div>
-<div id="quelques-détails-techniques" class="section level2">
-<h2>Quelques détails techniques</h2>
-<p><strong>Ortographe</strong> : Il est important de soigner
-l’orthographe. Vous devriez utiliser un correcteur en ligne tel que
-().</p>
-<p><strong>R Markdown :</strong> Pour créer ce rapport, on vous demande
-d’utiliser <code>R Markdown</code>, via le logiciel
-<code>RStudio</code>.</p>
-<p>Pour vous aider, on vous fournit un fichier <code>.Rmd</code> qui
-contient la structure du projet et qui présente quelques exemples de la
-syntaxe à utiliser. Vous pouvez donc partir de ce fichier et le modifier
-à votre guise. (Nous suggérons que vous organisiez votre rapport en
-utilisant des chapitres mais, en fonction de votre projet, rien ne vous
-empêche d’adopter une structure différente.)</p>
-<p>La «compilation» (<em>i.e.</em>, «Kniter») du <code>Rmd</code> permet
-de créer soit un fichier PDF, soit un fichier Word, soit un fichier HTML
-(le PDF étant celui pour lequel les choses se passent le mieux, et aussi
-le format attendu pour ce cours).</p>
-<p>Vous pouvez incorporer des <em>chunks</em> R qui seront exécutés à la
-volée. Vous pouvez inclure des commandes .</p>
-<p>Le désavantage de travailler avec un <code>.Rmd</code> sous
-<code>RStudio</code> est que vous travaillez en local : il faudra donc
-bien faire attention de prendre en compte les modifications de
-chacun.</p>
-<p><strong>Editeur collaboratif : </strong> Lorsque votre rapport sera
-proche de sa version finale, i.e. lorsqu’il ne restera que du texte à
-modifier, vous pourrez utilier le logiciel Overleaf (<a href="https://overleaf.com" class="uri">https://overleaf.com</a>) pour
-collaborer avec les autres membres de votre équipe directement sur la
-version  de ce document (qui est un sous-produit créé quand vous cliquez
-sur Knit depuis RStudio).</p>
-<p><strong>Figure : </strong> Pour inclure une figure, il faut qu’elle
-ait une légende (ce qui est le cas pour la Figure<span class="math inline">\(~\)</span><span class="math inline">\(\ref{myfigure}\)</span> ci-après) et qu’elle soit
-référencée quelque part dans le document (ce qui est le cas dans les
-parenthèses qui précédent).</p>
-<div class="float" id="myfigure">
-<img role="img" aria-label="Une légende sous la figure." src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABkAAD/4QMtaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzYgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTYwNzA1RkRFMEFBMTFFNjk0MzVDNjA3RDdGN0NBQTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTYwNzA1RkVFMEFBMTFFNjk0MzVDNjA3RDdGN0NBQTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxNjA3MDVGQkUwQUExMUU2OTQzNUM2MDdEN0Y3Q0FBNyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxNjA3MDVGQ0UwQUExMUU2OTQzNUM2MDdEN0Y3Q0FBNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv/uAA5BZG9iZQBkwAAAAAH/2wCEAAEBAQEBAQEBAQEBAQEBAQEB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" style="width:4cm;height:2cm" alt="Une légende sous la figure." />
-<div class="figcaption">Une légende sous la figure.</div>
+<div id="objectifs-et-questions-de-recherche" class="section level2">
+<h2>Objectifs et questions de recherche</h2>
+<p>Notre projet vise à analyser les performances financières des
+entreprises françaises entre 2018 et 2022. Pour ce faire, nous allons
+examiner plusieurs facteurs qui pourraient influencer la rentabilité des
+entreprises. Les questions spécifiques que nous allons aborder sont les
+suivantes :</p>
+<div id="comparaison-de-la-rentabilité-par-rapport-au-chiffre-daffaires" class="section level3">
+<h3><strong>Comparaison de la rentabilité par rapport au chiffre
+d’affaires :</strong></h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Comment la rentabilité varie-t-elle en fonction de la taille de
+l’entreprise ?</p></li>
+<li><p>Y a-t-il une différence notable entre les entreprises qui ont
+recours au refinancement et celles qui n’en ont pas besoin ?</p></li>
+</ol>
 </div>
-<p><strong>Tableau</strong> : Notez que contrairement à une figure, la
-légende d’un tableau doit être mise <strong>au-dessus</strong> de
-celui-ci (<em>e.g.</em>, voir la Table<span class="math inline">\(~\)</span><span class="math inline">\(\ref{tab7.1}\)</span> ci-dessous). Comme pour les
-figures, tout tableau doit également être discuté dans le texte du
-rapport.</p>
-<p>Utiliser <a href="https://www.tablesgenerator.com/markdown_tables" class="uri">https://www.tablesgenerator.com/markdown_tables</a> pour
-créer des tables Markdown simples, ou bien utiliser . Plus de précisions
-sur l’utilisation des tableaux sont données en Annexe</p>
-<table>
-<caption>une légende au-dessus du tableau. </caption>
-<thead>
-<tr class="header">
-<th>Les tables</th>
-<th align="center">sont</th>
-<th align="right">cool</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>col 1 est</td>
-<td align="center">alignée à gauche</td>
-<td align="right">$1600</td>
-</tr>
-<tr class="even">
-<td>col 2 est</td>
-<td align="center">centrée</td>
-<td align="right">$12</td>
-</tr>
-<tr class="odd">
-<td>col 3 est</td>
-<td align="center">alignée à droite</td>
-<td align="right">$1</td>
-</tr>
-</tbody>
-</table>
+<div id="comparaison-de-la-rentabilité-par-rapport-au-chiffre" class="section level3">
+<h3><strong>Comparaison de la rentabilité par rapport au
+chiffre</strong></h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>La rentabilité des entreprises diffère-t-elle selon la ville où
+elles sont implantées ?</p></li>
+<li><p>Les entreprises qui exportent leurs produits ou services
+sont-elles plus rentables que celles qui opèrent uniquement sur le
+marché national ?</p></li>
+</ol>
+</div>
+<div id="impact-fiscal-et-sectoriel" class="section level3">
+<h3><strong>Impact fiscal et sectoriel :</strong></h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Quel est l’impact des taxes sur la rentabilité des entreprises
+?</p></li>
+<li><p>Comment la rentabilité varie-t-elle selon le secteur d’activité
+des entreprises ?</p></li>
+</ol>
+</div>
+<div id="évolution-temporelle" class="section level3">
+<h3><strong>Évolution temporelle :</strong></h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Comment la rentabilité des entreprises a-t-elle évolué entre 2012
+et 2016 ?</p></li>
+<li><p>Peut-on identifier des tendances spécifiques ou des périodes de
+croissance/déclin dans les performances financières des entreprises
+?</p></li>
+</ol>
+<p>En répondant à ces questions, nous espérons identifier les principaux
+facteurs influençant la rentabilité des entreprises françaises et
+fournir des insights précieux pour les décideurs économiques et les
+gestionnaires d’entreprises.</p>
+</div>
 </div>
 </div>
 <div id="base-de-données" class="section level1">
 <h1>Base de données</h1>
 <div id="provenance-des-données" class="section level2">
 <h2>Provenance des données</h2>
-<p>Donner ici le ou les (s) vers le(s) jeu(x) de données que vous avez
-utiliser pour votre travail et présenter les rapidement.</p>
-<p>Dans le jeu de données récupéré, expliquer pourquoi vous avez
-sélectionné certaines tables ou pourquoi vous en avez rajouté. Vous
-devez indiquer comment les données sont stockées (le format csv, txt…),
-la taille des fichiers, le nombre de lignes et de colonnes, </p>
-<p>Expliquer quels choix vous avez réalisés pour filtrer les lignes et
-les colonnes (éventuellement réduire le périmètre du projet) et décrire
-les critères de sélection (e.g., ne garder que 5 colonnes sur les 15, ne
-garder que les lignes qui correspondent à une ville en particulier,
-).</p>
-<p>Finalement, définir clairement quelle est la . Vous devez expliquer
-quelles données vous avez utiliser et en quoi elles peuvent permettre
-d’apporter des éléments de réponses aux questions posées. Bien définir
-quelles sont les .</p>
+<p>Les données utilisées dans ce projet proviennent du jeu de données
+Kaggle : </p>
+<ul>
+<li><strong>Profit and loss - Ontology.csv :</strong> Contient les
+comptes de résultat de 100 000 entreprises françaises, avec des
+informations détaillées sur les revenus, les dépenses et les bénéfices.
+</li>
+<li><strong>APE_Fusion.csv :</strong> Utilise le code APE pour classer
+les entreprises selon leur secteur d’activité, permettant des
+comparaisons sectorielles précises. </li>
+<li><strong>Data_Kaggle.csv :</strong> Fournit des données globales sur
+les entreprises, incluant les ventes, les stocks et les taxes,
+permettant d’analyser l’évolution des performances financières sur
+plusieurs années.</li>
+</ul>
+<p><strong>Lien vers les données :</strong> Kaggle Dataset[<a href="https://www.kaggle.com/datasets/briaclg/financial-data-of-french-compagnies/data?select=Profit+and+loss+-+Onthology.csv" class="uri">https://www.kaggle.com/datasets/briaclg/financial-data-of-french-compagnies/data?select=Profit+and+loss+-+Onthology.csv</a>]</p>
 </div>
 <div id="descriptif-des-tables" class="section level2">
 <h2>Descriptif des tables</h2>
-<p>Pour chaque table conservée, préciser le nombre de lignes et de
-colonnes après filtrage, lister les colonnes et donner pour chacune le
-type, la signification du champ et des caractéristiques (unique, clés,
-valeur manquante, …) en remplissant le tableau ci-dessous.</p>
-<table>
-<caption>Nom de la table (nombre de lignes <span class="math inline">\(\times\)</span> nombre de colonnes)</caption>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="8%" />
+<col width="58%" />
+<col width="15%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="center">Nom colonne</th>
-<th align="center">Type</th>
-<th align="center">Signification</th>
-<th align="center">Caractéristique</th>
+<th align="left">Nom colonne</th>
+<th align="left">Type</th>
+<th align="left">Signification</th>
+<th align="left">Caractéristique</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="left">Columns_(FR/EN)</td>
+<td align="left">varchar</td>
+<td align="left">Colonnes des états financiers en français et en
+anglais</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Description (FR)</td>
+<td align="left">varchar</td>
+<td align="left">Explication de ce que chaque colonne représente</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Liasse (Id)</td>
+<td align="left">int</td>
+<td align="left">Identifiant unique des colonnes dans la base INPI</td>
+<td align="left">Clé primaire</td>
+</tr>
+<tr class="even">
+<td align="left">Calcul</td>
+<td align="left">varchar</td>
+<td align="left">Méthode de calcul pour certaines valeurs dans les
+colonnes</td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -3127,8 +3115,8 @@ digraph boxes_and_circles {
   E-&gt;6 4-&gt;6 5-&gt;7 6-&gt;7 3-&gt;8
 }
 &quot;)</code></pre>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-d5051db85745c6527237" style="width:672px;height:10cm;"></div>
-<script type="application/json" data-for="htmlwidget-d5051db85745c6527237">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-56b866107de05ac0e3cd" style="width:672px;height:10cm;"></div>
+<script type="application/json" data-for="htmlwidget-56b866107de05ac0e3cd">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="import-des-données" class="section level2">
 <h2>Import des données</h2>
@@ -3146,7 +3134,7 @@ donner le résultat obtenu (ou un extrait) et expliquer ce résultat.</p>
 <p>L’objectif est de varier le type de requêtes et de répondre à votre
 problématique initiale.</p>
 </div>
-<div id="quelques-détails-techniques-1" class="section level2">
+<div id="quelques-détails-techniques" class="section level2">
 <h2>Quelques détails techniques</h2>
 <p>On peut interagir avec une base de données directement depuis
 RMarkdown. Un fichier .Rmd sera fourni pour donner des exemples.</p>

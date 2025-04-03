@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "25 March 2025"
+date: "03 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -40,13 +40,11 @@ session: 2025
 team: TDDT
 groupeTD : TD1 
 Abstract: |
+  
   Notre projet vise à analyser les performances financières des entreprises françaises entre 2018 et 2022 à partir des données du Registre National du Commerce et des Sociétés (RNCS). Nous cherchons à comprendre quels sont les facteurs qui influencent la rentabilité des entreprises et comment ces dernières évoluent en fonction de leur secteur d’activité. Plus précisément, nous allons :
   - Comparer les performances des entreprises selon leur chiffre d'affaires et leur rentabilité.
   - Étudier l’impact de la fiscalité sur la profitabilité des entreprises.
   - Analyser l’évolution des ventes, des stocks et des taxes pour identifier des tendances économiques.
-
-
-  
 always_allow_html: True
 ---
 
@@ -62,17 +60,12 @@ Les données financières des entreprises jouent un rôle crucial dans la compr�
 
 \bigskip
 
-\begin{center}
+\begin{itemize}[label=$\circ$]
+    \item \textbf{Comparer les performances des entreprises selon leur chiffre d'affaires et leur rentabilité.}
+    \item \textbf{Étudier l’impact de la fiscalité sur la profitabilité des entreprises.}
+    \item \textbf{Analyser l’évolution des ventes, des stocks et des taxes pour identifier des tendances économiques.}
+\end{itemize}
 
-\textbf{Comparer les performances des entreprises selon leur chiffre d'affaires et leur rentabilité.}
-\medskip
-
-\textbf{Étudier l’impact de la fiscalité sur la profitabilité des entreprises.}
-\medskip
-
-\textbf{Analyser l’évolution des ventes, des stocks et des taxes pour identifier des tendances économiques.}
-\medskip
-\end{center}
 
 \medskip 
 
@@ -85,7 +78,7 @@ MOUTCHACHOU Lydia : Étudiant n°22212656
 
 IBNMTAR Hazem : Étudiant n°22309227
 
-BERETTI--PRENANT Esteban : Étudiant n°XXXX
+BERETTI--PRENANT Esteban : Étudiant n°22208752
 
 VAROL Serdar : Étudiant n°22009668
 
@@ -139,35 +132,191 @@ En répondant à ces questions, nous espérons identifier les principaux facteur
 Les données utilisées dans ce projet proviennent du jeu de données Kaggle :
 \medskip
 
- - **Profit and loss - Ontology.csv :** Contient les comptes de résultat de 100 000 entreprises françaises, avec des informations détaillées sur les revenus, les dépenses et les bénéfices.
- \medskip
-- **APE_Fusion.csv :** Utilise le code APE pour classer les entreprises selon leur secteur d’activité, permettant des comparaisons sectorielles précises.
-\medskip
-- **Data_Kaggle.csv :** Fournit des données globales sur les entreprises, incluant les ventes, les stocks et les taxes, permettant d'analyser l’évolution des performances financières sur plusieurs années.
+\begin{itemize}[label=$\circ$]
+  \item \textnormal{\textbf{Profit and loss \- Ontology.csv :} Contient les comptes de résultat de 100 000 entreprises françaises, avec des informations détaillées sur les revenus, les dépenses et les bénéfices.}
+  
+  \item \textnormal{\textbf{APE\_Fusion.csv :} Utilise le code APE pour classer les entreprises selon leur secteur d’activité, permettant des comparaisons sectorielles précises.}
+
+  \item \textnormal{\textbf{Data\_Kaggle.csv :} Fournit des données globales sur les entreprises, incluant les ventes, les stocks et les taxes, permettant d'analyser l’évolution des performances financières sur plusieurs années.}
+\end{itemize}
 
 \medskip
-**Lien vers les données :** Kaggle Dataset[https://www.kaggle.com/datasets/briaclg/financial-data-of-french-compagnies/data?select=Profit+and+loss+-+Onthology.csv]
+
+\textit{Lien vers les données :} \href{https://www.kaggle.com/datasets/briaclg/financial-data-of-french-compagnies/data?select=Profit+and+loss+-+Onthology.csv}{Kaggle Dataset}
+
 
 
 
 
 ## Descriptif des tables
+\bigskip
+
+### Table 1: APE_Fusion.csv
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular}{|p{3.2cm}|p{1.2cm}|p{7.5cm}|p{2.5cm}|}
+\hline
+\textbf{Nom colonne} & \textbf{Type} & \textbf{Signification} & \textbf{Caractéristique} \\
+\hline
+Unname d: 0 & int & Index ou identifiant de ligne (peut être ignoré dans l'analyse) & \\
+\hline
+ape & object & Code APE complet de l'activité principale de l'entreprise & Clé primaire \\
+\hline
+ape\_name & object & Nom ou description de l'activité correspondant au code APE & \\
+\hline
+ape\_len & int & Longueur du code APE, indiquant le nombre de caractères qu'il contient & \\
+\hline
+ape\_cat0 & int & Premier niveau du code APE (division), composé des 2 premiers chiffres & \\
+\hline
+ape\_cat1 & float & Deuxième niveau du code APE (groupe), composé des 3 premiers chiffres & \\
+\hline
+ape\_cat2 & float & Troisième niveau du code APE (classe), composé des 4 premiers chiffres & \\
+\hline
+ape\_cat3 & object & Dernier niveau du code APE (sous-classe) & \\
+\hline
+Libellé & object & Description du secteur d'activité auquel appartient le code APE & \\
+\hline
+Code & object & Code alphabétique supplémentaire associé au secteur d'activité & \\
+\hline
+\end{tabular}
+\footnotesize
+\label{tab:ape_description}
+\end{table}
 
 
 
-| Nom colonne   | Type  | Signification                                          | Caractéristique |
-|:-------------:|:-----:|:------------------------------------------------------:|:---------------:|
-|Columns (FR/EN)|varchar|Colonnes des états\\financiers en français et en anglais|                |
+### Table 2 : Profit and loss - Ontology.csv
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular}{|p{4cm}|p{2cm}|p{9cm}|}
+\hline
+\textbf{Nom colonne} & \textbf{Type} & \textbf{Signification} \\
+\hline
+Columns\_(FR/EN) & varchar & Colonnes des états financiers en français et en anglais \\
+\hline
+Description (FR) & varchar & Explication de ce que chaque colonne représente \\
+\hline
+Liasse (Id) & int & Identifiant unique des colonnes dans la base INPI \\
+\hline
+Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \\
+\hline
+\end{tabular}
+\normalsize
+\end{table}
 
 
-Table: Profit and loss - Ontology.csv (nombre de lignes $\times$ nombre de colonnes)
+### Table 3 : Data_Kaggle.csv
+
+\scriptsize
+\begin{longtable}{|p{0.7cm}|p{12cm}|p{1.5cm}|}
+\hline
+\textbf{N\textdegree} & \textbf{Variable} & \textbf{Code} \\
+\hline \endfirsthead
+\hline \textbf{N\textdegree} & \textbf{Variable Nome} & \textbf{Nome de Colon} \\ \hline \endhead
+1 & year & B \\
+2 & Autres imp\^ots, taxes et versements assimil\'es & C \\
+3 & Ventes de marchandises & D \\
+4 & Production vendue biens & E \\
+5 & Production vendue services & F \\
+6 & Chiffres d\'affaires nets & G \\
+7 & Production stock\'ee & H \\
+8 & Production immobilis\'ee & I \\
+9 & Subventions d\'exploitation & J \\
+10 & Reprises sur amortissements et provisions, transfert de charges & K \\
+11 & Autres produits & L \\
+12 & Total des produits d\'exploitation & M \\
+13 & Achats de marchandises (y compris droits de douane) & N \\
+14 & Variation de stock (marchandises) & O \\
+15 & Achats de mati\`eres premi\`eres et autres approvisionnements & P \\
+16 & Variation de stock (mati\`eres premi\`eres et approvisionnements) & Q \\
+17 & Autres achats et charges externes & R \\
+18 & Imp\^ots, taxes et versements assimil\'es & S \\
+19 & Salaires et traitements & T \\
+20 & Charges sociales & U \\
+21 & Autres charges & V \\
+22 & Total des charges d\'exploitation & W \\
+23 & R\'esultat d'exploitation & X \\
+24 & B\'en\'efice attribu\'e ou perte transf\'er\'ee & Y \\
+25 & Perte support\'ee ou b\'en\'efice transf\'er\'e & Z \\
+26 & Produits financiers de participations & AA \\
+27 & Produits des autres valeurs mobili\`eres et cr\'eances de l\'actif immobilis\'e & AB \\
+28 & Autres int\'er\^ets et produits assimil\'es & AC \\
+29 & Reprises sur provisions et transferts de charges financier & AD \\
+30 & Diff\'erences positives de change & AE \\
+31 & Produits nets sur cessions de valeurs mobili\`eres de placement & AF \\
+32 & Total des produits financiers & AG \\
+33 & Dotations financi\`eres sur amortissements et provisions & AH \\
+34 & Int\'er\^ets et charges assimil\'ees & AI \\
+35 & Diff\'erences n\'egatives de change & AJ \\
+36 & Charges nettes sur cessions de valeurs mobili\`eres de placement & AK \\
+37 & Total des charges financi\`eres & AL \\
+38 & R\'esultat financier & AM \\
+39 & R\'esultat en cours avant imp\^ots & AN \\
+40 & Produits exceptionnels sur op\'erations de gestion & AO \\
+41 & Produits exceptionnels sur op\'erations en capital & AP \\
+42 & Reprises sur provisions et transferts de charges exceptionnel & AQ \\
+43 & Total des produits exceptionnels & AR \\
+44 & Charges exceptionnelles sur op\'erations de gestion & AS \\
+45 & Charges exceptionnelles sur op\'erations en capital & AT \\
+46 & Dotations exceptionnelles aux amortissements et provisions & AU \\
+47 & Total des charges exceptionnelles & AV \\
+48 & R\'esultat exceptionnel & AW \\
+49 & Participation des salari\'es aux r\'esultats de l\'entreprise & AX \\
+50 & Imp\^ots sur les b\'en\'efices & AY \\
+51 & Total des produits & AZ \\
+52 & Total des charges & BA \\
+53 & B\'en\'efices ou perte (Total des produits - Total des charges) & BB \\
+54 & Imp\^ots diff\'er\'es (compte de r\'esultat) & BC \\
+55 & R\'esultat net des soci\'et\'es mises en \'equivalence & BD \\
+56 & R\'esultat net des entreprises int\'egr\'ees & BE \\
+57 & R\'esultat Groupe (R\'esultat net consolid\'e) & BF \\
+58 & Part des int\'er\^ets minoritaires (R\'esultat hors groupe) & BG \\
+59 & R\'esultat net part du groupe (part de la soci\'et\'e m\`ere) & BH \\
+60 & R\'emun\'eration d\'interm\'ediaires et honoraires (hors r\'etrocessions) & BI \\
+61 & Location, charges locatives et de copropri\'et\'e & BJ \\
+62 & Effectif moyen du personnel & BK \\
+63 & Sous-traitance & BL \\
+64 & Personnel ext\'erieur \`a l\'entreprise & BM \\
+65 & R\'etrocessions d\'honoraires, commissions et courtages & BN \\
+66 & Taxe professionnelle & BO \\
+67 & Montant de la TVA. collect\'ee & BP \\
+\hline
+\end{longtable}
+\normalsize
+\scriptsize
+\begin{longtable}{|p{0.7cm}|p{12cm}|p{1.5cm}|}
+\hline
+\textbf{N\textdegree} & \textbf{Variable} & \textbf{Code} \\
+\hline \endfirsthead
+\hline \textbf{N\textdegree} & \textbf{Variable Nome} & \textbf{Nome de Colon} \\ \hline \endhead
+68 & Total TVA. d\'eductible sur biens et services & BQ \\
+69 & Dividendes & BR \\
+70 & siren & BS \\
+\hline
+\end{longtable}
+\normalsize
 
 
 ## Modèles MCD et MOD
 
-- Pour le MCD, inclure une image réalisée avec le logiciel Mocodo [https://www.mocodo.net/] telle que celle visible sur la Figure$~$\ref{uml} ci-dessous :
+- Pour le MCD, inclure une image réalisée avec le logiciel Mocodo \href{https://www.mocodo.net/?mcd=eNqNksFu2zAMhu96Ch0dQAOW7Zab67ZK2zTL4ixtcjEUh14FOJKhyFm3N_J9b-AX62_HaOMEAwb4Ay1SIvlLjMvNQRmvrRnxWDsywe3DQPD43R296MwRCw9Wu7AgMRzy2Ka6rnxdieGUwyfJsKMZNUsBpmrX2kj5z50ddvZLZ7-Kid5QniNNZLfEMoXyTTWUC7OM3EWpLpggiq2j0BgixhyldLClQ8uC945wnPkQ0u1_D49auYJfk7E7fdwjeNNKYfde5WJhf8GBZtlM_SYXvSj380w_b7tq_Ena3lNX5KzT05u9DcE1kOAePIIp-AZm4DuYM3bzWljnyc2c3ZbaX9btAv3CSzJbR01Il_97pi-g12sMFuAHWIIn8AxWYC24_PNp9cxGDN9Z5pMsEiLlA5gAiJUQKyFWQuwYlzG-AhHApaxvBF8h-WrNIrsrvNroXHtqH79Z05z2Ze5VTxm_nA1xoVX866VO0_bEz-uqdfqEXovcavxhQgIpe7FMG2VSTS6Qy4H48Ktm6hK9K-q_fh_Ip7OEKRVNNkN5ML5DbGExcUlxbHkfjCcDcXSlbc_wPGLXVV2Zusp0SklBGI5gPB2wN-SeTJ4=}{https://www.moc\\odo.net} telle que celle visible sur la Figure$~$\ref{MCD} ci-dessous :
+  
+![MCD](MCD.png){#MCD width=8cm height=10cm }  
 
-  ![Relations.](uml.png){#uml width="8cm" height="4cm"}
+
+``` r
+getwd()
+```
+
+```
+## [1] "/Users/serdarvarol/Desktop/PVL_L2-24_25/Project_DataBase_FR/template_2025/GroupReportTemplate 2"
+```
+
+
+
 
 - Pour le MOD, inclure une image réalisée avec le designer de phpmyadmin
 
@@ -206,8 +355,8 @@ digraph boxes_and_circles {
 ```
 
 ```{=html}
-<div class="grViz html-widget html-fill-item" id="htmlwidget-f655e119dc116e66e251" style="width:468px;height:10cm;"></div>
-<script type="application/json" data-for="htmlwidget-f655e119dc116e66e251">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-386097781653448e16dc" style="width:468px;height:10cm;"></div>
+<script type="application/json" data-for="htmlwidget-386097781653448e16dc">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -286,11 +435,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-2}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 ``` r
@@ -312,11 +461,11 @@ boxplot(cars, main = "Un titre qui est vraiment beaucoup trop long et qui dépas
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
 
 }
 
-\caption{Pas super.}\label{fig:unnamed-chunk-3}
+\caption{Pas super.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 par celui-ci:
@@ -331,11 +480,11 @@ boxplot(cars,
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
 
 }
 
-\caption{Déjà mieux.}\label{fig:unnamed-chunk-4}
+\caption{Déjà mieux.}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 \normalsize
