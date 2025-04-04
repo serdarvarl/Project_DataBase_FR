@@ -220,8 +220,8 @@ entreprises. Les questions spécifiques que nous allons aborder sont les
 suivantes :
 
 \subsection{\texorpdfstring{\textbf{Comparaison de la rentabilité par
-rapport au chiffre d'affaires
-:}}{Comparaison de la rentabilité par rapport au chiffre d'affaires :}}\label{comparaison-de-la-rentabilituxe9-par-rapport-au-chiffre-daffaires}
+rapport au chiffre d'affaires(Lydia)
+:}}{Comparaison de la rentabilité par rapport au chiffre d'affaires(Lydia) :}}\label{comparaison-de-la-rentabilituxe9-par-rapport-au-chiffre-daffaireslydia}
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi}.}
@@ -467,16 +467,6 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 \caption{MCD}\label{MCD}
 \end{figure}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{getwd}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "/Users/serdarvarol/Desktop/PVL_L2-24_25/Project_DataBase_FR/template_2025/GroupReportTemplate 2"
-\end{verbatim}
-
 \begin{itemize}
 \tightlist
 \item
@@ -634,11 +624,11 @@ exécutés à la volée (\emph{i.e.}, lors de la traduction de votre fichier
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-3}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-2}
 \end{figure}
 
 \begin{Shaded}
@@ -663,11 +653,11 @@ Ainsi on pourrait remplacer le chunk ci-dessous:
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
 
 }
 
-\caption{Pas super.}\label{fig:unnamed-chunk-4}
+\caption{Pas super.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 par celui-ci:
@@ -683,11 +673,11 @@ par celui-ci:
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
 
 }
 
-\caption{Déjà mieux.}\label{fig:unnamed-chunk-5}
+\caption{Déjà mieux.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 \normalsize
@@ -708,6 +698,154 @@ où l'on a:
 \end{itemize}
 
 \chapter{Analyse et Résultats}\label{analyse-et-ruxe9sultats}
+
+\section{\texorpdfstring{\textbf{Comparer les catégories d'entreprises
+en fonction des Chiffres d'affaires
+nets}}{Comparer les catégories d'entreprises en fonction des Chiffres d'affaires nets}}\label{comparer-les-catuxe9gories-dentreprises-en-fonction-des-chiffres-daffaires-nets}
+
+\bigskip
+
+\textbf{Variables :} Chiffres d'affaires nets + catégories (Effectif
+moyen du personnel)
+
+\subsection{Étapes pour créer une visualisation
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation}
+
+contuinee ;;;;;;;
+
+\subsubsection{Les catégories d'entreprises
+:}\label{les-catuxe9gories-dentreprises}
+
+\bigskip
+\scriptsize
+\begin{quote}
+\textit{L’article 51 de la loi n°2008-776 du 4 août 2008 de modernisation de l’économie (\textbf{LME}) détermine, pour les besoins de l’analyse statistique, un classement des entreprises en quatre catégories : les microentreprises, les petites et moyennes entreprises (\textbf{PME}), les entreprises de taille intermédiaire (\textbf{ETI}) et les grandes entreprises.\\ \\Le décret n° 2008-1354 du 18 décembre 2008 précise les critères permettant de déterminer l’appartenance à une catégorie d'entreprises.}
+\end{quote}
+\normalsize
+
+\begin{itemize}[label=$\circ$]
+  \item \textnormal{ \textbf{La microentreprise} est une entreprise dont l'effectif est inférieur à 10 personnes et dont le chiffre d'affaires ou le total du bilan annuel n'excède pas 2 millions d'euros}
+\item \textnormal{ \textbf{la PME} est une entreprise dont l’effectif est inférieur à 250 personnes
+et dont le chiffre d’affaires annuel n'excède pas 50 millions d'euros ou
+dont le total de bilan n'excède pas 43 millions d'euros }
+\item \textnormal{\textbf{L'ETI}, entreprise de taille intermédiaire, est une entreprise qui n'appartient pas à la catégorie des PME, dont l’effectif est inférieur à 5000 personnes et dont le chiffre d'affaires annuel n'excède pas 1 500 millions d'euros ou dont le total de bilan n'excède pas 2 000 millions d'euros}
+\item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
+dans les catégories précédentes}
+\end{itemize}
+
+\subsubsection{Visualisation : Boxplot ou Diagramme en
+barres}\label{visualisation-boxplot-ou-diagramme-en-barres}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(cars, }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#5975a4"}\NormalTok{, }\StringTok{"\#cc8963"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+
+}
+
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colMeans}\NormalTok{(cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## speed  dist 
+## 15.40 42.98
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \CommentTok{\#ecrire code R // notre code pour tous calcul or graph etc etc. }
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Test Statistique : ANOVA (Analyse de la Variance) ou les
+autre}\label{test-statistique-anova-analyse-de-la-variance-ou-les-autre}
+
+\textbf{Chauque un/e doit proposer son text :) }
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au
+semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du \(\chi^2\), test du
+coefficient de corrélation linéaire, test d'Anova, la droite de
+régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering
+(k-means, CAH), de la classification (K plus proches voisins par
+exemple) comme vu en Science des données 1.
+
+\section{\texorpdfstring{\textbf{Analyser la rentabilité des entreprises
+en fonction de leur localisation
+géographique}}{Analyser la rentabilité des entreprises en fonction de leur localisation géographique}}\label{analyser-la-rentabilituxe9-des-entreprises-en-fonction-de-leur-localisation-guxe9ographique}
+
+\bigskip
+
+\textbf{Variables :} indicateur de refinancement + chiffre d'affaires
+nets
+
+\subsection{Étapes pour créer une visualisation
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-1}
+
+contuinee ;;;;;;;
+
+\subsubsection{Les catégories d'entreprises
+:}\label{les-catuxe9gories-dentreprises-1}
+
+\bigskip
+
+Créez deux groupes : Entreprises avec refinancement : Total des charges
+financières = 0 Entreprises sans refinancement : Total des charges
+financières = 0
+
+\subsubsection{Visualisation : Boxplot ou Diagramme en
+barres}\label{visualisation-boxplot-ou-diagramme-en-barres-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(cars, }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#5975a4"}\NormalTok{, }\StringTok{"\#cc8963"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1} 
+
+}
+
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colMeans}\NormalTok{(cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## speed  dist 
+## 15.40 42.98
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \CommentTok{\#ecrire code R // notre code pour tous calcul or graph etc etc. }
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Test Statistique : ANOVA (Analyse de la Variance) ou les
+autre}\label{test-statistique-anova-analyse-de-la-variance-ou-les-autre-1}
+
+\textbf{Chauque un/e doit proposer son text :) }
 
 Dans cette partie, vous pourrez utiliser les outils et méthodes vus au
 semestre précédent pour analyser les liens entre les variables.

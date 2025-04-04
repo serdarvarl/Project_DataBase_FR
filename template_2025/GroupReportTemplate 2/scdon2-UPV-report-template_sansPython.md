@@ -90,7 +90,7 @@ VAROL Serdar : Étudiant n°22009668
 
 Notre projet vise à analyser les performances financières des entreprises françaises entre 2018 et 2022. Pour ce faire, nous allons examiner plusieurs facteurs qui pourraient influencer la rentabilité des entreprises. Les questions spécifiques que nous allons aborder sont les suivantes :
 
-### **Comparaison de la rentabilité par rapport au chiffre d'affaires :**
+### **Comparaison de la rentabilité par rapport au chiffre d'affaires(Lydia) :**
 
  a. Comment la rentabilité varie-t-elle en fonction de la taille de l'entreprise ?
 
@@ -307,13 +307,6 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 ![MCD](MCD.png){#MCD width=8cm height=10cm }  
 
 
-``` r
-getwd()
-```
-
-```
-## [1] "/Users/serdarvarol/Desktop/PVL_L2-24_25/Project_DataBase_FR/template_2025/GroupReportTemplate 2"
-```
 
 
 
@@ -355,8 +348,8 @@ digraph boxes_and_circles {
 ```
 
 ```{=html}
-<div class="grViz html-widget html-fill-item" id="htmlwidget-386097781653448e16dc" style="width:468px;height:10cm;"></div>
-<script type="application/json" data-for="htmlwidget-386097781653448e16dc">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-b5d7f2201a947f360f86" style="width:468px;height:10cm;"></div>
+<script type="application/json" data-for="htmlwidget-b5d7f2201a947f360f86">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -435,11 +428,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-3}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-2}
 \end{figure}
 
 ``` r
@@ -461,11 +454,11 @@ boxplot(cars, main = "Un titre qui est vraiment beaucoup trop long et qui dépas
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
 
 }
 
-\caption{Pas super.}\label{fig:unnamed-chunk-4}
+\caption{Pas super.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 par celui-ci:
@@ -480,11 +473,11 @@ boxplot(cars,
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
 
 }
 
-\caption{Déjà mieux.}\label{fig:unnamed-chunk-5}
+\caption{Déjà mieux.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 \normalsize
@@ -497,6 +490,117 @@ où l'on a:
 
 
 # Analyse et Résultats
+
+## **Comparer les catégories d'entreprises en fonction des Chiffres d’affaires nets**
+\bigskip
+**Variables :** Chiffres d’affaires nets + catégories (Effectif moyen du personnel)
+
+### Étapes pour créer une visualisation :
+contuinee ;;;;;;;
+
+#### Les catégories d’entreprises :
+\bigskip
+\scriptsize
+\begin{quote}
+\textit{L’article 51 de la loi n°2008-776 du 4 août 2008 de modernisation de l’économie (\textbf{LME}) détermine, pour les besoins de l’analyse statistique, un classement des entreprises en quatre catégories : les microentreprises, les petites et moyennes entreprises (\textbf{PME}), les entreprises de taille intermédiaire (\textbf{ETI}) et les grandes entreprises.\\ \\Le décret n° 2008-1354 du 18 décembre 2008 précise les critères permettant de déterminer l’appartenance à une catégorie d'entreprises.}
+\end{quote}
+\normalsize
+
+\begin{itemize}[label=$\circ$]
+  \item \textnormal{ \textbf{La microentreprise} est une entreprise dont l'effectif est inférieur à 10 personnes et dont le chiffre d'affaires ou le total du bilan annuel n'excède pas 2 millions d'euros}
+\item \textnormal{ \textbf{la PME} est une entreprise dont l’effectif est inférieur à 250 personnes
+et dont le chiffre d’affaires annuel n'excède pas 50 millions d'euros ou
+dont le total de bilan n'excède pas 43 millions d'euros }
+\item \textnormal{\textbf{L'ETI}, entreprise de taille intermédiaire, est une entreprise qui n'appartient pas à la catégorie des PME, dont l’effectif est inférieur à 5000 personnes et dont le chiffre d'affaires annuel n'excède pas 1 500 millions d'euros ou dont le total de bilan n'excède pas 2 000 millions d'euros}
+\item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
+dans les catégories précédentes}
+\end{itemize}
+
+#### Visualisation : Boxplot ou Diagramme en barres
+
+``` r
+boxplot(cars, col = c("#5975a4", "#cc8963"))
+```
+
+\begin{figure}
+
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+
+}
+
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
+\end{figure}
+
+``` r
+colMeans(cars)
+```
+
+```
+## speed  dist 
+## 15.40 42.98
+```
+
+``` r
+ #ecrire code R // notre code pour tous calcul or graph etc etc. 
+```
+
+#### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
+
+**Chauque un/e doit proposer son text :) **
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique**
+\bigskip
+**Variables :**  indicateur de refinancement + chiffre d'affaires nets
+
+### Étapes pour créer une visualisation :
+contuinee ;;;;;;;
+
+#### Les catégories d’entreprises :
+\bigskip
+Créez deux groupes :
+ Entreprises avec refinancement : Total des charges financières = 0
+ Entreprises sans refinancement : Total des charges financières = 0
+
+#### Visualisation : Boxplot ou Diagramme en barres
+
+``` r
+boxplot(cars, col = c("#5975a4", "#cc8963"))
+```
+
+\begin{figure}
+
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1} 
+
+}
+
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+``` r
+colMeans(cars)
+```
+
+```
+## speed  dist 
+## 15.40 42.98
+```
+
+``` r
+ #ecrire code R // notre code pour tous calcul or graph etc etc. 
+```
+
+#### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
+
+**Chauque un/e doit proposer son text :) **
 
 Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
 

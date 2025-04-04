@@ -451,6 +451,75 @@ où l'on a:
 
 # Analyse et Résultats
 
+## **Comparer les catégories d'entreprises en fonction des Chiffres d’affaires nets**
+\bigskip
+**Variables :** Chiffres d’affaires nets + catégories (Effectif moyen du personnel)
+
+### Étapes pour créer une visualisation :
+contuinee ;;;;;;;
+
+#### Les catégories d’entreprises :
+\bigskip
+\scriptsize
+\begin{quote}
+\textit{L’article 51 de la loi n°2008-776 du 4 août 2008 de modernisation de l’économie (\textbf{LME}) détermine, pour les besoins de l’analyse statistique, un classement des entreprises en quatre catégories : les microentreprises, les petites et moyennes entreprises (\textbf{PME}), les entreprises de taille intermédiaire (\textbf{ETI}) et les grandes entreprises.\\ \\Le décret n° 2008-1354 du 18 décembre 2008 précise les critères permettant de déterminer l’appartenance à une catégorie d'entreprises.}
+\end{quote}
+\normalsize
+
+\begin{itemize}[label=$\circ$]
+  \item \textnormal{ \textbf{La microentreprise} est une entreprise dont l'effectif est inférieur à 10 personnes et dont le chiffre d'affaires ou le total du bilan annuel n'excède pas 2 millions d'euros}
+\item \textnormal{ \textbf{la PME} est une entreprise dont l’effectif est inférieur à 250 personnes
+et dont le chiffre d’affaires annuel n'excède pas 50 millions d'euros ou
+dont le total de bilan n'excède pas 43 millions d'euros }
+\item \textnormal{\textbf{L'ETI}, entreprise de taille intermédiaire, est une entreprise qui n'appartient pas à la catégorie des PME, dont l’effectif est inférieur à 5000 personnes et dont le chiffre d'affaires annuel n'excède pas 1 500 millions d'euros ou dont le total de bilan n'excède pas 2 000 millions d'euros}
+\item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
+dans les catégories précédentes}
+\end{itemize}
+
+#### Visualisation : Boxplot ou Diagramme en barres
+```{r, fig.cap="\\label{fig:boxplots}Deux boxplots.", out.width = "7cm", fig.align = "center"}
+boxplot(cars, col = c("#5975a4", "#cc8963"))
+colMeans(cars)
+ #ecrire code R // notre code pour tous calcul or graph etc etc. 
+```
+
+#### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
+
+**Chauque un/e doit proposer son text :) **
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique**
+\bigskip
+**Variables :**  indicateur de refinancement + chiffre d'affaires nets
+
+### Étapes pour créer une visualisation :
+contuinee ;;;;;;;
+
+#### Les catégories d’entreprises :
+\bigskip
+Créez deux groupes :
+ Entreprises avec refinancement : Total des charges financières = 0
+ Entreprises sans refinancement : Total des charges financières = 0
+
+#### Visualisation : Boxplot ou Diagramme en barres
+```{r, fig.cap="\\label{fig:boxplots}Deux boxplots.", out.width = "7cm", fig.align = "center"}
+boxplot(cars, col = c("#5975a4", "#cc8963"))
+colMeans(cars)
+ #ecrire code R // notre code pour tous calcul or graph etc etc. 
+```
+
+#### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
+
+**Chauque un/e doit proposer son text :) **
+
 Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
 
 Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
