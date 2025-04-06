@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "03 April 2025"
+date: "06 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -348,8 +348,8 @@ digraph boxes_and_circles {
 ```
 
 ```{=html}
-<div class="grViz html-widget html-fill-item" id="htmlwidget-b5d7f2201a947f360f86" style="width:468px;height:10cm;"></div>
-<script type="application/json" data-for="htmlwidget-b5d7f2201a947f360f86">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-63acaf4913642a99a175" style="width:468px;height:10cm;"></div>
+<script type="application/json" data-for="htmlwidget-63acaf4913642a99a175">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -515,7 +515,7 @@ dont le total de bilan n'excède pas 43 millions d'euros }
 \item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
 dans les catégories précédentes}
 \end{itemize}
-
+\newpage
 #### Visualisation : Boxplot ou Diagramme en barres
 
 ``` r
@@ -555,9 +555,8 @@ Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de c
 Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
 
 
-
-
-## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique**
+\newpage
+## **Analyser s'il y a une différence entre les entreprises qui ont recours au refinancement et celles qui n'en ont pas besoin**
 \bigskip
 **Variables :**  indicateur de refinancement + chiffre d'affaires nets
 
@@ -600,6 +599,79 @@ colMeans(cars)
 
 #### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
 
+**Chauque un/e doit proposer son text :) **s
+S
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+s
+\newpage
+
+
+
+## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique**
+\bigskip
+**Variables :**  résultat net part du groupe + town + postal_code .
+
+### Étapes pour créer une visualisation :
+contuinee ;;;;;;;
+
+#### Représentation cartographique : :
+\bigskip
+Utilisez une carte de la France pour visualiser les variations de
+rentabilité.
+\bigskip
+Les couleurs sur la carte peuvent représenter différents niveaux de
+rentabilité (par exemple, du rouge pour les villes moins rentables au
+vert pour les plus rentables).
+\bigskip
+Carte de chaleur : Créez une carte de chaleur pour visualiser la
+rentabilité moyenne des entreprises par ville. Cela permet de voir les
+zones géographiques où les entreprises sont plus ou moins rentables.
+
+
+
+#### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
+
+**Chauque un/e doit proposer son text :) **\\ 
+\bigskip
+
+**Formuler les hypothèses :**
+\bigskip
+\begin{itemize}[label=$\circ$]
+\item Hypothèse nulle (H0) : Les moyennes de la rentabilité sont égales
+pour toutes les villes.
+\item Hypothèse alternative (H1) : Au moins une moyenne de la
+rentabilité diffère entre les villes.
+\bigskip
+**Conditions d'application :**
+\bigskip
+\item La rentabilité doit être approximativement normalement distribuée
+dans chaque groupe (ville).
+\item Les variances de la rentabilité doivent être homogènes entre les
+groupes.
+\end{itemize}
+
+
+
+\newpage
+
+## **La variation de la rentabilité selon le secteur d'activité des entreprises**
+\bigskip
+**Variables** :  le code APE (le secteur d'activité des entreprises) + Chiffres d’affaires nets
+
+### Étapes pour créer une visualisation :
+
+#### Catégorisation des entreprises par secteur d'activité :
+
+#### Visualisation :
+
+**Boxplot** : Visualiser la distribution des chiffres d'affaires nets pour chaque secteur d'activité.\\
+**Diagramme en barres** : Montrer la moyenne des chiffres d'affaires nets par secteur d'activité.
+
+#### Test Statistique (ANOVA) :
 **Chauque un/e doit proposer son text :) **
 
 Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
@@ -607,6 +679,105 @@ Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre
 Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
 
 Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+## **Analyser l'évolution de la rentabilité des entreprises entre 2012 et 2016**
+\bigskip
+**Variables** : Rentabilité + Année
+
+### Étapes pour créer une visualisation :
+
+#### Préparation des données :
+
+Calcul de la rentabilité : Calculer le ratio de rentabilité pour chaque
+entreprise et chaque année :
+
+$$
+\text{Rentabilité} = \frac{\text{Résultat net}}{\text{Chiffre d'affaires net}}
+$$
+Structure des données :
+Organiser les données dans un tableau avec les colonnes suivantes :
+Année, Rentabilité.
+
+#### Visualisation :
+
+**Boxplot** : Visualiser la distribution des chiffres d'affaires nets pour chaque secteur d'activité.\\
+**Diagramme en barres** : Montrer la moyenne des chiffres d'affaires nets par secteur d'activité.
+
+#### Test Statistique (ANOVA) :
+**Chauque un/e doit proposer son text :) **
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## La droite de régression linéaire : un premier exemple
 

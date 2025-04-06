@@ -475,7 +475,7 @@ dont le total de bilan n'excède pas 43 millions d'euros }
 \item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
 dans les catégories précédentes}
 \end{itemize}
-
+\newpage
 #### Visualisation : Boxplot ou Diagramme en barres
 ```{r, fig.cap="\\label{fig:boxplots}Deux boxplots.", out.width = "7cm", fig.align = "center"}
 boxplot(cars, col = c("#5975a4", "#cc8963"))
@@ -494,9 +494,8 @@ Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de c
 Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
 
 
-
-
-## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique**
+\newpage
+## **Analyser s'il y a une différence entre les entreprises qui ont recours au refinancement et celles qui n'en ont pas besoin**
 \bigskip
 **Variables :**  indicateur de refinancement + chiffre d'affaires nets
 
@@ -518,6 +517,79 @@ colMeans(cars)
 
 #### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
 
+**Chauque un/e doit proposer son text :) **s
+S
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+s
+\newpage
+
+
+
+## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique**
+\bigskip
+**Variables :**  résultat net part du groupe + town + postal_code .
+
+### Étapes pour créer une visualisation :
+contuinee ;;;;;;;
+
+#### Représentation cartographique : :
+\bigskip
+Utilisez une carte de la France pour visualiser les variations de
+rentabilité.
+\bigskip
+Les couleurs sur la carte peuvent représenter différents niveaux de
+rentabilité (par exemple, du rouge pour les villes moins rentables au
+vert pour les plus rentables).
+\bigskip
+Carte de chaleur : Créez une carte de chaleur pour visualiser la
+rentabilité moyenne des entreprises par ville. Cela permet de voir les
+zones géographiques où les entreprises sont plus ou moins rentables.
+
+
+
+#### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
+
+**Chauque un/e doit proposer son text :) **\\ 
+\bigskip
+
+**Formuler les hypothèses :**
+\bigskip
+\begin{itemize}[label=$\circ$]
+\item Hypothèse nulle (H0) : Les moyennes de la rentabilité sont égales
+pour toutes les villes.
+\item Hypothèse alternative (H1) : Au moins une moyenne de la
+rentabilité diffère entre les villes.
+\bigskip
+**Conditions d'application :**
+\bigskip
+\item La rentabilité doit être approximativement normalement distribuée
+dans chaque groupe (ville).
+\item Les variances de la rentabilité doivent être homogènes entre les
+groupes.
+\end{itemize}
+
+
+
+\newpage
+
+## **La variation de la rentabilité selon le secteur d'activité des entreprises**
+\bigskip
+**Variables** :  le code APE (le secteur d'activité des entreprises) + Chiffres d’affaires nets
+
+### Étapes pour créer une visualisation :
+
+#### Catégorisation des entreprises par secteur d'activité :
+
+#### Visualisation :
+
+**Boxplot** : Visualiser la distribution des chiffres d'affaires nets pour chaque secteur d'activité.\\
+**Diagramme en barres** : Montrer la moyenne des chiffres d'affaires nets par secteur d'activité.
+
+#### Test Statistique (ANOVA) :
 **Chauque un/e doit proposer son text :) **
 
 Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
@@ -525,6 +597,179 @@ Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre
 Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
 
 Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+## **Analyser l'évolution de la rentabilité des entreprises entre 2012 et 2016**
+\bigskip
+**Variables** : Rentabilité + Année
+
+### Étapes pour créer une visualisation :
+
+#### Préparation des données :
+
+Calcul de la rentabilité : Calculer le ratio de rentabilité pour chaque
+entreprise et chaque année :
+
+$$
+\text{Rentabilité} = \frac{\text{Résultat net}}{\text{Chiffre d'affaires net}}
+$$
+Structure des données :
+Organiser les données dans un tableau avec les colonnes suivantes :
+Année, Rentabilité.
+
+#### Visualisation :
+
+**Boxplot** : Visualiser la distribution des chiffres d'affaires nets pour chaque secteur d'activité.\\
+**Diagramme en barres** : Montrer la moyenne des chiffres d'affaires nets par secteur d'activité.
+
+#### Test Statistique (ANOVA) :
+**Chauque un/e doit proposer son text :) **
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## **Analyser l'impact des taxes sur la rentabilité des entreprises**
+\bigskip
+**Variables** :Rentabilité Ratio du résultat net sur le chiffre d'affaires net +Taxes (Montant total des taxes payées parles entreprises
+\\Axes : Taxes (X) et Rentabilité (Y).
+
+### Étapes pour créer une visualisation :
+
+#### visualistion
+
+Graphique de dispersion : tracer un graphique de dispersion pour visualiser
+la relation entre la rentabilité et les taxes.
+
+
+#### Test de corrélation :
+**Chauque un/e doit proposer son text :) **
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## La droite de régression linéaire : un premier exemple
 
