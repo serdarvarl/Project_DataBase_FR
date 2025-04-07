@@ -451,6 +451,8 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 \end{longtable}
 \normalsize
 
+\newpage
+
 \section{Modèles MCD et MOD}\label{moduxe8les-mcd-et-mod}
 
 \begin{itemize}
@@ -468,58 +470,42 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 \end{figure}
 
 \begin{itemize}
-\tightlist
 \item
   Pour le MOD, inclure une image réalisée avec le designer de phpmyadmin
+\item
+  Pour le MOD, inclure une image réalisée avec le logiciel MySQl
+  \newline telle que celle visible sur la Figure\(~\)\ref{MOD}
+  ci-dessous :
 \end{itemize}
 
-\bigskip
-
-Noter en passant qu'il est possible de créer des diagrammes en R
-Markdown au moyen du package \texttt{DiagrammeR}
-{[}\url{https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html}{]}
-comme on peut le voir ci-dessous.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# install.packages("webshot",dependencies = TRUE)}
-\CommentTok{\# library(webshot)}
-\CommentTok{\# webshot::install\_phantomjs()}
-\FunctionTok{Sys.setenv}\NormalTok{(}\AttributeTok{OPENSSL\_CONF=}\StringTok{"/dev/null"}\NormalTok{)}
-\NormalTok{DiagrammeR}\SpecialCharTok{::}\FunctionTok{grViz}\NormalTok{(}\StringTok{"}
-\StringTok{digraph boxes\_and\_circles \{}
-
-\StringTok{  \# a \textquotesingle{}graph\textquotesingle{} statement}
-\StringTok{  graph [overlap = true, fontsize = 10]}
-
-\StringTok{  \# several \textquotesingle{}node\textquotesingle{} statements}
-\StringTok{  node [shape = box,}
-\StringTok{        fontname = Helvetica]}
-\StringTok{  A; B; C; D; E; F}
-
-\StringTok{  node [shape = circle,}
-\StringTok{        fixedsize = true,}
-\StringTok{        width = 0.9] // sets as circles}
-\StringTok{  1; 2; 3; 4; 5; 6; 7; 8}
-
-\StringTok{  \# several \textquotesingle{}edge\textquotesingle{} statements}
-\StringTok{  A{-}\textgreater{}1 B{-}\textgreater{}2 B{-}\textgreater{}3 B{-}\textgreater{}4 C{-}\textgreater{}A}
-\StringTok{  1{-}\textgreater{}D E{-}\textgreater{}A 2{-}\textgreater{}4 1{-}\textgreater{}5 1{-}\textgreater{}F}
-\StringTok{  E{-}\textgreater{}6 4{-}\textgreater{}6 5{-}\textgreater{}7 6{-}\textgreater{}7 3{-}\textgreater{}8}
-\StringTok{\}}
-\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Import des données}\label{import-des-donnuxe9es}
+\begin{figure}
+\centering
+\includegraphics[width=8cm,height=10cm]{MOD.png}
+\caption{MOD}\label{MOD}
+\end{figure}
 
 \begin{itemize}
 \tightlist
 \item
-  Préciser les nettoyages réalisés avant l'import comme l'uniformisation
-  des valeurs des champs (\emph{e.g.}, Mr, M., Monsieur, \ldots) ou le
-  remplissage des valeurs manquantes par une valeur moyenne \ldots{}
+  Pour le MOD, inclure une image réalisée avec le logiciel MySQl
+  \newline telle que celle visible sur la Figure\(~\)\ref{MOD_2}
+  ci-dessous :
 \end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=10cm]{MOD_2.png}
+\caption{MOD\_2}\label{MOD}
+\end{figure}
+
+\bigskip
+
+\section{Import des données}\label{import-des-donnuxe9es}
+
+\textbf{ON VA AJOUTER+RECRIRE} \bigskip \newline - Préciser les
+nettoyages réalisés avant l'import comme l'uniformisation des valeurs
+des champs (\emph{e.g.}, Mr, M., Monsieur, \ldots) ou le remplissage des
+valeurs manquantes par une valeur moyenne \ldots{}
 
 \begin{itemize}
     \item  Source de données 1 :
@@ -624,11 +610,11 @@ exécutés à la volée (\emph{i.e.}, lors de la traduction de votre fichier
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-1-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-2}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-1}
 \end{figure}
 
 \begin{Shaded}
@@ -653,11 +639,11 @@ Ainsi on pourrait remplacer le chunk ci-dessous:
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
 
 }
 
-\caption{Pas super.}\label{fig:unnamed-chunk-3}
+\caption{Pas super.}\label{fig:unnamed-chunk-2}
 \end{figure}
 
 par celui-ci:
@@ -673,11 +659,11 @@ par celui-ci:
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
 
 }
 
-\caption{Déjà mieux.}\label{fig:unnamed-chunk-4}
+\caption{Déjà mieux.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 \normalsize
@@ -745,11 +731,11 @@ barres}\label{visualisation-boxplot-ou-diagramme-en-barres}
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 \begin{Shaded}
@@ -822,11 +808,11 @@ barres}\label{visualisation-boxplot-ou-diagramme-en-barres-1}
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-6}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 \begin{Shaded}
@@ -982,6 +968,39 @@ d'activité.
 
 \subsubsection{Test Statistique (ANOVA)
 :}\label{test-statistique-anova-1}
+
+\textbf{Chauque un/e doit proposer son text :) }
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au
+semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du \(\chi^2\), test du
+coefficient de corrélation linéaire, test d'Anova, la droite de
+régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering
+(k-means, CAH), de la classification (K plus proches voisins par
+exemple) comme vu en Science des données 1.
+
+\section{\texorpdfstring{\textbf{Analyser l'impact des taxes sur la
+rentabilité des
+entreprises}}{Analyser l'impact des taxes sur la rentabilité des entreprises}}\label{analyser-limpact-des-taxes-sur-la-rentabilituxe9-des-entreprises}
+
+\bigskip
+
+\textbf{Variables} :Rentabilité Ratio du résultat net sur le chiffre
+d'affaires net +Taxes (Montant total des taxes payées parles entreprises
+\textbackslash Axes : Taxes (X) et Rentabilité (Y).
+
+\subsection{Étapes pour créer une visualisation
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-5}
+
+\subsubsection{visualistion}\label{visualistion}
+
+Graphique de dispersion : tracer un graphique de dispersion pour
+visualiser la relation entre la rentabilité et les taxes.
+
+\subsubsection{Test de corrélation :}\label{test-de-corruxe9lation}
 
 \textbf{Chauque un/e doit proposer son text :) }
 

@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "06 April 2025"
+date: "07 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -299,7 +299,7 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 \end{longtable}
 \normalsize
 
-
+\newpage
 ## Modèles MCD et MOD
 
 - Pour le MCD, inclure une image réalisée avec le logiciel Mocodo \href{https://www.mocodo.net/?mcd=eNqNksFu2zAMhu96Ch0dQAOW7Zab67ZK2zTL4ixtcjEUh14FOJKhyFm3N_J9b-AX62_HaOMEAwb4Ay1SIvlLjMvNQRmvrRnxWDsywe3DQPD43R296MwRCw9Wu7AgMRzy2Ka6rnxdieGUwyfJsKMZNUsBpmrX2kj5z50ddvZLZ7-Kid5QniNNZLfEMoXyTTWUC7OM3EWpLpggiq2j0BgixhyldLClQ8uC945wnPkQ0u1_D49auYJfk7E7fdwjeNNKYfde5WJhf8GBZtlM_SYXvSj380w_b7tq_Ena3lNX5KzT05u9DcE1kOAePIIp-AZm4DuYM3bzWljnyc2c3ZbaX9btAv3CSzJbR01Il_97pi-g12sMFuAHWIIn8AxWYC24_PNp9cxGDN9Z5pMsEiLlA5gAiJUQKyFWQuwYlzG-AhHApaxvBF8h-WrNIrsrvNroXHtqH79Z05z2Ze5VTxm_nA1xoVX866VO0_bEz-uqdfqEXovcavxhQgIpe7FMG2VSTS6Qy4H48Ktm6hK9K-q_fh_Ip7OEKRVNNkN5ML5DbGExcUlxbHkfjCcDcXSlbc_wPGLXVV2Zusp0SklBGI5gPB2wN-SeTJ4=}{https://www.moc\\odo.net} telle que celle visible sur la Figure$~$\ref{MCD} ci-dessous :
@@ -313,49 +313,21 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 - Pour le MOD, inclure une image réalisée avec le designer de phpmyadmin
 
+- Pour le MOD, inclure une image réalisée avec le logiciel MySQl
+\newline telle que celle visible sur la Figure$~$\ref{MOD} ci-dessous :
+  
+![MOD](MOD.png){#MOD width=8cm height=10cm }  
+
+- Pour le MOD, inclure une image réalisée avec le logiciel MySQl
+\newline telle que celle visible sur la Figure$~$\ref{MOD_2} ci-dessous :
+  
+![MOD_2](MOD_2.png){#MOD width=15cm height=10cm }  
+
 \bigskip
-
-Noter en passant qu'il est possible de créer des diagrammes en R Markdown au moyen du package `DiagrammeR` [\url{https://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html}] comme on peut le voir ci-dessous.
-
-
-``` r
-# install.packages("webshot",dependencies = TRUE)
-# library(webshot)
-# webshot::install_phantomjs()
-Sys.setenv(OPENSSL_CONF="/dev/null")
-DiagrammeR::grViz("
-digraph boxes_and_circles {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica]
-  A; B; C; D; E; F
-
-  node [shape = circle,
-        fixedsize = true,
-        width = 0.9] // sets as circles
-  1; 2; 3; 4; 5; 6; 7; 8
-
-  # several 'edge' statements
-  A->1 B->2 B->3 B->4 C->A
-  1->D E->A 2->4 1->5 1->F
-  E->6 4->6 5->7 6->7 3->8
-}
-")
-```
-
-```{=html}
-<div class="grViz html-widget html-fill-item" id="htmlwidget-63acaf4913642a99a175" style="width:468px;height:10cm;"></div>
-<script type="application/json" data-for="htmlwidget-63acaf4913642a99a175">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-
 ## Import des données 
-
-- Préciser les nettoyages réalisés avant l'import comme l'uniformisation des valeurs des champs (_e.g._, Mr, M., Monsieur, ...) ou le remplissage des valeurs manquantes par une valeur moyenne ...
+**ON VA AJOUTER+RECRIRE**
+\bigskip
+\newline - Préciser les nettoyages réalisés avant l'import comme l'uniformisation des valeurs des champs (_e.g._, Mr, M., Monsieur, ...) ou le remplissage des valeurs manquantes par une valeur moyenne ...
 
 \begin{itemize}
     \item  Source de données 1 :
@@ -428,11 +400,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-1-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-2}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-1}
 \end{figure}
 
 ``` r
@@ -454,11 +426,11 @@ boxplot(cars, main = "Un titre qui est vraiment beaucoup trop long et qui dépas
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
 
 }
 
-\caption{Pas super.}\label{fig:unnamed-chunk-3}
+\caption{Pas super.}\label{fig:unnamed-chunk-2}
 \end{figure}
 
 par celui-ci:
@@ -473,11 +445,11 @@ boxplot(cars,
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
 
 }
 
-\caption{Déjà mieux.}\label{fig:unnamed-chunk-4}
+\caption{Déjà mieux.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 \normalsize
@@ -524,11 +496,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 ``` r
@@ -577,11 +549,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-6}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 ``` r
@@ -725,6 +697,80 @@ Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre
 Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
 
 Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## **Analyser l'impact des taxes sur la rentabilité des entreprises**
+\bigskip
+**Variables** :Rentabilité Ratio du résultat net sur le chiffre d'affaires net +Taxes (Montant total des taxes payées parles entreprises
+\\Axes : Taxes (X) et Rentabilité (Y).
+
+### Étapes pour créer une visualisation :
+
+#### visualistion
+
+Graphique de dispersion : tracer un graphique de dispersion pour visualiser
+la relation entre la rentabilité et les taxes.
+
+
+#### Test de corrélation :
+**Chauque un/e doit proposer son text :) **
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
