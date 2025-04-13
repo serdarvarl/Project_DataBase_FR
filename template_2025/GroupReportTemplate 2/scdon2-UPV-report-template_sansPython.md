@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "07 April 2025"
+date: "13 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -307,37 +307,146 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 ![MCD](MCD.png){#MCD width=8cm height=10cm }  
 
 
-
-
-
-
-- Pour le MOD, inclure une image réalisée avec le designer de phpmyadmin
-
 - Pour le MOD, inclure une image réalisée avec le logiciel MySQl
 \newline telle que celle visible sur la Figure$~$\ref{MOD} ci-dessous :
   
-![MOD](MOD.png){#MOD width=8cm height=10cm }  
+![MOD_2](MCD_V01.png){#MOD width=15cm height=5cm }  
 
-- Pour le MOD, inclure une image réalisée avec le logiciel MySQl
-\newline telle que celle visible sur la Figure$~$\ref{MOD_2} ci-dessous :
-  
-![MOD_2](MOD_2.png){#MOD width=15cm height=10cm }  
+
 
 \bigskip
 ## Import des données 
-**ON VA AJOUTER+RECRIRE**
+
 \bigskip
-\newline - Préciser les nettoyages réalisés avant l'import comme l'uniformisation des valeurs des champs (_e.g._, Mr, M., Monsieur, ...) ou le remplissage des valeurs manquantes par une valeur moyenne ...
+Dans un premier temps, les données ont été chargées dans R à l'aide de la fonction $read\_csv()$. Ensuite, afin de faciliter l'importation de ces données dans phpMyAdmin, nous avons procédé à un **découpage (slicing)** de la base initiale en **sept tables distinctes**, chacune regroupant les variables pertinentes pour son thème spécifique.
 
-\begin{itemize}
-    \item  Source de données 1 :
-    \begin{itemize} 
-     \item Suppression des colonnes XXX, car XXX
-     \item  Suppression des doublons dans les colonnes XXX
-    \item  Filtrage en fonction de la colonne XXx, nous n'avons conservé que.... 
-\end{itemize}
-\end{itemize}
+\medskip
 
+Par exemple, pour la table **"société"**, nous avons conservé uniquement les colonnes suivantes : *"siren", "denomination", "postal_code", "town" et "ape".*
+Ce processus a été appliqué à chaque table en sélectionnant les attributs nécessaires, puis nous avons limité chaque sous-table à ses **300 premières lignes** afin de simplifier les tests d’importation.
+
+\medskip
+
+Enfin, les tables ont été exportées au format CSV à l’aide de la fonction write_csv. 
+
+\medskip
+
+Dans un premier temps, nous avions extrait les **300 premières lignes** de la base de données globale. Toutefois, afin d'obtenir un **échantillon plus équilibré et représentatif dans le temps**, nous avons modifié notre approche : nous avons sélectionné **les 100 premières lignes pour chaque année,** de 2012 à 2016.
+
+\medskip
+
+Pour cela, nous avons utilisé la bibliothèque **sqldf** dans R, qui permet d'exécuter des requêtes SQL directement sur des data frames. Par exemple, pour extraire les données de l’année 2012, nous avons utilisé la requête suivante :
+
+\small
+
+``` r
+install.packages("sqldf")
+library(sqldf)
+
+result <- sqldf("SELECT * FROM data_kaggle WHERE year = 2012")
+result
+head(result)
+annee_2012<-sqldf("SELECT* from data_kaggle WHERE year=2012")
+annee_2013<-sqldf("SELECT* from data_kaggle WHERE year=2013")
+annee_2014<-sqldf("SELECT* from data_kaggle WHERE year=2014")
+annee_2015<-sqldf("SELECT* from data_kaggle WHERE year=2015")
+annee_2016<-sqldf("SELECT* from data_kaggle WHERE year=2016")
+cor(annee_2012$rentabilite,annee_2012$`Impôts, taxes et versements assimilés`,use = "complete.obs")
+plot(annee_2012$rentabilite,annee_2012$`Impôts, taxes et versements assimilés`)
+# Table 1 : Société
+# Combinaison des 100 premières lignes de chaque sous-ensemble
+sous_ensemble <- rbind(
+  annee_2012[1:100, ],
+  annee_2013[1:100, ],
+  annee_2014[1:100, ],
+  annee_2015[1:100, ],
+  annee_2016[1:100, ]
+)
+View(sous_ensemble)
+```
+\normalsize
+
+\medskip
+
+   Cette commande retourne toutes les colonnes de la base data_kaggle pour les lignes dont l’année est **égale à 2012**.
+Nous avons ensuite appliqué la même méthode pour chaque année (2013 à 2016), puis extrait **les 100 premières lignes** de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles afin d’obtenir une **table finale regroupant 500 lignes (100 par année)**. Cette nouvelle table est ainsi mieux structurée pour les futures analyses et pourra être **importée dans phpMyAdmin** pour les étapes suivantes de notre projet.
+
+\newpage
+
+\tiny
+
+``` r
+library(readr)
+library(dplyr)
+
+# Définir le chemin du fichier source
+file_path <- ".....path"
+
+# Charger le fichier CSV
+full_data <- read_csv(file_path)
+
+# Vérification des noms de colonnes disponibles
+print(colnames(full_data))
+
+# Table 1 : Société
+societe <- full_data[1:300, c("siren", "denomination", "postal_code", "town", "ape")]
+write_csv(societe, ".....path")
+
+# Table 2 : Subventions
+subvention <- full_data[1:300, c("siren", "Subventions d’exploitation")]
+write_csv(subvention, ".....path")
+
+# Table 3 : ApeGen
+apegen <- full_data[1:300, c("ape", "ape_name", "ape_len", "ape_division", "ape_groupe", "ape_classe", "ape_sous_classe")]
+write_csv(apegen, ".....path")
+
+# Table 4 : Chiffre d'Affaires
+chiffre_affaire <- full_data[1:300, c("siren", "Chiffres d’affaires nets", "Impôts, taxes et versements assimilés")]
+write_csv(chiffre_affaire, ".....path")
+
+# Table 5 : Charges Chiffre
+charge_chiffre <- full_data[1:300, c(
+  "siren", 
+  "Reprises sur amortissements et provisions, transfert de charges", 
+  "Reprises sur provisions et transferts de charges financier", 
+  "Reprises sur provisions et transferts de charges exceptionnel", 
+  "Achats de marchandises (y compris droits de douane)", 
+  "Achats de matières premières et autres approvisionnements", 
+  "Autres achats et charges externes", 
+  "Salaires et traitements", 
+  "Charges sociales"
+)]
+write_csv(charge_chiffre, ".....path")
+
+# Table 6 : Produits Chiffre
+produit_chiffre <- full_data[1:300, c(
+  "siren", 
+  "Total des produits d’exploitation", 
+  "Total des produits financiers", 
+  "Total des produits exceptionnels", 
+  "Autres produits"
+)]
+write_csv(produit_chiffre, ".....path")
+
+# Table 7 : Compte de Résultat
+compte_resulta <- full_data[1:300, c(
+  "siren", 
+  "Chiffres d’affaires nets", 
+  "Impôts, taxes et versements assimilés", 
+  "Résultat d'exploitation", 
+  "Résultat financier", 
+  "Résultat en cours avant impôts", 
+  "Résultat exceptionnel", 
+  "Bénéfices ou perte (Total des produits - Total des charges)"
+)]
+write_csv(compte_resulta, ".....path")
+
+# Vérifier le répertoire de travail actuel
+getwd()
+```
+\normalsize
+
+\newpage
 
 ## Requêtes réalisées
 
@@ -349,7 +458,10 @@ L'objectif est de varier le type de requêtes et de répondre à votre probléma
 ## Quelques détails techniques
 
 
-On peut interagir avec une base de données directement depuis RMarkdown. Un fichier .Rmd sera fourni pour donner des exemples.
+
+
+
+
 
 # Matériel et Méthodes
 
@@ -389,76 +501,6 @@ Vous pourrez consulter avec profit le Chapitre 9 du livre sur R utilisé pendant
 
 <http://biostatisticien.eu/springeR/livreR.pdf>
 
-## Utiliser R {.fragile}
-
-Il est facile d'inclure des codes R dans votre rapport, qui seront exécutés à la volée (_i.e._, lors de la traduction de votre fichier `Rmd` en fichier `PDF` ou `DOC`). Par exemple:
-
-
-``` r
-boxplot(cars, col = c("#5975a4", "#cc8963"))
-```
-
-\begin{figure}
-
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-1-1} 
-
-}
-
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-1}
-\end{figure}
-
-``` r
-colMeans(cars)
-```
-
-```
-## speed  dist 
-## 15.40 42.98
-```
-
-
-Les lignes de code ne doivent pas dépasser dans la marge de droite. Ainsi on pourrait remplacer le chunk ci-dessous:
-
-
-``` r
-boxplot(cars, main = "Un titre qui est vraiment beaucoup trop long et qui dépasse dans la marge de droite")
-```
-
-\begin{figure}
-
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
-
-}
-
-\caption{Pas super.}\label{fig:unnamed-chunk-2}
-\end{figure}
-
-par celui-ci:
-
-\tiny
-
-
-``` r
-boxplot(cars, 
-        main = "Un titre qui est vraiment beaucoup trop long\n mais qui ne dépasse plus dans la marge de droite")
-```
-
-\begin{figure}
-
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
-
-}
-
-\caption{Déjà mieux.}\label{fig:unnamed-chunk-3}
-\end{figure}
-
-\normalsize
-
-où l'on a:
-
-- utilisé la commande \LaTeX\ `\tiny` pour changer la taille de la police (suivi de de `\normalsize` pour revenir à la taille normale), 
-- mis l'instruction `main = ...` sur la deuxième ligne,
-- utilisé `\n` pour afficher le titre sur deux lignes.
 
 
 # Analyse et Résultats
@@ -496,11 +538,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 ``` r
@@ -549,11 +591,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 ``` r
@@ -583,48 +625,129 @@ s
 
 
 
-## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique**
+
+
+
+
+
+
+
+## **Analyser la rentabilité des entreprises en fonction de leur localisation géographique** Serdar VAROL
 \bigskip
-**Variables :**  résultat net part du groupe + town + postal_code .
 
-### Étapes pour créer une visualisation :
-contuinee ;;;;;;;
+L’objectif de cette étude est d’analyser la rentabilité des entreprises en France à partir de données financières entre 2012 et 2016. La rentabilité a été calculée à partir du *résultat d’exploitation*, du *résultat financier* et du *chiffre d’affaires net* des entreprises et a été examinée par **année** et par **département**.
 
-#### Représentation cartographique : :
-\bigskip
-Utilisez une carte de la France pour visualiser les variations de
-rentabilité.
-\bigskip
-Les couleurs sur la carte peuvent représenter différents niveaux de
-rentabilité (par exemple, du rouge pour les villes moins rentables au
-vert pour les plus rentables).
-\bigskip
-Carte de chaleur : Créez une carte de chaleur pour visualiser la
-rentabilité moyenne des entreprises par ville. Cela permet de voir les
-zones géographiques où les entreprises sont plus ou moins rentables.
+\medskip
+
+### Préparation des données
+
+\medskip
+
+1) Un fichier CSV contenant les données financières de l’entreprise de 2012 à 2016 a été utilisé 
+
+\small
+
+\normalsize
+
+2) **Variables :**
+
+\medskip
+
+\begin{itemize}[label=$\circ$]
+    \item \textnormal{Year}
+    \item \textnormal{Siren}
+    \item \textnormal{résultat d'exploitation}
+    \item \textnormal{chiffres d’affaires nets}
+    \item \textnormal{résultat financier}
+    \item \textnormal{code\_postal}
+\end{itemize}
 
 
 
-#### Test Statistique : ANOVA  (Analyse de la Variance) ou les autre
+  
 
-**Chauque un/e doit proposer son text :) **\\ 
-\bigskip
+$$
+      \text{rentabilité} = \frac{\text{résultat d'exploitation} + \text{résultat financier}}{\text{chiffres d’affaires nets}}
+$$
+
+3) Création d'une variable catégorielle : La valeur de rentabilité est divisée dans les classes suivantes :
+
+
+\begin{itemize}[label=$\circ$]
+    \item \textnormal{Rentabilité $< 0$ : \og En perte\fg}
+    \item \textnormal{$0 \leq$ Rentabilité $< 0{,}1$ : \og Faible rentabilité\fg}
+    \item \textnormal{$0{,}1 \leq$ Rentabilité $< 0{,}3$ : \og Rentabilité moyenne\fg}
+    \item \textnormal{Rentabilité $\geq 0{,}3$ : \og Haute rentabilité\fg}
+\end{itemize}
+
+\newpage
 
 **Formuler les hypothèses :**
+
 \bigskip
-\begin{itemize}[label=$\circ$]
-\item Hypothèse nulle (H0) : Les moyennes de la rentabilité sont égales
-pour toutes les villes.
-\item Hypothèse alternative (H1) : Au moins une moyenne de la
-rentabilité diffère entre les villes.
+
+- **Hypothèse nulle (H\textsubscript{0})** : La répartition des catégories de rentabilité (rentabilité) par département ne diffère pas.
+- **Hypothèse alternative (H\textsubscript{1})** : La distribution des catégories de rentabilité varie selon le département.
+
+
 \bigskip
-**Conditions d'application :**
+
+\scriptsize
+\begin{longtable}{|p{1.2cm}|p{3.5cm}|p{2cm}|p{3cm}|p{4.2cm}|}
+\hline
+\textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\
+\hline \endfirsthead
+\hline \textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\ \hline \endhead
+2012 & Chi² (simulé) & 0.2474 & H\textsubscript{0} non rejetée & Échantillon insuffisant ou déséquilibré \\
+2013 & Chi² (simulé) & 0.0019 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+2014 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+2015 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Forte différence observée \\
+2016 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+\hline
+\multicolumn{5}{l}{\textit{Note : L’année 2012 présente un faible nombre d’observations et des distributions déséquilibrées.}}
+\end{longtable}
+
+
 \bigskip
-\item La rentabilité doit être approximativement normalement distribuée
-dans chaque groupe (ville).
-\item Les variances de la rentabilité doivent être homogènes entre les
-groupes.
-\end{itemize}
+
+
+\scriptsize
+\begin{longtable}{|p{1.2cm}|p{3cm}|p{3.5cm}|p{6cm}|}
+\hline
+\textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\
+\hline \endfirsthead
+\hline \textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\ \hline \endhead
+2012 & 1 & Pas de différence significative & Faible volume de données \\
+2013 & \textless{} 0.001 & Différence significative & Rentabilité varie selon les départements \\
+2014 & 1 & Pas de différence significative & Rentabilité homogène \\
+2015 & 1 & Pas de différence significative & Rentabilité homogène \\
+2016 & 1 & Pas de différence significative & Rentabilité homogène \\
+\hline
+\multicolumn{4}{l}{\textit{Conclusion : Seule l’année 2013 présente une variation significative de la rentabilité selon les départements.}}
+\end{longtable}
+
+\newpage
+
+
+\section*{Représentation cartographique}
+
+
+- Pour le MOD, inclure une image réalisée avec le logiciel MySQl
+\newline telle que celle visible sur la Figure$~$\ref{box_plot} ci-dessous :
+  
+![MOD_2](box_plot_par_anne.png){#box_plot width=15cm height=10cm }  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -829,9 +952,11 @@ Vous pourrez également proposer des modèles pour faire du clustering (k-means,
 
 Si on souhaite expliquer les variations d'une variables réponse $Y$ en fonction d'un certain nombre de prédicteurs $x_1,\ldots,x_p$, on peut utiliser un modèle de régression linéaire simple ($p=1$) ou multiple ($p>1$)
 
+
 $$
 Y_i = \beta_0 + \beta_1 x_{1i} + \cdots +\beta_p x_{pi} + \epsilon_i, \qquad i=1,\ldots,n.
 $$
+
 où l'on présuppose que les $\epsilon_i$ sont i.i.d.\ $N(0,1)$ pour tout $i=1,\ldots,n$ ($n$ étant la taille de l'échantillon).
 
 Vous pourrez toujours consulter avec profit les Chapitre 11--13 du livre sur R utilisé pendant le cours :

@@ -470,8 +470,7 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 \end{figure}
 
 \begin{itemize}
-\item
-  Pour le MOD, inclure une image réalisée avec le designer de phpmyadmin
+\tightlist
 \item
   Pour le MOD, inclure une image réalisée avec le logiciel MySQl
   \newline telle que celle visible sur la Figure\(~\)\ref{MOD}
@@ -480,21 +479,7 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 \begin{figure}
 \centering
-\includegraphics[width=8cm,height=10cm]{MOD.png}
-\caption{MOD}\label{MOD}
-\end{figure}
-
-\begin{itemize}
-\tightlist
-\item
-  Pour le MOD, inclure une image réalisée avec le logiciel MySQl
-  \newline telle que celle visible sur la Figure\(~\)\ref{MOD_2}
-  ci-dessous :
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[width=15cm,height=10cm]{MOD_2.png}
+\includegraphics[width=15cm,height=5cm]{MCD_V01.png}
 \caption{MOD\_2}\label{MOD}
 \end{figure}
 
@@ -502,19 +487,166 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 \section{Import des données}\label{import-des-donnuxe9es}
 
-\textbf{ON VA AJOUTER+RECRIRE} \bigskip \newline - Préciser les
-nettoyages réalisés avant l'import comme l'uniformisation des valeurs
-des champs (\emph{e.g.}, Mr, M., Monsieur, \ldots) ou le remplissage des
-valeurs manquantes par une valeur moyenne \ldots{}
+\bigskip
 
-\begin{itemize}
-    \item  Source de données 1 :
-    \begin{itemize} 
-     \item Suppression des colonnes XXX, car XXX
-     \item  Suppression des doublons dans les colonnes XXX
-    \item  Filtrage en fonction de la colonne XXx, nous n'avons conservé que.... 
-\end{itemize}
-\end{itemize}
+Dans un premier temps, les données ont été chargées dans R à l'aide de
+la fonction \(read\_csv()\). Ensuite, afin de faciliter l'importation de
+ces données dans phpMyAdmin, nous avons procédé à un \textbf{découpage
+(slicing)} de la base initiale en \textbf{sept tables distinctes},
+chacune regroupant les variables pertinentes pour son thème spécifique.
+
+\medskip
+
+Par exemple, pour la table \textbf{``société''}, nous avons conservé
+uniquement les colonnes suivantes : \emph{``siren'', ``denomination'',
+``postal\_code'', ``town'' et ``ape''.} Ce processus a été appliqué à
+chaque table en sélectionnant les attributs nécessaires, puis nous avons
+limité chaque sous-table à ses \textbf{300 premières lignes} afin de
+simplifier les tests d'importation.
+
+\medskip
+
+Enfin, les tables ont été exportées au format CSV à l'aide de la
+fonction write\_csv.
+
+\medskip
+
+Dans un premier temps, nous avions extrait les \textbf{300 premières
+lignes} de la base de données globale. Toutefois, afin d'obtenir un
+\textbf{échantillon plus équilibré et représentatif dans le temps}, nous
+avons modifié notre approche : nous avons sélectionné \textbf{les 100
+premières lignes pour chaque année,} de 2012 à 2016.
+
+\medskip
+
+Pour cela, nous avons utilisé la bibliothèque \textbf{sqldf} dans R, qui
+permet d'exécuter des requêtes SQL directement sur des data frames. Par
+exemple, pour extraire les données de l'année 2012, nous avons utilisé
+la requête suivante :
+
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"sqldf"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(sqldf)}
+
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT * FROM data\_kaggle WHERE year = 2012"}\NormalTok{)}
+\NormalTok{result}
+\FunctionTok{head}\NormalTok{(result)}
+\NormalTok{annee\_2012}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2012"}\NormalTok{)}
+\NormalTok{annee\_2013}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2013"}\NormalTok{)}
+\NormalTok{annee\_2014}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2014"}\NormalTok{)}
+\NormalTok{annee\_2015}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2015"}\NormalTok{)}
+\NormalTok{annee\_2016}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2016"}\NormalTok{)}
+\FunctionTok{cor}\NormalTok{(annee\_2012}\SpecialCharTok{$}\NormalTok{rentabilite,annee\_2012}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Impôts, taxes et versements assimilés}\StringTok{\textasciigrave{}}\NormalTok{,}\AttributeTok{use =} \StringTok{"complete.obs"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(annee\_2012}\SpecialCharTok{$}\NormalTok{rentabilite,annee\_2012}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Impôts, taxes et versements assimilés}\StringTok{\textasciigrave{}}\NormalTok{)}
+\CommentTok{\# Table 1 : Société}
+\CommentTok{\# Combinaison des 100 premières lignes de chaque sous{-}ensemble}
+\NormalTok{sous\_ensemble }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+\FunctionTok{View}\NormalTok{(sous\_ensemble)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\medskip
+
+Cette commande retourne toutes les colonnes de la base data\_kaggle pour
+les lignes dont l'année est \textbf{égale à 2012}. Nous avons ensuite
+appliqué la même méthode pour chaque année (2013 à 2016), puis extrait
+\textbf{les 100 premières lignes} de chaque sous-ensemble. Enfin, nous
+avons combiné ces sous-ensembles afin d'obtenir une \textbf{table finale
+regroupant 500 lignes (100 par année)}. Cette nouvelle table est ainsi
+mieux structurée pour les futures analyses et pourra être
+\textbf{importée dans phpMyAdmin} pour les étapes suivantes de notre
+projet.
+
+\newpage
+
+\tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# Définir le chemin du fichier source}
+\NormalTok{file\_path }\OtherTok{\textless{}{-}} \StringTok{".....path"}
+
+\CommentTok{\# Charger le fichier CSV}
+\NormalTok{full\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(file\_path)}
+
+\CommentTok{\# Vérification des noms de colonnes disponibles}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(full\_data))}
+
+\CommentTok{\# Table 1 : Société}
+\NormalTok{societe }\OtherTok{\textless{}{-}}\NormalTok{ full\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{300}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"siren"}\NormalTok{, }\StringTok{"denomination"}\NormalTok{, }\StringTok{"postal\_code"}\NormalTok{, }\StringTok{"town"}\NormalTok{, }\StringTok{"ape"}\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(societe, }\StringTok{".....path"}\NormalTok{)}
+
+\CommentTok{\# Table 2 : Subventions}
+\NormalTok{subvention }\OtherTok{\textless{}{-}}\NormalTok{ full\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{300}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"siren"}\NormalTok{, }\StringTok{"Subventions d’exploitation"}\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(subvention, }\StringTok{".....path"}\NormalTok{)}
+
+\CommentTok{\# Table 3 : ApeGen}
+\NormalTok{apegen }\OtherTok{\textless{}{-}}\NormalTok{ full\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{300}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"ape"}\NormalTok{, }\StringTok{"ape\_name"}\NormalTok{, }\StringTok{"ape\_len"}\NormalTok{, }\StringTok{"ape\_division"}\NormalTok{, }\StringTok{"ape\_groupe"}\NormalTok{, }\StringTok{"ape\_classe"}\NormalTok{, }\StringTok{"ape\_sous\_classe"}\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(apegen, }\StringTok{".....path"}\NormalTok{)}
+
+\CommentTok{\# Table 4 : Chiffre d\textquotesingle{}Affaires}
+\NormalTok{chiffre\_affaire }\OtherTok{\textless{}{-}}\NormalTok{ full\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{300}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"siren"}\NormalTok{, }\StringTok{"Chiffres d’affaires nets"}\NormalTok{, }\StringTok{"Impôts, taxes et versements assimilés"}\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(chiffre\_affaire, }\StringTok{".....path"}\NormalTok{)}
+
+\CommentTok{\# Table 5 : Charges Chiffre}
+\NormalTok{charge\_chiffre }\OtherTok{\textless{}{-}}\NormalTok{ full\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{300}\NormalTok{, }\FunctionTok{c}\NormalTok{(}
+  \StringTok{"siren"}\NormalTok{, }
+  \StringTok{"Reprises sur amortissements et provisions, transfert de charges"}\NormalTok{, }
+  \StringTok{"Reprises sur provisions et transferts de charges financier"}\NormalTok{, }
+  \StringTok{"Reprises sur provisions et transferts de charges exceptionnel"}\NormalTok{, }
+  \StringTok{"Achats de marchandises (y compris droits de douane)"}\NormalTok{, }
+  \StringTok{"Achats de matières premières et autres approvisionnements"}\NormalTok{, }
+  \StringTok{"Autres achats et charges externes"}\NormalTok{, }
+  \StringTok{"Salaires et traitements"}\NormalTok{, }
+  \StringTok{"Charges sociales"}
+\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(charge\_chiffre, }\StringTok{".....path"}\NormalTok{)}
+
+\CommentTok{\# Table 6 : Produits Chiffre}
+\NormalTok{produit\_chiffre }\OtherTok{\textless{}{-}}\NormalTok{ full\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{300}\NormalTok{, }\FunctionTok{c}\NormalTok{(}
+  \StringTok{"siren"}\NormalTok{, }
+  \StringTok{"Total des produits d’exploitation"}\NormalTok{, }
+  \StringTok{"Total des produits financiers"}\NormalTok{, }
+  \StringTok{"Total des produits exceptionnels"}\NormalTok{, }
+  \StringTok{"Autres produits"}
+\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(produit\_chiffre, }\StringTok{".....path"}\NormalTok{)}
+
+\CommentTok{\# Table 7 : Compte de Résultat}
+\NormalTok{compte\_resulta }\OtherTok{\textless{}{-}}\NormalTok{ full\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{300}\NormalTok{, }\FunctionTok{c}\NormalTok{(}
+  \StringTok{"siren"}\NormalTok{, }
+  \StringTok{"Chiffres d’affaires nets"}\NormalTok{, }
+  \StringTok{"Impôts, taxes et versements assimilés"}\NormalTok{, }
+  \StringTok{"Résultat d\textquotesingle{}exploitation"}\NormalTok{, }
+  \StringTok{"Résultat financier"}\NormalTok{, }
+  \StringTok{"Résultat en cours avant impôts"}\NormalTok{, }
+  \StringTok{"Résultat exceptionnel"}\NormalTok{, }
+  \StringTok{"Bénéfices ou perte (Total des produits {-} Total des charges)"}
+\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(compte\_resulta, }\StringTok{".....path"}\NormalTok{)}
+
+\CommentTok{\# Vérifier le répertoire de travail actuel}
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\newpage
 
 \section{Requêtes réalisées}\label{requuxeates-ruxe9alisuxe9es}
 
@@ -526,9 +658,6 @@ problématique initiale.
 
 \section{Quelques détails
 techniques}\label{quelques-duxe9tails-techniques}
-
-On peut interagir avec une base de données directement depuis RMarkdown.
-Un fichier .Rmd sera fourni pour donner des exemples.
 
 \chapter{Matériel et Méthodes}\label{matuxe9riel-et-muxe9thodes}
 
@@ -596,93 +725,6 @@ pendant le cours :
 
 \url{http://biostatisticien.eu/springeR/livreR.pdf}
 
-\section{Utiliser R}\label{utiliser-r}
-
-Il est facile d'inclure des codes R dans votre rapport, qui seront
-exécutés à la volée (\emph{i.e.}, lors de la traduction de votre fichier
-\texttt{Rmd} en fichier \texttt{PDF} ou \texttt{DOC}). Par exemple:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{boxplot}\NormalTok{(cars, }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#5975a4"}\NormalTok{, }\StringTok{"\#cc8963"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-1-1} 
-
-}
-
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-1}
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{colMeans}\NormalTok{(cars)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## speed  dist 
-## 15.40 42.98
-\end{verbatim}
-
-Les lignes de code ne doivent pas dépasser dans la marge de droite.
-Ainsi on pourrait remplacer le chunk ci-dessous:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{boxplot}\NormalTok{(cars, }\AttributeTok{main =} \StringTok{"Un titre qui est vraiment beaucoup trop long et qui dépasse dans la marge de droite"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-2-1} 
-
-}
-
-\caption{Pas super.}\label{fig:unnamed-chunk-2}
-\end{figure}
-
-par celui-ci:
-
-\tiny
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{boxplot}\NormalTok{(cars, }
-        \AttributeTok{main =} \StringTok{"Un titre qui est vraiment beaucoup trop long}\SpecialCharTok{\textbackslash{}n}\StringTok{ mais qui ne dépasse plus dans la marge de droite"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
-
-}
-
-\caption{Déjà mieux.}\label{fig:unnamed-chunk-3}
-\end{figure}
-
-\normalsize
-
-où l'on a:
-
-\begin{itemize}
-\tightlist
-\item
-  utilisé la commande \LaTeX~\texttt{\textbackslash{}tiny} pour changer
-  la taille de la police (suivi de de
-  \texttt{\textbackslash{}normalsize} pour revenir à la taille normale),
-\item
-  mis l'instruction \texttt{main\ =\ ...} sur la deuxième ligne,
-\item
-  utilisé \texttt{\textbackslash{}n} pour afficher le titre sur deux
-  lignes.
-\end{itemize}
-
 \chapter{Analyse et Résultats}\label{analyse-et-ruxe9sultats}
 
 \section{\texorpdfstring{\textbf{Comparer les catégories d'entreprises
@@ -731,11 +773,11 @@ barres}\label{visualisation-boxplot-ou-diagramme-en-barres}
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 \begin{Shaded}
@@ -808,11 +850,11 @@ barres}\label{visualisation-boxplot-ou-diagramme-en-barres-1}
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 \begin{Shaded}
@@ -849,52 +891,144 @@ exemple) comme vu en Science des données 1.\\
 s \newpage
 
 \section{\texorpdfstring{\textbf{Analyser la rentabilité des entreprises
-en fonction de leur localisation
-géographique}}{Analyser la rentabilité des entreprises en fonction de leur localisation géographique}}\label{analyser-la-rentabilituxe9-des-entreprises-en-fonction-de-leur-localisation-guxe9ographique}
+en fonction de leur localisation géographique} Serdar
+VAROL}{Analyser la rentabilité des entreprises en fonction de leur localisation géographique Serdar VAROL}}\label{analyser-la-rentabilituxe9-des-entreprises-en-fonction-de-leur-localisation-guxe9ographique-serdar-varol}
 
 \bigskip
 
-\textbf{Variables :} résultat net part du groupe + town + postal\_code .
+L'objectif de cette étude est d'analyser la rentabilité des entreprises
+en France à partir de données financières entre 2012 et 2016. La
+rentabilité a été calculée à partir du \emph{résultat d'exploitation},
+du \emph{résultat financier} et du \emph{chiffre d'affaires net} des
+entreprises et a été examinée par \textbf{année} et par
+\textbf{département}.
 
-\subsection{Étapes pour créer une visualisation
-:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-2}
+\medskip
 
-contuinee ;;;;;;;
+\subsection{Préparation des
+données}\label{pruxe9paration-des-donnuxe9es}
 
-\subsubsection{Représentation cartographique :
-:}\label{repruxe9sentation-cartographique}
+\medskip
 
-\bigskip
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Un fichier CSV contenant les données financières de l'entreprise de
+  2012 à 2016 a été utilisé
+\end{enumerate}
 
-Utilisez une carte de la France pour visualiser les variations de
-rentabilité. \bigskip Les couleurs sur la carte peuvent représenter
-différents niveaux de rentabilité (par exemple, du rouge pour les villes
-moins rentables au vert pour les plus rentables). \bigskip Carte de
-chaleur : Créez une carte de chaleur pour visualiser la rentabilité
-moyenne des entreprises par ville. Cela permet de voir les zones
-géographiques où les entreprises sont plus ou moins rentables.
+\small
 
-\subsubsection{Test Statistique : ANOVA (Analyse de la Variance) ou les
-autre}\label{test-statistique-anova-analyse-de-la-variance-ou-les-autre-2}
+\normalsize
 
-\textbf{Chauque un/e doit proposer son text :) }\textbackslash{}
-\bigskip
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Variables :}
+\end{enumerate}
 
-\textbf{Formuler les hypothèses :} \bigskip
+\medskip
 
 \begin{itemize}[label=$\circ$]
-\item Hypothèse nulle (H0) : Les moyennes de la rentabilité sont égales
-pour toutes les villes.
-\item Hypothèse alternative (H1) : Au moins une moyenne de la
-rentabilité diffère entre les villes.
-\bigskip
-**Conditions d'application :**
-\bigskip
-\item La rentabilité doit être approximativement normalement distribuée
-dans chaque groupe (ville).
-\item Les variances de la rentabilité doivent être homogènes entre les
-groupes.
+    \item \textnormal{Year}
+    \item \textnormal{Siren}
+    \item \textnormal{résultat d'exploitation}
+    \item \textnormal{chiffres d’affaires nets}
+    \item \textnormal{résultat financier}
+    \item \textnormal{code\_postal}
 \end{itemize}
+
+\[
+      \text{rentabilité} = \frac{\text{résultat d'exploitation} + \text{résultat financier}}{\text{chiffres d’affaires nets}}
+\]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Création d'une variable catégorielle : La valeur de rentabilité est
+  divisée dans les classes suivantes :
+\end{enumerate}
+
+\begin{itemize}[label=$\circ$]
+    \item \textnormal{Rentabilité $< 0$ : \og En perte\fg}
+    \item \textnormal{$0 \leq$ Rentabilité $< 0{,}1$ : \og Faible rentabilité\fg}
+    \item \textnormal{$0{,}1 \leq$ Rentabilité $< 0{,}3$ : \og Rentabilité moyenne\fg}
+    \item \textnormal{Rentabilité $\geq 0{,}3$ : \og Haute rentabilité\fg}
+\end{itemize}
+
+\newpage
+
+\textbf{Formuler les hypothèses :}
+
+\bigskip
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hypothèse nulle (H\textsubscript{0})} : La répartition des
+  catégories de rentabilité (rentabilité) par département ne diffère
+  pas.
+\item
+  \textbf{Hypothèse alternative (H\textsubscript{1})} : La distribution
+  des catégories de rentabilité varie selon le département.
+\end{itemize}
+
+\bigskip
+
+\scriptsize
+\begin{longtable}{|p{1.2cm}|p{3.5cm}|p{2cm}|p{3cm}|p{4.2cm}|}
+\hline
+\textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\
+\hline \endfirsthead
+\hline \textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\ \hline \endhead
+2012 & Chi² (simulé) & 0.2474 & H\textsubscript{0} non rejetée & Échantillon insuffisant ou déséquilibré \\
+2013 & Chi² (simulé) & 0.0019 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+2014 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+2015 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Forte différence observée \\
+2016 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+\hline
+\multicolumn{5}{l}{\textit{Note : L’année 2012 présente un faible nombre d’observations et des distributions déséquilibrées.}}
+\end{longtable}
+
+\bigskip
+
+\scriptsize
+\begin{longtable}{|p{1.2cm}|p{3cm}|p{3.5cm}|p{6cm}|}
+\hline
+\textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\
+\hline \endfirsthead
+\hline \textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\ \hline \endhead
+2012 & 1 & Pas de différence significative & Faible volume de données \\
+2013 & \textless{} 0.001 & Différence significative & Rentabilité varie selon les départements \\
+2014 & 1 & Pas de différence significative & Rentabilité homogène \\
+2015 & 1 & Pas de différence significative & Rentabilité homogène \\
+2016 & 1 & Pas de différence significative & Rentabilité homogène \\
+\hline
+\multicolumn{4}{l}{\textit{Conclusion : Seule l’année 2013 présente une variation significative de la rentabilité selon les départements.}}
+\end{longtable}
+
+\newpage
+
+\section*{Représentation cartographique}
+
+\begin{itemize}
+\tightlist
+\item
+  Pour le MOD, inclure une image réalisée avec le logiciel MySQl
+  \newline telle que celle visible sur la Figure\(~\)\ref{box_plot}
+  ci-dessous :
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=10cm]{box_plot_par_anne.png}
+\caption{MOD\_2}\label{box_plot}
+\end{figure}
 
 \newpage
 
@@ -908,7 +1042,7 @@ entreprises}}{La variation de la rentabilité selon le secteur d'activité des e
 + Chiffres d'affaires nets
 
 \subsection{Étapes pour créer une visualisation
-:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-3}
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-2}
 
 \subsubsection{Catégorisation des entreprises par secteur d'activité
 :}\label{catuxe9gorisation-des-entreprises-par-secteur-dactivituxe9}
@@ -946,10 +1080,10 @@ des entreprises entre 2012 et
 \textbf{Variables} : Rentabilité + Année
 
 \subsection{Étapes pour créer une visualisation
-:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-4}
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-3}
 
 \subsubsection{Préparation des données
-:}\label{pruxe9paration-des-donnuxe9es}
+:}\label{pruxe9paration-des-donnuxe9es-1}
 
 Calcul de la rentabilité : Calculer le ratio de rentabilité pour chaque
 entreprise et chaque année :
@@ -993,7 +1127,7 @@ d'affaires net +Taxes (Montant total des taxes payées parles entreprises
 \textbackslash Axes : Taxes (X) et Rentabilité (Y).
 
 \subsection{Étapes pour créer une visualisation
-:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-5}
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-4}
 
 \subsubsection{visualistion}\label{visualistion}
 
@@ -1025,7 +1159,9 @@ utiliser un modèle de régression linéaire simple (\(p=1\)) ou multiple
 
 \[
 Y_i = \beta_0 + \beta_1 x_{1i} + \cdots +\beta_p x_{pi} + \epsilon_i, \qquad i=1,\ldots,n.
-\] où l'on présuppose que les \(\epsilon_i\) sont i.i.d.~\(N(0,1)\) pour
+\]
+
+où l'on présuppose que les \(\epsilon_i\) sont i.i.d.~\(N(0,1)\) pour
 tout \(i=1,\ldots,n\) (\(n\) étant la taille de l'échantillon).
 
 Vous pourrez toujours consulter avec profit les Chapitre 11--13 du livre
