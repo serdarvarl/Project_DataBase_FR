@@ -466,22 +466,62 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 \begin{figure}
 \centering
 \includegraphics[width=8cm,height=10cm]{MCD.png}
-\caption{MCD}\label{MCD}
+\caption{MOD}\label{MOD}
 \end{figure}
 
 \begin{itemize}
 \tightlist
 \item
-  Pour le MOD, inclure une image réalisée avec le logiciel MySQl
-  \newline telle que celle visible sur la Figure\(~\)\ref{MOD}
-  ci-dessous :
+  Pour le MCD, inclure une image réalisée avec le logiciel MySQL, telle
+  que celle visible sur la Figure\textasciitilde{}\ref{MCD} ci-dessous :
 \end{itemize}
 
 \begin{figure}
 \centering
-\includegraphics[width=15cm,height=5cm]{MCD_V01.png}
-\caption{MOD\_2}\label{MOD}
+\includegraphics[width=15cm,height=5cm]{image_sql/mcd_totat.png}
+\caption{MCD}\label{MCD}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/societe.png}
+\caption{Societe}\label{Societe}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/charge_chiffre.png}
+\caption{Charge Chiffre}\label{charge_chiffre}
+\end{figure}
+
+Telle que celle visible sur la
+Figure\textasciitilde{}\ref{Chiffre_affaire} ci-dessous :
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/chiffre_affaire.png}
+\caption{Chiffre affaire}\label{Chiffre_affaire}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/compte_resulta.png}
+\caption{Compte de Résultat}\label{compte_resulta}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/produit_chiffre.png}
+\caption{Produit Chiffre}\label{produit_chiffre}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=3cm]{image_sql/subvention.png}
+\caption{Subvention}\label{subvention}
+\end{figure}
+
+\newpage
 
 \bigskip
 
@@ -656,6 +696,60 @@ donner le résultat obtenu (ou un extrait) et expliquer ce résultat.
 L'objectif est de varier le type de requêtes et de répondre à votre
 problématique initiale.
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Pour comperer et trouver selon leur code postal
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\KeywordTok{SELECT} 
+    \KeywordTok{LEFT}\NormalTok{(postal\_code, }\DecValTok{2}\NormalTok{) }\KeywordTok{AS}\NormalTok{ departement,}
+    \FunctionTok{COUNT}\NormalTok{(}\OperatorTok{*}\NormalTok{) }\KeywordTok{AS}\NormalTok{ nombre\_entreprises}
+\KeywordTok{FROM} 
+\NormalTok{    societe}
+\KeywordTok{WHERE} 
+\NormalTok{    postal\_code }\KeywordTok{IS} \KeywordTok{NOT} \KeywordTok{NULL}
+\KeywordTok{GROUP} \KeywordTok{BY} 
+\NormalTok{    departement}
+\KeywordTok{ORDER} \KeywordTok{BY} 
+\NormalTok{    nombre\_entreprises }\KeywordTok{DESC}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=5cm,height=10cm]{image_sql/sql_1_Serdar.png}
+\caption{Code posta}\label{MCD}
+\end{figure}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{SELECT} 
+\NormalTok{    s.siren,}
+\NormalTok{    s.denomination,}
+\NormalTok{    s.postal\_code,}
+\NormalTok{    cr.\textasciigrave{}Chiffres d’affaires nets\textasciigrave{} }\KeywordTok{AS}\NormalTok{ chiffre\_affaires\_net}
+\KeywordTok{FROM} 
+\NormalTok{    societe s}
+\KeywordTok{JOIN} 
+\NormalTok{    compte\_resultat cr }\KeywordTok{ON}\NormalTok{ s.siren }\OperatorTok{=}\NormalTok{ cr.siren}
+\KeywordTok{WHERE} 
+    \KeywordTok{LEFT}\NormalTok{(s.postal\_code, }\DecValTok{2}\NormalTok{) }\OperatorTok{=} \StringTok{\textquotesingle{}44\textquotesingle{}}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm,height=10cm]{image_sql/sql_2_serdar.png}
+\caption{Code posta}\label{MCD}
+\end{figure}
+
 \section{Quelques détails
 techniques}\label{quelques-duxe9tails-techniques}
 
@@ -773,11 +867,11 @@ barres}\label{visualisation-boxplot-ou-diagramme-en-barres}
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-3}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 \begin{Shaded}
@@ -850,11 +944,11 @@ barres}\label{visualisation-boxplot-ou-diagramme-en-barres-1}
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-6}
 \end{figure}
 
 \begin{Shaded}
@@ -943,7 +1037,7 @@ données}\label{pruxe9paration-des-donnuxe9es}
 
 \[
       \text{rentabilité} = \frac{\text{résultat d'exploitation} + \text{résultat financier}}{\text{chiffres d’affaires nets}}
-\]
+\] \medskip
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi})}

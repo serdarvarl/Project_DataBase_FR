@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "13 April 2025"
+date: "14 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -304,15 +304,40 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 - Pour le MCD, inclure une image réalisée avec le logiciel Mocodo \href{https://www.mocodo.net/?mcd=eNqNksFu2zAMhu96Ch0dQAOW7Zab67ZK2zTL4ixtcjEUh14FOJKhyFm3N_J9b-AX62_HaOMEAwb4Ay1SIvlLjMvNQRmvrRnxWDsywe3DQPD43R296MwRCw9Wu7AgMRzy2Ka6rnxdieGUwyfJsKMZNUsBpmrX2kj5z50ddvZLZ7-Kid5QniNNZLfEMoXyTTWUC7OM3EWpLpggiq2j0BgixhyldLClQ8uC945wnPkQ0u1_D49auYJfk7E7fdwjeNNKYfde5WJhf8GBZtlM_SYXvSj380w_b7tq_Ena3lNX5KzT05u9DcE1kOAePIIp-AZm4DuYM3bzWljnyc2c3ZbaX9btAv3CSzJbR01Il_97pi-g12sMFuAHWIIn8AxWYC24_PNp9cxGDN9Z5pMsEiLlA5gAiJUQKyFWQuwYlzG-AhHApaxvBF8h-WrNIrsrvNroXHtqH79Z05z2Ze5VTxm_nA1xoVX866VO0_bEz-uqdfqEXovcavxhQgIpe7FMG2VSTS6Qy4H48Ktm6hK9K-q_fh_Ip7OEKRVNNkN5ML5DbGExcUlxbHkfjCcDcXSlbc_wPGLXVV2Zusp0SklBGI5gPB2wN-SeTJ4=}{https://www.moc\\odo.net} telle que celle visible sur la Figure$~$\ref{MCD} ci-dessous :
   
-![MCD](MCD.png){#MCD width=8cm height=10cm }  
+![MOD](MCD.png){#MOD width=8cm height=10cm }  
+
+- Pour le MCD, inclure une image réalisée avec le logiciel MySQL, telle que celle visible sur la Figure~\ref{MCD} ci-dessous :
+
+![MCD](image_sql/mcd_totat.png){#MCD width=15cm height=5cm}
 
 
-- Pour le MOD, inclure une image réalisée avec le logiciel MySQl
-\newline telle que celle visible sur la Figure$~$\ref{MOD} ci-dessous :
-  
-![MOD_2](MCD_V01.png){#MOD width=15cm height=5cm }  
+![Societe](image_sql/societe.png){#Societe width=15cm height=5cm}
 
 
+![Charge Chiffre](image_sql/charge_chiffre.png){#charge_chiffre width=15cm height=5cm}
+
+
+Telle que celle visible sur la Figure~\ref{Chiffre_affaire} ci-dessous :
+
+![Chiffre affaire](image_sql/chiffre_affaire.png){#Chiffre_affaire width=15cm height=5cm}
+
+
+![Compte de Résultat](image_sql/compte_resulta.png){#compte_resulta width=15cm height=5cm}
+
+
+![Produit Chiffre](image_sql/produit_chiffre.png){#produit_chiffre width=15cm height=5cm}
+
+
+![Subvention](image_sql/subvention.png){#subvention width=15cm height=3cm}
+
+
+
+
+
+
+
+
+\newpage
 
 \bigskip
 ## Import des données 
@@ -455,6 +480,53 @@ Pour chaque requête, l'exprimer en langage naturel puis en SQL. Puis donner le 
 
 L'objectif est de varier le type de requêtes et de répondre à votre problématique initiale.
 
+
+1) Pour comperer et trouver selon leur code postal 
+
+
+
+
+``` sql
+
+SELECT 
+    LEFT(postal_code, 2) AS departement,
+    COUNT(*) AS nombre_entreprises
+FROM 
+    societe
+WHERE 
+    postal_code IS NOT NULL
+GROUP BY 
+    departement
+ORDER BY 
+    nombre_entreprises DESC;
+
+```
+
+
+![Code posta](image_sql/sql_1_Serdar.png){#MCD width=5cm height=10cm}
+
+\newpage
+
+
+``` sql
+SELECT 
+    s.siren,
+    s.denomination,
+    s.postal_code,
+    cr.`Chiffres d’affaires nets` AS chiffre_affaires_net
+FROM 
+    societe s
+JOIN 
+    compte_resultat cr ON s.siren = cr.siren
+WHERE 
+    LEFT(s.postal_code, 2) = '44';
+
+```
+
+![Code posta](image_sql/sql_2_serdar.png){#MCD width=10cm height=10cm}
+
+
+
 ## Quelques détails techniques
 
 
@@ -538,11 +610,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-3}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 ``` r
@@ -591,11 +663,11 @@ boxplot(cars, col = c("#5975a4", "#cc8963"))
 
 \begin{figure}
 
-{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=7cm]{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1} 
 
 }
 
-\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-4}
+\caption{\label{fig:boxplots}Deux boxplots.}\label{fig:unnamed-chunk-6}
 \end{figure}
 
 ``` r
@@ -622,6 +694,9 @@ Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de c
 Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
 s
 \newpage
+
+
+
 
 
 
@@ -669,9 +744,9 @@ L’objectif de cette étude est d’analyser la rentabilité des entreprises en
 $$
       \text{rentabilité} = \frac{\text{résultat d'exploitation} + \text{résultat financier}}{\text{chiffres d’affaires nets}}
 $$
+\medskip
 
 3) Création d'une variable catégorielle : La valeur de rentabilité est divisée dans les classes suivantes :
-
 
 \begin{itemize}[label=$\circ$]
     \item \textnormal{Rentabilité $< 0$ : \og En perte\fg}

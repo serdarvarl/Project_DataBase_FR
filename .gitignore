@@ -1,0 +1,7 @@
+archive/.~lock.Profit and loss - Onthology.csv\#
+*.csv#
+
+
+# LibreOffice lock dosyaları
+~lock.*
+*.lock
