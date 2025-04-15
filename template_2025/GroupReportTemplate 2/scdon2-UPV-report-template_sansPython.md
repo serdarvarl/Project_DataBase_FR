@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "14 April 2025"
+date: "15 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -307,6 +307,12 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 ![MOD](MCD.png){#MOD width=8cm height=10cm }  
 
 - Pour le MCD, inclure une image réalisée avec le logiciel MySQL, telle que celle visible sur la Figure~\ref{MCD} ci-dessous :
+
+![MCD](image_sql/mssql_1.png){#MCD width=10cm height=5cm}
+
+
+
+
 
 ![MCD](image_sql/mcd_totat.png){#MCD width=15cm height=5cm}
 
@@ -763,6 +769,9 @@ $$
 
 - **Hypothèse nulle (H\textsubscript{0})** : La répartition des catégories de rentabilité (rentabilité) par département ne diffère pas.
 - **Hypothèse alternative (H\textsubscript{1})** : La distribution des catégories de rentabilité varie selon le département.
+
+
+
 
 
 \bigskip

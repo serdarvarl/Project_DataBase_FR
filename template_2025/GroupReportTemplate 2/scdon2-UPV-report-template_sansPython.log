@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.13)  14 APR 2025 12:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.13)  15 APR 2025 15:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -510,6 +510,9 @@ LaTeX Warning: Label `MCD' multiply defined.
 LaTeX Warning: Label `MCD' multiply defined.
 
 
+LaTeX Warning: Label `MCD' multiply defined.
+
+
 LaTeX Warning: Label `fig:boxplots' multiply defined.
 
 )
@@ -706,23 +709,18 @@ File: MCD.png Graphic file (type png)
 <use MCD.png>
 Package pdftex.def Info: MCD.png  used on input line 468.
 (pdftex.def)             Requested size: 227.62814pt x 284.53151pt.
-<image_sql/mcd_totat.png, id=303, 1077.02374pt x 261.97874pt>
+<image_sql/mssql_1.png, id=303, 753.81625pt x 472.76625pt>
+File: image_sql/mssql_1.png Graphic file (type png)
+<use image_sql/mssql_1.png>
+Package pdftex.def Info: image_sql/mssql_1.png  used on input line 481.
+(pdftex.def)             Requested size: 284.52077pt x 142.2638pt.
+<image_sql/mcd_totat.png, id=304, 1077.02374pt x 261.97874pt>
 File: image_sql/mcd_totat.png Graphic file (type png)
 <use image_sql/mcd_totat.png>
-Package pdftex.def Info: image_sql/mcd_totat.png  used on input line 481.
+Package pdftex.def Info: image_sql/mcd_totat.png  used on input line 487.
 (pdftex.def)             Requested size: 426.79196pt x 142.2659pt.
 
-Overfull \hbox (2.84608pt too wide) in paragraph at lines 481--482
- [][] 
- []
-
-<image_sql/societe.png, id=304, 954.56625pt x 194.7275pt>
-File: image_sql/societe.png Graphic file (type png)
-<use image_sql/societe.png>
-Package pdftex.def Info: image_sql/societe.png  used on input line 487.
-(pdftex.def)             Requested size: 426.7834pt x 142.26872pt.
-
-Overfull \hbox (2.83752pt too wide) in paragraph at lines 487--488
+Overfull \hbox (2.84608pt too wide) in paragraph at lines 487--488
  [][] 
  []
 
@@ -738,34 +736,34 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) h
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.490 
-       <./MCD.png> <./image_sql/mcd_totat.png>]
-<image_sql/charge_chiffre.png, id=317, 1246.6575pt x 329.23pt>
+       <./MCD.png> <./image_sql/mssql_1.png>]
+<image_sql/societe.png, id=317, 954.56625pt x 194.7275pt>
+File: image_sql/societe.png Graphic file (type png)
+<use image_sql/societe.png>
+Package pdftex.def Info: image_sql/societe.png  used on input line 493.
+(pdftex.def)             Requested size: 426.7834pt x 142.26872pt.
+
+Overfull \hbox (2.83752pt too wide) in paragraph at lines 493--494
+ [][] 
+ []
+
+<image_sql/charge_chiffre.png, id=318, 1246.6575pt x 329.23pt>
 File: image_sql/charge_chiffre.png Graphic file (type png)
 <use image_sql/charge_chiffre.png>
-Package pdftex.def Info: image_sql/charge_chiffre.png  used on input line 493.
+Package pdftex.def Info: image_sql/charge_chiffre.png  used on input line 499.
 (pdftex.def)             Requested size: 426.7874pt x 142.26442pt.
 
-Overfull \hbox (2.84152pt too wide) in paragraph at lines 493--494
+Overfull \hbox (2.84152pt too wide) in paragraph at lines 499--500
  [][] 
  []
 
-<image_sql/chiffre_affaire.png, id=319, 1245.65375pt x 415.5525pt>
+<image_sql/chiffre_affaire.png, id=320, 1245.65375pt x 415.5525pt>
 File: image_sql/chiffre_affaire.png Graphic file (type png)
 <use image_sql/chiffre_affaire.png>
-Package pdftex.def Info: image_sql/chiffre_affaire.png  used on input line 502.
+Package pdftex.def Info: image_sql/chiffre_affaire.png  used on input line 508.
 (pdftex.def)             Requested size: 426.7859pt x 142.26247pt.
 
-Overfull \hbox (2.84003pt too wide) in paragraph at lines 502--503
- [][] 
- []
-
-<image_sql/compte_resulta.png, id=320, 1198.4775pt x 307.1475pt>
-File: image_sql/compte_resulta.png Graphic file (type png)
-<use image_sql/compte_resulta.png>
-Package pdftex.def Info: image_sql/compte_resulta.png  used on input line 508.
-(pdftex.def)             Requested size: 426.78831pt x 142.26439pt.
-
-Overfull \hbox (2.84244pt too wide) in paragraph at lines 508--509
+Overfull \hbox (2.84003pt too wide) in paragraph at lines 508--509
  [][] 
  []
 
@@ -786,24 +784,34 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5}) h
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.511 
-       <./image_sql/societe.png> <./image_sql/charge_chiffre.png> <./image_sql/chiffre_affaire.png>]
-<image_sql/produit_chiffre.png, id=332, 1231.60126pt x 618.31pt>
-File: image_sql/produit_chiffre.png Graphic file (type png)
-<use image_sql/produit_chiffre.png>
-Package pdftex.def Info: image_sql/produit_chiffre.png  used on input line 514.
-(pdftex.def)             Requested size: 426.78217pt x 142.26491pt.
+       <./image_sql/mcd_totat.png> <./image_sql/societe.png> <./image_sql/charge_chiffre.png>]
+<image_sql/compte_resulta.png, id=333, 1198.4775pt x 307.1475pt>
+File: image_sql/compte_resulta.png Graphic file (type png)
+<use image_sql/compte_resulta.png>
+Package pdftex.def Info: image_sql/compte_resulta.png  used on input line 514.
+(pdftex.def)             Requested size: 426.78831pt x 142.26439pt.
 
-Overfull \hbox (2.83629pt too wide) in paragraph at lines 514--515
+Overfull \hbox (2.84244pt too wide) in paragraph at lines 514--515
  [][] 
  []
 
-<image_sql/subvention.png, id=333, 1010.77625pt x 130.4875pt>
+<image_sql/produit_chiffre.png, id=334, 1231.60126pt x 618.31pt>
+File: image_sql/produit_chiffre.png Graphic file (type png)
+<use image_sql/produit_chiffre.png>
+Package pdftex.def Info: image_sql/produit_chiffre.png  used on input line 520.
+(pdftex.def)             Requested size: 426.78217pt x 142.26491pt.
+
+Overfull \hbox (2.83629pt too wide) in paragraph at lines 520--521
+ [][] 
+ []
+
+<image_sql/subvention.png, id=335, 1010.77625pt x 130.4875pt>
 File: image_sql/subvention.png Graphic file (type png)
 <use image_sql/subvention.png>
-Package pdftex.def Info: image_sql/subvention.png  used on input line 520.
+Package pdftex.def Info: image_sql/subvention.png  used on input line 526.
 (pdftex.def)             Requested size: 426.79033pt x 85.35942pt.
 
-Overfull \hbox (2.84445pt too wide) in paragraph at lines 520--521
+Overfull \hbox (2.84445pt too wide) in paragraph at lines 526--527
  [][] 
  []
 
@@ -813,187 +821,194 @@ Overfull \hbox (2.84445pt too wide) in paragraph at lines 520--521
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.524 \newpage
-              
+l.529 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.524 \newpage
-              
+l.529 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.524 \newpage
-               <./image_sql/compte_resulta.png> <./image_sql/produit_chiffre.png> <./image_sql/subvention.png>]
-Overfull \hbox (4.92026pt too wide) in paragraph at lines 549--551
+l.529 
+       <./image_sql/chiffre_affaire.png> <./image_sql/compte_resulta.png> <./image_sql/produit_chiffre.png>]
+
+[9
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.530 \newpage
+               <./image_sql/subvention.png>]
+Overfull \hbox (4.92026pt too wide) in paragraph at lines 555--557
 []\T1/cmr/m/n/12 Enfin, les tables ont été ex-por-tées au for-mat CSV à l'aide de la fonc-tion write_csv. 
  []
 
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 571.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 577.
 
-
-[9]
 
 [10]
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <6> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 617.
-
 
 [11]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <6> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 623.
+
+
+[12]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 709.
-<image_sql/sql_1_Serdar.png, id=365, 337.26pt x 599.23875pt>
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 715.
+<image_sql/sql_1_Serdar.png, id=372, 337.26pt x 599.23875pt>
 File: image_sql/sql_1_Serdar.png Graphic file (type png)
 <use image_sql/sql_1_Serdar.png>
-Package pdftex.def Info: image_sql/sql_1_Serdar.png  used on input line 725.
+Package pdftex.def Info: image_sql/sql_1_Serdar.png  used on input line 731.
 (pdftex.def)             Requested size: 142.26576pt x 284.53163pt.
-
-
-[12
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2.9}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.729 \newpage
-               <./image_sql/sql_1_Serdar.png>]
-<image_sql/sql_2_serdar.png, id=374, 745.78625pt x 600.2425pt>
-File: image_sql/sql_2_serdar.png Graphic file (type png)
-<use image_sql/sql_2_serdar.png>
-Package pdftex.def Info: image_sql/sql_2_serdar.png  used on input line 749.
-(pdftex.def)             Requested size: 284.52832pt x 284.53197pt.
 
 
 [13
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.756 \chapter
-              {MatÃ©riel et MÃ©thodes}\label{matuxe9riel-et-muxe9thodes} <./image_sql/sql_2_serdar.png>]
-Chapitre 3.
+l.735 \newpage
+               <./image_sql/sql_1_Serdar.png>]
+<image_sql/sql_2_serdar.png, id=382, 745.78625pt x 600.2425pt>
+File: image_sql/sql_2_serdar.png Graphic file (type png)
+<use image_sql/sql_2_serdar.png>
+Package pdftex.def Info: image_sql/sql_2_serdar.png  used on input line 755.
+(pdftex.def)             Requested size: 284.52832pt x 284.53197pt.
 
 
 [14
-
-]
-Chapitre 4.
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.11}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.762 \chapter
+              {MatÃ©riel et MÃ©thodes}\label{matuxe9riel-et-muxe9thodes} <./image_sql/sql_2_serdar.png>]
+Chapitre 3.
 
 
 [15
 
 ]
-Chapitre 5.
-
-Underfull \hbox (badness 10000) in paragraph at lines 844--845
-
- []
-
+Chapitre 4.
 
 
 [16
 
 ]
-<scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf, id=405, 469.755pt x 325.215pt>
-File: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
-<use scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 870.
-(pdftex.def)             Requested size: 199.16928pt x 137.88454pt.
+Chapitre 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 850--851
+
+ []
+
 
 
 [17
-pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.910 \newpage
-               <./scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf, id=420, 469.755pt x 325.215pt>
-File: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 947.
+
+]
+<scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf, id=412, 469.755pt x 325.215pt>
+File: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
+<use scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf>
+Package pdftex.def Info: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 876.
 (pdftex.def)             Requested size: 199.16928pt x 137.88454pt.
 
 
 [18
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.916 \newpage
+               <./scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-5-1.pdf>]
+<scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf, id=427, 469.755pt x 325.215pt>
+File: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+<use scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 953.
+(pdftex.def)             Requested size: 199.16928pt x 137.88454pt.
+
+
+[19
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.985 s \newpage
+l.991 s \newpage
                  <./scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-6-1.pdf>]
 
-[19]
-Overfull \hbox (33.94719pt too wide) in alignment at lines 1078--1081
- [] [] [] [] [] 
- []
-
-
-Overfull \hbox (33.94719pt too wide) in alignment at lines 1081--1082
- [] [] [] [] [] 
- []
-
-
-Overfull \hbox (33.94719pt too wide) in alignment at lines 1082--1090
- [] [] [] [] [] 
- []
-
-
-Overfull \hbox (15.85674pt too wide) in alignment at lines 1095--1098
- [] [] [] [] 
- []
-
-
-Overfull \hbox (15.85674pt too wide) in alignment at lines 1098--1099
- [] [] [] [] 
- []
-
-
-Overfull \hbox (15.85674pt too wide) in alignment at lines 1099--1107
- [] [] [] [] 
- []
-
-
-
 [20]
-<box_plot_par_anne.png, id=452, 941.5175pt x 720.6925pt>
+Overfull \hbox (33.94719pt too wide) in alignment at lines 1084--1087
+ [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (33.94719pt too wide) in alignment at lines 1087--1088
+ [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (33.94719pt too wide) in alignment at lines 1088--1096
+ [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (15.85674pt too wide) in alignment at lines 1101--1104
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (15.85674pt too wide) in alignment at lines 1104--1105
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (15.85674pt too wide) in alignment at lines 1105--1113
+ [] [] [] [] 
+ []
+
+
+
+[21]
+<box_plot_par_anne.png, id=460, 941.5175pt x 720.6925pt>
 File: box_plot_par_anne.png Graphic file (type png)
 <use box_plot_par_anne.png>
-Package pdftex.def Info: box_plot_par_anne.png  used on input line 1123.
+Package pdftex.def Info: box_plot_par_anne.png  used on input line 1129.
 (pdftex.def)             Requested size: 426.79646pt x 284.52196pt.
 
-Overfull \hbox (2.85059pt too wide) in paragraph at lines 1123--1124
+Overfull \hbox (2.85059pt too wide) in paragraph at lines 1129--1130
  [][] 
  []
 
 
 
-[21
+[22
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1127 \newpage
+l.1133 \newpage
                 <./box_plot_par_anne.png>]
 
-[22]
-
 [23]
+
+[24]
 Chapitre 6.
-
-
-[24
-
-]
-Chapitre 7.
 
 
 [25
 
 ]
-No file scdon2-UPV-report-template_sansPython.bbl.
+Chapitre 7.
 
 
 [26
 
 ]
+No file scdon2-UPV-report-template_sansPython.bbl.
+
 
 [27
+
+]
+
+[28
 
 ] (./scdon2-UPV-report-template_sansPython.aux)
  ***********
@@ -1007,18 +1022,18 @@ Package rerunfilecheck Info: File `scdon2-UPV-report-template_sansPython.out' ha
 (rerunfilecheck)             Checksum: 6F743874349BF7A0D1CBC02487F65DD9;10210.
  ) 
 Here is how much of TeX's memory you used:
- 16132 strings out of 471587
- 275160 string characters out of 5519154
- 739139 words of memory out of 5000000
- 42266 multiletter control sequences out of 15000+600000
+ 16141 strings out of 471587
+ 275373 string characters out of 5519154
+ 739140 words of memory out of 5000000
+ 42273 multiletter control sequences out of 15000+600000
  651549 words of font info for 100 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
  94i,10n,93p,797b,683s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcti0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt0800.450pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcit0800.450pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit0800.450pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.450pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit1095.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1095.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcbx0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0800.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1728.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/serdarvarol/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/serdarvarol/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on scdon2-UPV-report-template_sansPython.pdf (33 pages, 1284926 bytes).
+Output written on scdon2-UPV-report-template_sansPython.pdf (34 pages, 1308089 bytes).
 PDF statistics:
- 1617 PDF objects out of 1728 (max. 8388607)
- 583 compressed objects within 6 object streams
- 126 named destinations out of 1000 (max. 500000)
- 419 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1625 PDF objects out of 1728 (max. 8388607)
+ 588 compressed objects within 6 object streams
+ 128 named destinations out of 1000 (max. 500000)
+ 424 words of extra memory for PDF output out of 10000 (max. 10000000)
 
