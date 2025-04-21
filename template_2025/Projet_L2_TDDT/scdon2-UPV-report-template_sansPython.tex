@@ -1,0 +1,1346 @@
+\documentclass[mstat,12pt]{unswthesis}
+
+
+\usepackage{array}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{svg}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% OK...Now we get to some actual input.  The first part sets up
+% the title etc that will appear on the front page
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Projet réalisé par\\[0.5cm] l'équipe TDDT du groupe de TD1 \\[3cm]Rapport
+de groupe des UE \newline  Bases de données + Sciences des Données 2}
+
+\authornameonly{ }
+
+\author{
+  \begin{tabular}{c}
+  MOUTCHACHOU Lydia \\
+  IBNMTAR Hazem \\
+  BERETTI--PRENANT Esteban \\
+  VAROL Serdar
+  \end{tabular}
+}
+
+\copyrightfalse
+\figurespagefalse
+\tablespagefalse
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  And now the document begins
+%  The \beforepreface and \afterpreface commands puts the
+%  contents page etc in
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{header.tex}
+
+\renewcommand{\contentsname}{Table des matières}
+
+\renewcommand{\chaptername}{Chapitre}
+
+
+
+
+\begin{document}
+
+\beforepreface
+
+%\afterpage{\blankpage}
+
+% plagiarism
+
+\prefacesection{Déclaration de non plagiat}
+
+\textcolor{red}{À compléter avant la remise du rapport.}
+
+\vskip 2pc \noindent Nous déclarons que ce rapport est le fruit de notre seul travail, à part lorsque cela est indiqué  explicitement. 
+
+\vskip 2pc  \noindent Nous acceptons que la personne évaluant ce rapport puisse, pour les besoins de cette évaluation:
+\begin{itemize}
+\item la reproduire et en fournir une copie à un autre membre de l'université; et/ou,
+\item en communiquer une copie à un service en ligne de détection de plagiat (qui pourra en retenir une copie pour les besoins d'évaluation future).
+\end{itemize}
+
+\vskip 2pc \noindent Nous certifions que nous avons lu et compris les règles ci-dessus.\vspace{24pt}
+
+\vskip 2pc \noindent En signant cette déclaration, nous acceptons ce qui précède.
+\vskip 2pc \noindent
+Signature: \rule{7cm}{0.25pt} \hfill Date: \rule{4cm}{0.25pt} \\[1cm]
+\vskip 1pc
+
+%\textcolor{red}{Mettre à jour la date.}
+
+{\bigskip\bigskip\bigskip\noindent} \today
+%\afterpage{\blankpage}
+
+% Acknowledgements are optional
+
+
+\prefacesection{Remerciements}
+
+\textcolor{red}{À compléter avant la remise du rapport.}
+
+{\bigskip}Nos plus sincères remerciements vont à notre encadrant
+pédagogique pour les conseils avisés sur notre travail.\\[1cm] Nous
+remercions aussi \ldots{}\\[1cm] 
+
+{\bigskip\bigskip\bigskip\noindent} \today
+
+%\afterpage{\blankpage}
+
+% Abstract
+
+\prefacesection{Résumé}
+
+Notre projet vise à analyser les performances financières des
+entreprises françaises entre 2018 et 2022 à partir des données du
+Registre National du Commerce et des Sociétés (RNCS). Nous cherchons à
+comprendre quels sont les facteurs qui influencent la rentabilité des
+entreprises et comment ces dernières évoluent en fonction de leur
+secteur d'activité. Plus précisément, nous allons : - Comparer les
+performances des entreprises selon leur chiffre d'affaires et leur
+rentabilité. - Étudier l'impact de la fiscalité sur la profitabilité des
+entreprises. - Analyser l'évolution des ventes, des stocks et des taxes
+pour identifier des tendances économiques.
+
+%\afterpage{\blankpage}
+
+
+\afterpreface
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Now we can start on the first chapter
+% Within chapters we have sections, subsections and so forth
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\afterpage{\blankpage}
+
+
+\chapter{Introduction}\label{introduction}
+
+\section{Présentation du projet}\label{pruxe9sentation-du-projet}
+
+Les données financières des entreprises jouent un rôle crucial dans la
+compréhension de leur santé économique. Ce projet se concentre sur
+l'analyse des performances financières des entreprises françaises entre
+2018 et 2022, en utilisant les données fournies par le Registre National
+du Commerce et des Sociétés (RNCS).
+
+\bigskip
+
+\begin{itemize}[label=$\circ$]
+    \item \textbf{Comparer les performances des entreprises selon leur chiffre d'affaires et leur rentabilité.}
+    \item \textbf{Étudier l’impact de la fiscalité sur la profitabilité des entreprises.}
+    \item \textbf{Analyser l’évolution des ventes, des stocks et des taxes pour identifier des tendances économiques.}
+\end{itemize}
+
+\medskip
+
+\section{Responsabilités et composition de
+l'équipe}\label{responsabilituxe9s-et-composition-de-luxe9quipe}
+
+\medskip
+
+MOUTCHACHOU Lydia : Étudiant n°22212656
+
+IBNMTAR Hazem : Étudiant n°22309227
+
+BERETTI--PRENANT Esteban : Étudiant n°22208752
+
+VAROL Serdar : Étudiant n°22009668
+
+\bigskip
+
+\section{Objectifs et questions de
+recherche}\label{objectifs-et-questions-de-recherche}
+
+Notre projet vise à analyser les performances financières des
+entreprises françaises entre 2018 et 2022. Pour ce faire, nous allons
+examiner plusieurs facteurs qui pourraient influencer la rentabilité des
+entreprises. Les questions spécifiques que nous allons aborder sont les
+suivantes :
+
+\medskip
+
+\textbf{Comparaison de la rentabilité par rapport au chiffre d'affaires
+:}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Comment la rentabilité varie-t-elle en fonction de la taille de
+  l'entreprise ?
+\item
+  Y a-t-il une différence notable entre les entreprises qui ont recours
+  au refinancement et celles qui n'en ont pas besoin ?
+\end{enumerate}
+
+\textbf{Comparaison de la rentabilité par rapport au chiffre}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  La rentabilité des entreprises diffère-t-elle selon la ville où elles
+  sont implantées ?
+\item
+  Les entreprises qui exportent leurs produits ou services sont-elles
+  plus rentables que celles qui opèrent uniquement sur le marché
+  national ?
+\end{enumerate}
+
+\textbf{Impact fiscal et sectoriel :}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Quel est l'impact des taxes sur la rentabilité des entreprises ?
+\item
+  Comment la rentabilité varie-t-elle selon le secteur d'activité des
+  entreprises ?
+\end{enumerate}
+
+\textbf{Évolution temporelle :}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Comment la rentabilité des entreprises a-t-elle évolué entre 2012 et
+  2016 ?
+\item
+  Peut-on identifier des tendances spécifiques ou des périodes de
+  croissance/déclin dans les performances financières des entreprises ?
+\end{enumerate}
+
+\medskip
+
+En répondant à ces questions, nous espérons identifier les principaux
+facteurs influençant la rentabilité des entreprises françaises et
+fournir des insights précieux pour les décideurs économiques et les
+gestionnaires d'entreprises.
+
+\chapter{Base de données}\label{base-de-donnuxe9es}
+
+\section{Provenance des données}\label{provenance-des-donnuxe9es}
+
+Les données utilisées dans ce projet proviennent du jeu de données
+Kaggle : \medskip
+
+\begin{itemize}[label=$\circ$]
+  \item \textnormal{\textbf{Profit and loss \- Ontology.csv :} Contient les comptes de résultat de 100 000 entreprises françaises, avec des informations détaillées sur les revenus, les dépenses et les bénéfices.}
+  
+  \item \textnormal{\textbf{APE\_Fusion.csv :} Utilise le code APE pour classer les entreprises selon leur secteur d’activité, permettant des comparaisons sectorielles précises.}
+
+  \item \textnormal{\textbf{Data\_Kaggle.csv :} Fournit des données globales sur les entreprises, incluant les ventes, les stocks et les taxes, permettant d'analyser l’évolution des performances financières sur plusieurs années.}
+\end{itemize}
+
+\medskip
+
+\textit{Lien vers les données :}
+\href{https://www.kaggle.com/datasets/briaclg/financial-data-of-french-compagnies/data?select=Profit+and+loss+-+Onthology.csv}{Kaggle Dataset}
+
+\section{Descriptif des tables}\label{descriptif-des-tables}
+
+\bigskip
+
+\subsection{Table 1: APE\_Fusion.csv}\label{table-1-ape_fusion.csv}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular}{|p{3.2cm}|p{1.2cm}|p{7.5cm}|p{2.5cm}|}
+\hline
+\textbf{Nom colonne} & \textbf{Type} & \textbf{Signification} & \textbf{Caractéristique} \\
+\hline
+Unname d: 0 & int & Index ou identifiant de ligne (peut être ignoré dans l'analyse) & \\
+\hline
+ape & object & Code APE complet de l'activité principale de l'entreprise & Clé primaire \\
+\hline
+ape\_name & object & Nom ou description de l'activité correspondant au code APE & \\
+\hline
+ape\_len & int & Longueur du code APE, indiquant le nombre de caractères qu'il contient & \\
+\hline
+ape\_cat0 & int & Premier niveau du code APE (division), composé des 2 premiers chiffres & \\
+\hline
+ape\_cat1 & float & Deuxième niveau du code APE (groupe), composé des 3 premiers chiffres & \\
+\hline
+ape\_cat2 & float & Troisième niveau du code APE (classe), composé des 4 premiers chiffres & \\
+\hline
+ape\_cat3 & object & Dernier niveau du code APE (sous-classe) & \\
+\hline
+Libellé & object & Description du secteur d'activité auquel appartient le code APE & \\
+\hline
+Code & object & Code alphabétique supplémentaire associé au secteur d'activité & \\
+\hline
+\end{tabular}
+\footnotesize
+\label{tab:ape_description}
+\end{table}
+
+\subsection{Table 2 : Profit and loss -
+Ontology.csv}\label{table-2-profit-and-loss---ontology.csv}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular}{|p{4cm}|p{2cm}|p{9cm}|}
+\hline
+\textbf{Nom colonne} & \textbf{Type} & \textbf{Signification} \\
+\hline
+Columns\_(FR/EN) & varchar & Colonnes des états financiers en français et en anglais \\
+\hline
+Description (FR) & varchar & Explication de ce que chaque colonne représente \\
+\hline
+Liasse (Id) & int & Identifiant unique des colonnes dans la base INPI \\
+\hline
+Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \\
+\hline
+\end{tabular}
+\normalsize
+\end{table}
+
+\subsection{Table 3 : Data\_Kaggle.csv}\label{table-3-data_kaggle.csv}
+
+\scriptsize
+\begin{longtable}{|p{0.7cm}|p{12cm}|p{1.5cm}|}
+\hline
+\textbf{N\textdegree} & \textbf{Variable} & \textbf{Code} \\
+\hline \endfirsthead
+\hline \textbf{N\textdegree} & \textbf{Variable Nome} & \textbf{Nome de Colon} \\ \hline \endhead
+1 & year & B \\
+2 & Autres imp\^ots, taxes et versements assimil\'es & C \\
+3 & Ventes de marchandises & D \\
+4 & Production vendue biens & E \\
+5 & Production vendue services & F \\
+6 & Chiffres d\'affaires nets & G \\
+7 & Production stock\'ee & H \\
+8 & Production immobilis\'ee & I \\
+9 & Subventions d\'exploitation & J \\
+10 & Reprises sur amortissements et provisions, transfert de charges & K \\
+11 & Autres produits & L \\
+12 & Total des produits d\'exploitation & M \\
+13 & Achats de marchandises (y compris droits de douane) & N \\
+14 & Variation de stock (marchandises) & O \\
+15 & Achats de mati\`eres premi\`eres et autres approvisionnements & P \\
+16 & Variation de stock (mati\`eres premi\`eres et approvisionnements) & Q \\
+17 & Autres achats et charges externes & R \\
+18 & Imp\^ots, taxes et versements assimil\'es & S \\
+19 & Salaires et traitements & T \\
+20 & Charges sociales & U \\
+21 & Autres charges & V \\
+22 & Total des charges d\'exploitation & W \\
+23 & R\'esultat d'exploitation & X \\
+24 & B\'en\'efice attribu\'e ou perte transf\'er\'ee & Y \\
+25 & Perte support\'ee ou b\'en\'efice transf\'er\'e & Z \\
+26 & Produits financiers de participations & AA \\
+27 & Produits des autres valeurs mobili\`eres et cr\'eances de l\'actif immobilis\'e & AB \\
+28 & Autres int\'er\^ets et produits assimil\'es & AC \\
+29 & Reprises sur provisions et transferts de charges financier & AD \\
+30 & Diff\'erences positives de change & AE \\
+31 & Produits nets sur cessions de valeurs mobili\`eres de placement & AF \\
+32 & Total des produits financiers & AG \\
+33 & Dotations financi\`eres sur amortissements et provisions & AH \\
+34 & Int\'er\^ets et charges assimil\'ees & AI \\
+35 & Diff\'erences n\'egatives de change & AJ \\
+36 & Charges nettes sur cessions de valeurs mobili\`eres de placement & AK \\
+37 & Total des charges financi\`eres & AL \\
+38 & R\'esultat financier & AM \\
+39 & R\'esultat en cours avant imp\^ots & AN \\
+40 & Produits exceptionnels sur op\'erations de gestion & AO \\
+41 & Produits exceptionnels sur op\'erations en capital & AP \\
+42 & Reprises sur provisions et transferts de charges exceptionnel & AQ \\
+43 & Total des produits exceptionnels & AR \\
+44 & Charges exceptionnelles sur op\'erations de gestion & AS \\
+45 & Charges exceptionnelles sur op\'erations en capital & AT \\
+46 & Dotations exceptionnelles aux amortissements et provisions & AU \\
+47 & Total des charges exceptionnelles & AV \\
+48 & R\'esultat exceptionnel & AW \\
+49 & Participation des salari\'es aux r\'esultats de l\'entreprise & AX \\
+50 & Imp\^ots sur les b\'en\'efices & AY \\
+51 & Total des produits & AZ \\
+52 & Total des charges & BA \\
+53 & B\'en\'efices ou perte (Total des produits - Total des charges) & BB \\
+54 & Imp\^ots diff\'er\'es (compte de r\'esultat) & BC \\
+55 & R\'esultat net des soci\'et\'es mises en \'equivalence & BD \\
+56 & R\'esultat net des entreprises int\'egr\'ees & BE \\
+57 & R\'esultat Groupe (R\'esultat net consolid\'e) & BF \\
+58 & Part des int\'er\^ets minoritaires (R\'esultat hors groupe) & BG \\
+59 & R\'esultat net part du groupe (part de la soci\'et\'e m\`ere) & BH \\
+60 & R\'emun\'eration d\'interm\'ediaires et honoraires (hors r\'etrocessions) & BI \\
+61 & Location, charges locatives et de copropri\'et\'e & BJ \\
+62 & Effectif moyen du personnel & BK \\
+63 & Sous-traitance & BL \\
+64 & Personnel ext\'erieur \`a l\'entreprise & BM \\
+65 & R\'etrocessions d\'honoraires, commissions et courtages & BN \\
+66 & Taxe professionnelle & BO \\
+67 & Montant de la TVA. collect\'ee & BP \\
+\hline
+\end{longtable}
+\normalsize
+\scriptsize
+\begin{longtable}{|p{0.7cm}|p{12cm}|p{1.5cm}|}
+\hline
+\textbf{N\textdegree} & \textbf{Variable} & \textbf{Code} \\
+\hline \endfirsthead
+\hline \textbf{N\textdegree} & \textbf{Variable Nome} & \textbf{Nome de Colon} \\ \hline \endhead
+68 & Total TVA. d\'eductible sur biens et services & BQ \\
+69 & Dividendes & BR \\
+70 & siren & BS \\
+\hline
+\end{longtable}
+\normalsize
+
+\newpage
+
+\section{Modèles MCD et MOD}\label{moduxe8les-mcd-et-mod}
+
+\begin{itemize}
+\tightlist
+\item
+  Pour le MCD, inclure une image réalisée avec le logiciel Mocodo
+  \href{https://www.mocodo.net/?mcd=eNqNksFu2zAMhu96Ch0dQAOW7Zab67ZK2zTL4ixtcjEUh14FOJKhyFm3N_J9b-AX62_HaOMEAwb4Ay1SIvlLjMvNQRmvrRnxWDsywe3DQPD43R296MwRCw9Wu7AgMRzy2Ka6rnxdieGUwyfJsKMZNUsBpmrX2kj5z50ddvZLZ7-Kid5QniNNZLfEMoXyTTWUC7OM3EWpLpggiq2j0BgixhyldLClQ8uC945wnPkQ0u1_D49auYJfk7E7fdwjeNNKYfde5WJhf8GBZtlM_SYXvSj380w_b7tq_Ena3lNX5KzT05u9DcE1kOAePIIp-AZm4DuYM3bzWljnyc2c3ZbaX9btAv3CSzJbR01Il_97pi-g12sMFuAHWIIn8AxWYC24_PNp9cxGDN9Z5pMsEiLlA5gAiJUQKyFWQuwYlzG-AhHApaxvBF8h-WrNIrsrvNroXHtqH79Z05z2Ze5VTxm_nA1xoVX866VO0_bEz-uqdfqEXovcavxhQgIpe7FMG2VSTS6Qy4H48Ktm6hK9K-q_fh_Ip7OEKRVNNkN5ML5DbGExcUlxbHkfjCcDcXSlbc_wPGLXVV2Zusp0SklBGI5gPB2wN-SeTJ4=}{https://www.moc\\odo.net}
+  telle que celle visible sur la Figure\(~\)\ref{MCD} ci-dessous :
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=8cm,height=10cm]{MCD.png}
+\caption{MCD}\label{MCD}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Pour le MOD, inclure les images réalisée avec le logiciel MySQL, telle
+  que celles visible sur la Figure ci-dessous :
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm,height=5cm]{image_sql/mssql_1.png}
+\caption{MOD}\label{M0D}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/mcd_totat.png}
+\caption{MOD Table Total}\label{MOD_total}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/societe.png}
+\caption{Societe Table}\label{Societe}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/charge_chiffre.png}
+\caption{Charge Chiffre}\label{charge_chiffre}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/chiffre_affaire.png}
+\caption{Chiffre affaire}\label{Chiffre_affaire}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/compte_resulta.png}
+\caption{Compte de Résultat}\label{compte_resulta}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=5cm]{image_sql/produit_chiffre.png}
+\caption{Produit Chiffre}\label{produit_chiffre}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=3cm]{image_sql/subvention.png}
+\caption{Subvention}\label{subvention}
+\end{figure}
+
+\newpage
+
+\bigskip
+
+\section{Import des données}\label{import-des-donnuxe9es}
+
+\bigskip
+
+Dans un premier temps, les données ont été chargées dans R à l'aide de
+la fonction \(read\_csv()\). Ensuite, afin de faciliter l'importation de
+ces données dans phpMyAdmin, nous avons procédé à un découpage (slicing)
+de la base initiale en sept tables distinctes, chacune regroupant les
+variables pertinentes pour son thème spécifique.
+
+\medskip
+
+Par exemple, pour la table \emph{``société''}, nous avons conservé
+uniquement les colonnes suivantes : \emph{``siren'', ``denomination'',
+``postal\_code'', ``town'' et ``ape''.}
+
+Ce processus a été appliqué à chaque table en sélectionnant les
+attributs nécessaires, puis nous avons limité chaque sous-table à ses
+300 premières lignes afin de simplifier les tests d'importation.
+
+\medskip
+
+Enfin, les tables ont été exportées au format CSV à l'aide de la
+fonction \(write\_csv\).
+
+\medskip
+
+Dans un premier temps, nous avions extrait les \textbf{300} premières
+lignes de la base de données globale. Toutefois, afin d'obtenir un
+échantillon plus équilibré et représentatif dans le temps, nous avons
+modifié notre approche : nous avons sélectionné les \textbf{100
+premières} lignes pour chaque année, de \textbf{2012} à \textbf{2016.}
+
+\medskip
+
+Pour cela, nous avons utilisé la bibliothèque sqldf dans R, qui permet
+d'exécuter des requêtes SQL directement sur des data frames. Par
+exemple, pour extraire les données de l'année 2012, nous avons utilisé
+la requête suivante :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{annee\_2012 }\OtherTok{\textless{}{-}} \FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT * FROM data\_kaggle WHERE year = 2012"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\medskip
+
+Cette commande retourne toutes les colonnes de la base data\_kaggle pour
+les lignes dont l'année est égale à 2012.
+
+\medskip
+
+Nous avons ensuite appliqué la même méthode pour chaque année
+(\textbf{2013 à 2016}), puis extrait les 100 premières lignes de chaque
+sous-ensemble. Enfin, nous avons combiné ces sous-ensembles afin
+d'obtenir une table finale regroupant \textbf{500 lignes} (100 par
+année). Cette nouvelle table est ainsi mieux structurée pour les futures
+analyses et pourra être importée dans phpMyAdmin pour les étapes
+suivantes de notre projet.
+
+\medskip
+
+Lors de l'importation de données sur phpMyAdmin, on a rencontré un petit
+problème : la colonne était trop longue pour être insérée dans la table.
+Du coup, on a modifié simplement le nom de la colonne. Elle était : «
+Produits des autres valeurs mobilières et créances de l'actif immobilisé
+» et on l'a changée pour : « Produits des autres valeurs mobilières ».
+
+\medskip
+
+Cette commande retourne toutes les colonnes de la base data\_kaggle pour
+les lignes dont l'année est \textbf{égale à 2012}. Nous avons ensuite
+appliqué la même méthode pour chaque année (2013 à 2016), puis extrait
+\textbf{les 100 premières lignes} de chaque sous-ensemble. Enfin, nous
+avons combiné ces sous-ensembles afin d'obtenir une \textbf{table finale
+regroupant 500 lignes (100 par année)}. Cette nouvelle table est ainsi
+mieux structurée pour les futures analyses et pourra être
+\textbf{importée dans phpMyAdmin} pour les étapes suivantes de notre
+projet.
+
+\newpage
+
+\newpage
+
+\section{Requêtes réalisées}\label{requuxeates-ruxe9alisuxe9es}
+
+Pour chaque requête, l'exprimer en langage naturel puis en SQL. Puis
+donner le résultat obtenu (ou un extrait) et expliquer ce résultat.
+
+L'objectif est de varier le type de requêtes et de répondre à votre
+problématique initiale.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Pour comperer et trouver selon leur code postal
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\KeywordTok{SELECT} 
+    \KeywordTok{LEFT}\NormalTok{(postal\_code, }\DecValTok{2}\NormalTok{) }\KeywordTok{AS}\NormalTok{ departement,}
+    \FunctionTok{COUNT}\NormalTok{(}\OperatorTok{*}\NormalTok{) }\KeywordTok{AS}\NormalTok{ nombre\_entreprises}
+\KeywordTok{FROM} 
+\NormalTok{    societe}
+\KeywordTok{WHERE} 
+\NormalTok{    postal\_code }\KeywordTok{IS} \KeywordTok{NOT} \KeywordTok{NULL}
+\KeywordTok{GROUP} \KeywordTok{BY} 
+\NormalTok{    departement}
+\KeywordTok{ORDER} \KeywordTok{BY} 
+\NormalTok{    nombre\_entreprises }\KeywordTok{DESC}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=5cm,height=10cm]{image_sql/sql_1_Serdar.png}
+\caption{Code posta}\label{MCD}
+\end{figure}
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{SELECT} 
+\NormalTok{    s.siren,}
+\NormalTok{    s.denomination,}
+\NormalTok{    s.postal\_code,}
+\NormalTok{    cr.\textasciigrave{}Chiffres d’affaires nets\textasciigrave{} }\KeywordTok{AS}\NormalTok{ chiffre\_affaires\_net}
+\KeywordTok{FROM} 
+\NormalTok{    societe s}
+\KeywordTok{JOIN} 
+\NormalTok{    compte\_resultat cr }\KeywordTok{ON}\NormalTok{ s.siren }\OperatorTok{=}\NormalTok{ cr.siren}
+\KeywordTok{WHERE} 
+    \KeywordTok{LEFT}\NormalTok{(s.postal\_code, }\DecValTok{2}\NormalTok{) }\OperatorTok{=} \StringTok{\textquotesingle{}44\textquotesingle{}}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm,height=10cm]{image_sql/sql_2_serdar.png}
+\caption{Code posta}\label{MCD}
+\end{figure}
+
+\chapter{Matériel et Méthodes}\label{matuxe9riel-et-muxe9thodes}
+
+\section{Logiciels}\label{logiciels}
+
+Nous avons utilisé ces logiciels lors de la réalisation de notre projet
+:
+
+\begin{itemize}
+\tightlist
+\item
+  Pretraitment : Libre Office
+\item
+  Stocker Base Donnée : Mysql /MAMP
+\item
+  Traitment statistique et ecrit: R
+\item
+  Version control : GitHUB
+\item
+  L'IA : OpenAI et MISTRAL
+\end{itemize}
+
+\bigskip
+
+Voici lien de github notre projet :
+\href{https://github.com/serdarvarl/Project_DataBase_FR.git}{TDDT github}
+
+\section{Modélisation statistique}\label{moduxe9lisation-statistique}
+
+\url{http://biostatisticien.eu/springeR/livreR.pdf}
+
+\chapter{Analyse et Résultats}\label{analyse-et-ruxe9sultats}
+
+\section{\texorpdfstring{\textbf{Comparer les catégories d'entreprises
+en fonction des Chiffres d'affaires
+nets}}{Comparer les catégories d'entreprises en fonction des Chiffres d'affaires nets}}\label{comparer-les-catuxe9gories-dentreprises-en-fonction-des-chiffres-daffaires-nets}
+
+\bigskip
+
+\textbf{Variables :} Chiffres d'affaires nets + catégories (Effectif
+moyen du personnel)
+
+\subsection{Étapes pour créer une visualisation
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation}
+
+contuinee ;;;;;;;
+
+\subsubsection{Les catégories d'entreprises
+:}\label{les-catuxe9gories-dentreprises}
+
+\bigskip
+\scriptsize
+\begin{quote}
+\textit{L’article 51 de la loi n°2008-776 du 4 août 2008 de modernisation de l’économie (\textbf{LME}) détermine, pour les besoins de l’analyse statistique, un classement des entreprises en quatre catégories : les microentreprises, les petites et moyennes entreprises (\textbf{PME}), les entreprises de taille intermédiaire (\textbf{ETI}) et les grandes entreprises.\\ \\Le décret n° 2008-1354 du 18 décembre 2008 précise les critères permettant de déterminer l’appartenance à une catégorie d'entreprises.}
+\end{quote}
+\normalsize
+
+\begin{itemize}[label=$\circ$]
+  \item \textnormal{ \textbf{La microentreprise} est une entreprise dont l'effectif est inférieur à 10 personnes et dont le chiffre d'affaires ou le total du bilan annuel n'excède pas 2 millions d'euros}
+\item \textnormal{ \textbf{la PME} est une entreprise dont l’effectif est inférieur à 250 personnes
+et dont le chiffre d’affaires annuel n'excède pas 50 millions d'euros ou
+dont le total de bilan n'excède pas 43 millions d'euros }
+\item \textnormal{\textbf{L'ETI}, entreprise de taille intermédiaire, est une entreprise qui n'appartient pas à la catégorie des PME, dont l’effectif est inférieur à 5000 personnes et dont le chiffre d'affaires annuel n'excède pas 1 500 millions d'euros ou dont le total de bilan n'excède pas 2 000 millions d'euros}
+\item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
+dans les catégories précédentes}
+\end{itemize}
+\newpage
+
+\section{\texorpdfstring{\textbf{Analyser s'il y a une différence entre
+les entreprises qui ont recours au refinancement et celles qui n'en ont
+pas
+besoin}}{Analyser s'il y a une différence entre les entreprises qui ont recours au refinancement et celles qui n'en ont pas besoin}}\label{analyser-sil-y-a-une-diffuxe9rence-entre-les-entreprises-qui-ont-recours-au-refinancement-et-celles-qui-nen-ont-pas-besoin}
+
+\bigskip
+
+\textbf{Variables :} indicateur de refinancement + chiffre d'affaires
+nets
+
+\subsection{Étapes pour créer une visualisation
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-1}
+
+contuinee ;;;;;;;
+
+\subsubsection{Les catégories d'entreprises
+:}\label{les-catuxe9gories-dentreprises-1}
+
+\bigskip
+
+Créez deux groupes : Entreprises avec refinancement : Total des charges
+financières = 0 Entreprises sans refinancement : Total des charges
+financières = 0
+
+\newpage
+
+\section{\texorpdfstring{\textbf{Analyser la chiff des entreprises en
+fonction de leur localisation
+géographique}}{Analyser la chiff des entreprises en fonction de leur localisation géographique}}\label{analyser-la-chiff-des-entreprises-en-fonction-de-leur-localisation-guxe9ographique}
+
+\bigskip
+
+L'objectif de cette étude est d'analyser des entreprises en France à
+partir de données financières entre 2012 et 2016. Nous avons examiné
+\textbf{le chiffre d'affaires net}, \textbf{le résultat d'exploitation}
+et \textbf{la rentabilité}. La rentabilité a été calculée à partir du
+chiffre d'affaires net, du résultat d'exploitation . Des entreprises et
+a été examinée par \textbf{année} et par \textbf{region}. La base de
+données ne contenait que des codes postaux. Nous avons d'abord regroupé
+les départements puis les régions en fonction des deux chiffres du code
+postal.Nous avons examiné chaque année indépendamment.
+
+\medskip
+
+Dans ce chapite , nous allons presenter l'annes 2015 car l'année avec le
+plus de données est 2015. Nous avons constaté que les différences et les
+incohérences dans la taille des données selon les années et les régions
+constituaient un obstacle.
+
+\medskip
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm,height=5cm]{image_sql/image_independant/count_region-ca.png}
+\caption{Pivot Table}\label{Pivot}
+\end{figure}
+
+\medskip
+
+\subsection{Préparation des
+données}\label{pruxe9paration-des-donnuxe9es}
+
+\medskip
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Un fichier CSV (créé par code R) contenant les données financières de
+  l'entreprise de 2012 à 2016 a été utilisé
+\end{enumerate}
+
+\small
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Les Variables sont:
+\end{enumerate}
+
+\begin{itemize}[label=$\circ$]
+    \item \textnormal{Year}
+    \item \textnormal{Siren}
+    \item \textnormal{résultat d'exploitation}
+    \item \textnormal{chiffres d’affaires nets}
+    \item \textnormal{code\_postal}
+    \item \textnormal{categorie\_rentabilite}
+    \item \textnormal{departement}
+    \item \textnormal{region}
+\end{itemize}
+
+\[
+      \text{rentabilité} = \frac{\text{résultat d'exploitation}}{\text{chiffres d’affaires nets}}
+\]
+
+\medskip
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Création d'une variable catégorielle : La valeur de rentabilité est
+  divisée dans les classes suivantes :
+\end{enumerate}
+
+\begin{itemize}[label=$\circ$]
+    \item \textnormal{Rentabilité $< 0$ : \og En perte\fg}
+    \item \textnormal{$0 \leq$ Rentabilité $< 0{,}1$ : \og Faible rentabilité\fg}
+    \item \textnormal{$0{,}1 \leq$ Rentabilité $< 0{,}3$ : \og Rentabilité moyenne\fg}
+    \item \textnormal{Rentabilité $\geq 0{,}3$ : \og Haute rentabilité\fg}
+\end{itemize}
+
+\newpage
+
+\subsubsection{Analyse Univarie}\label{analyse-univarie}
+
+\medskip
+
+\begin{itemize}
+\tightlist
+\item
+  Chifre d'afffaire
+\end{itemize}
+
+\begin{longtable}[t]{lrrrrr}
+\caption{\label{tab:chiffre_affaire_summary_2015}Résumé des statistiques du chiffre d’affaires nets (en millions d'euros) – 2015}\\
+\toprule
+region & avarage & median & min & max & ecart\_type\\
+\midrule
+\endfirsthead
+\caption[]{Résumé des statistiques du chiffre d’affaires nets (en millions d'euros) – 2015 \textit{(continued)}}\\
+\toprule
+region & avarage & median & min & max & ecart\_type\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Auvergne-Rhône-Alpes & 3.18 & 0.33 & -0.06 & 1083.39 & 25.26\\
+Bourgogne-Franche-Comté & 4.21 & 0.56 & 0.00 & 436.49 & 20.71\\
+Bretagne & 11.57 & 0.74 & 0.00 & 2938.86 & 101.94\\
+Centre-Val de Loire & 4.06 & 0.44 & -0.12 & 531.87 & 23.78\\
+Grand Est & 4.36 & 0.53 & -0.04 & 1584.02 & 36.31\\
+\addlinespace
+Hauts-de-France & 3.26 & 0.49 & -0.11 & 537.71 & 17.26\\
+Normandie & 4.52 & 0.59 & -0.01 & 1155.42 & 34.62\\
+Nouvelle-Aquitaine & 3.51 & 0.44 & -0.05 & 1788.57 & 35.47\\
+Occitanie & 2.17 & 0.36 & -0.14 & 360.82 & 10.56\\
+Pays de la Loire & 10.93 & 0.78 & -0.01 & 2729.00 & 90.24\\
+\addlinespace
+Provence-Alpes-Côte d’Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
+Île-de-France & 3.91 & 0.35 & -0.31 & 6217.25 & 64.37\\*
+\end{longtable}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/chiffre_affaire_graph_2015-1.pdf}
+
+\newpage
+
+\begin{itemize}
+\tightlist
+\item
+  Resulta Explation
+\end{itemize}
+
+\begin{longtable}[t]{lrrrrr}
+\caption{\label{tab:resultat_exp_summary_2015}Résumé des statistiques du Résultat d'exploitation (en millions d'euros) – 2015}\\
+\toprule
+region & avarage & median & min & max & ecart\_type\\
+\midrule
+\endfirsthead
+\caption[]{Résumé des statistiques du Résultat d'exploitation (en millions d'euros) – 2015 \textit{(continued)}}\\
+\toprule
+region & avarage & median & min & max & ecart\_type\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Auvergne-Rhône-Alpes & 3.18 & 0.33 & -0.06 & 1083.39 & 25.26\\
+Bourgogne-Franche-Comté & 4.21 & 0.56 & 0.00 & 436.49 & 20.71\\
+Bretagne & 11.57 & 0.74 & 0.00 & 2938.86 & 101.94\\
+Centre-Val de Loire & 4.06 & 0.44 & -0.12 & 531.87 & 23.78\\
+Grand Est & 4.36 & 0.53 & -0.04 & 1584.02 & 36.31\\
+\addlinespace
+Hauts-de-France & 3.26 & 0.49 & -0.11 & 537.71 & 17.26\\
+Normandie & 4.52 & 0.59 & -0.01 & 1155.42 & 34.62\\
+Nouvelle-Aquitaine & 3.51 & 0.44 & -0.05 & 1788.57 & 35.47\\
+Occitanie & 2.17 & 0.36 & -0.14 & 360.82 & 10.56\\
+Pays de la Loire & 10.93 & 0.78 & -0.01 & 2729.00 & 90.24\\
+\addlinespace
+Provence-Alpes-Côte d’Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
+Île-de-France & 3.91 & 0.35 & -0.31 & 6217.25 & 64.37\\*
+\end{longtable}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/resulta_graph_2015-1.pdf}
+
+\newpage
+
+\subsubsection{Analyse Bivarie}\label{analyse-bivarie}
+
+\medskip
+
+\begin{itemize}
+\tightlist
+\item
+  chiffre d'affaires nets et Résultat d'exploitation
+\end{itemize}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/nuage_point_anness-1.pdf}
+- Correlation
+
+\begin{verbatim}
+## [1] "Année 2012 : corrélation = -0.45"
+## [1] "Année 2013 : corrélation = 0.348"
+## [1] "Année 2014 : corrélation = 0.804"
+## [1] "Année 2015 : corrélation = 0.385"
+## [1] "Année 2016 : corrélation = 0.293"
+\end{verbatim}
+
+Interpretation:
+
+2012 : 2012 : 2012 : 2012 : 2012 :
+
+\newpage
+
+\begin{itemize}
+\tightlist
+\item
+  Regreation droit
+\end{itemize}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/reg_droit-1.pdf}
+
+\textbf{Formuler les hypothèses :}
+
+\bigskip
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hypothèse nulle (H\textsubscript{0})} : La répartition des
+  catégories de rentabilité (rentabilité) par département ne diffère
+  pas.
+\item
+  \textbf{Hypothèse alternative (H\textsubscript{1})} : La distribution
+  des catégories de rentabilité varie selon le département.
+\end{itemize}
+
+\bigskip
+
+\scriptsize
+\begin{longtable}{|p{1.2cm}|p{3.5cm}|p{2cm}|p{3cm}|p{4.2cm}|}
+\hline
+\textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\
+\hline \endfirsthead
+\hline \textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\ \hline \endhead
+2012 & Chi² (simulé) & 0.2474 & H\textsubscript{0} non rejetée & Échantillon insuffisant ou déséquilibré \\
+2013 & Chi² (simulé) & 0.0019 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+2014 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+2015 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Forte différence observée \\
+2016 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
+\hline
+\multicolumn{5}{l}{\textit{Note : L’année 2012 présente un faible nombre d’observations et des distributions déséquilibrées.}}
+\end{longtable}
+
+\bigskip
+
+\scriptsize
+\begin{longtable}{|p{1.2cm}|p{3cm}|p{3.5cm}|p{6cm}|}
+\hline
+\textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\
+\hline \endfirsthead
+\hline \textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\ \hline \endhead
+2012 & 1 & Pas de différence significative & Faible volume de données \\
+2013 & \textless{} 0.001 & Différence significative & Rentabilité varie selon les départements \\
+2014 & 1 & Pas de différence significative & Rentabilité homogène \\
+2015 & 1 & Pas de différence significative & Rentabilité homogène \\
+2016 & 1 & Pas de différence significative & Rentabilité homogène \\
+\hline
+\multicolumn{4}{l}{\textit{Conclusion : Seule l’année 2013 présente une variation significative de la rentabilité selon les départements.}}
+\end{longtable}
+
+\newpage
+
+\section*{Représentation cartographique}
+
+\begin{itemize}
+\tightlist
+\item
+  Pour le MOD, inclure une image réalisée avec le logiciel MySQl
+  \newline telle que celle visible sur la Figure\(~\)\ref{box_plot}
+  ci-dessous :
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm,height=10cm]{box_plot_par_anne.png}
+\caption{MOD\_2}\label{box_plot}
+\end{figure}
+
+\newpage
+
+\section{\texorpdfstring{\textbf{La variation de la rentabilité selon le
+secteur d'activité des
+entreprises}}{La variation de la rentabilité selon le secteur d'activité des entreprises}}\label{la-variation-de-la-rentabilituxe9-selon-le-secteur-dactivituxe9-des-entreprises}
+
+\bigskip
+
+\textbf{Variables} : le code APE (le secteur d'activité des entreprises)
++ Chiffres d'affaires nets
+
+\subsection{Étapes pour créer une visualisation
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-2}
+
+\subsubsection{Catégorisation des entreprises par secteur d'activité
+:}\label{catuxe9gorisation-des-entreprises-par-secteur-dactivituxe9}
+
+\subsubsection{Visualisation :}\label{visualisation}
+
+\textbf{Boxplot} : Visualiser la distribution des chiffres d'affaires
+nets pour chaque secteur d'activité.\textbackslash{} \textbf{Diagramme
+en barres} : Montrer la moyenne des chiffres d'affaires nets par secteur
+d'activité.
+
+\subsubsection{Test Statistique (ANOVA) :}\label{test-statistique-anova}
+
+\textbf{Chauque un/e doit proposer son text :) }
+
+Dans cette partie, vous pourrez utiliser les outils et méthodes vus au
+semestre précédent pour analyser les liens entre les variables.
+
+Pour cela, vous pourrez utiliser les tests du \(\chi^2\), test du
+coefficient de corrélation linéaire, test d'Anova, la droite de
+régression linéaire.
+
+Vous pourrez également proposer des modèles pour faire du clustering
+(k-means, CAH), de la classification (K plus proches voisins par
+exemple) comme vu en Science des données 1.
+
+\newpage
+
+\chapter{Discussion}\label{discussion}
+
+Placer les résultats que vous avez obtenus dans le chapitre précédent en
+perspective par rapport au problème étudié.
+
+\chapter{Conclusion et perspectives}\label{conclusion-et-perspectives}
+
+Quelles sont les conclusions principales? Quelles sont vos
+recommandations pour le commanditaire? Quelles analyses subséquentes
+pourraient être faites dans le futur?
+
+\bigskip
+
+On attend de vous deux types de perspectives : des perspectives à court
+terme pour améliorer rapidement votre approche et des perspectives à
+plus long terme qu'elles soient liées à la science des données ou au
+domaine métier pour lequel vous avez travaillé.
+
+\bigskip
+
+Lister également les difficultés rencontrées dans la partie BD (e.g.,
+taille de la base, manque de données, \ldots) et dans la partie
+statistique.
+
+\chapter*{Bibliographie}\label{bibliographie}
+\addcontentsline{toc}{chapter}{Bibliographie}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\end{CSLReferences}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+\chapter*{Annexes}\label{annexes}
+\addcontentsline{toc}{chapter}{Annexes}
+
+Il faut utiliser les annexes de façon judicieuse. C'est ici que l'on
+place des résultats trop volumineux pour apparaître dans le corps du
+rapport. Ou bien des résultats (e.g., graphiques) moins intéressants que
+les autres. Cela permet de limiter le nombre de pages du coeur du
+rapport, et d'ajouter des détails dans cette partie pour le lecteur
+désireux d'en savoir plus.
+
+\section*{\texorpdfstring{\textbf{Codes}}{Codes}}\label{codes}
+\addcontentsline{toc}{section}{\textbf{Codes}}
+
+\tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Charger la bibliothèque}
+\FunctionTok{library}\NormalTok{(readr)}
+
+\CommentTok{\#Lire le fichier CSV}
+\NormalTok{data\_kaggle }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"csv/data\_kaggle.csv"}\NormalTok{)}
+
+\CommentTok{\#Fonction pour calculer la rentabilité (PAS de référence directe à data\_kaggle dans les paramètres)}
+\NormalTok{fonction\_rentabilite }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(resultat\_financier, ca\_net) \{}
+  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(resultat\_financier) }\SpecialCharTok{\&\&} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ca\_net) }\SpecialCharTok{\&\&}\NormalTok{ ca\_net }\SpecialCharTok{!=} \DecValTok{0}\NormalTok{) \{}
+    \FunctionTok{return}\NormalTok{(resultat\_financier }\SpecialCharTok{/}\NormalTok{ ca\_net)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{return}\NormalTok{(}\ConstantTok{NA}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\#Appliquer la fonction ligne par ligne}
+\NormalTok{data\_kaggle}\SpecialCharTok{$}\NormalTok{rentabilite }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(data\_kaggle, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(row) \{}
+\NormalTok{  resultat }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(row[}\StringTok{"Résultat financier"}\NormalTok{])}
+\NormalTok{  ca }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(row[}\StringTok{"Chiffres d’affaires nets"}\NormalTok{])}
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{fonction\_rentabilite}\NormalTok{(resultat, ca))}
+\NormalTok{\})}
+
+\CommentTok{\#Sauvegarder le résultat dans un nouveau fichier CSV}
+\FunctionTok{write.csv}\NormalTok{(data\_kaggle, }
+          \StringTok{"csv/data\_kaggle\_new.csv"}\NormalTok{, }
+          \AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\#Affichage pour vérification}
+\FunctionTok{View}\NormalTok{(data\_kaggle)}
+\NormalTok{data\_kaggle}\SpecialCharTok{$}\FunctionTok{rentabilite}\NormalTok{()}
+\NormalTok{annee\_2012}\OtherTok{\textless{}{-}}\NormalTok{data\_kaggle}\SpecialCharTok{$}\NormalTok{year[]}
+\NormalTok{annee\_2012}
+
+
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"sqldf"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(sqldf)}
+
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT * FROM data\_kaggle WHERE year = 2012"}\NormalTok{)}
+\NormalTok{result}
+\FunctionTok{head}\NormalTok{(result)}
+\NormalTok{annee\_2012}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2012"}\NormalTok{)}
+\FunctionTok{View}\NormalTok{(annee\_2012)}
+\NormalTok{annee\_2013}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2013"}\NormalTok{)}
+\NormalTok{annee\_2014}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2014"}\NormalTok{)}
+\NormalTok{annee\_2015}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2015"}\NormalTok{)}
+\NormalTok{annee\_2016}\OtherTok{\textless{}{-}}\FunctionTok{sqldf}\NormalTok{(}\StringTok{"SELECT* from data\_kaggle WHERE year=2016"}\NormalTok{)}
+\FunctionTok{cor}\NormalTok{(annee\_2012}\SpecialCharTok{$}\NormalTok{rentabilite,annee\_2012}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Impôts, taxes et versements assimilés}\StringTok{\textasciigrave{}}\NormalTok{,}\AttributeTok{use =} \StringTok{"complete.obs"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(annee\_2012}\SpecialCharTok{$}\NormalTok{rentabilite,annee\_2012}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Impôts, taxes et versements assimilés}\StringTok{\textasciigrave{}}\NormalTok{)}
+\CommentTok{\# Table 1 : Société}
+\CommentTok{\# Combinaison des 100 premières lignes de chaque sous{-}ensemble}
+\NormalTok{sous\_ensemble }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+\FunctionTok{View}\NormalTok{(sous\_ensemble)}
+
+\CommentTok{\# Sélection des colonnes souhaitées}
+\NormalTok{societe }\OtherTok{\textless{}{-}}\NormalTok{ sous\_ensemble[, }\FunctionTok{c}\NormalTok{(}\StringTok{"siren"}\NormalTok{, }\StringTok{"denomination"}\NormalTok{, }\StringTok{"postal\_code"}\NormalTok{, }\StringTok{"town"}\NormalTok{, }\StringTok{"ape"}\NormalTok{)]}
+\FunctionTok{View}\NormalTok{(societe)}
+\FunctionTok{write\_csv}\NormalTok{(societe, }\StringTok{"csv/societe.csv"}\NormalTok{)}
+
+\CommentTok{\# Table 2 : Subventions}
+\NormalTok{sous\_ensemble\_2 }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+\NormalTok{subventions}\OtherTok{\textless{}{-}}\NormalTok{sous\_ensemble\_2[, }\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{,}\StringTok{"siren"}\NormalTok{, }\StringTok{"Subventions d’exploitation"}\NormalTok{)]}
+
+
+\FunctionTok{write\_csv}\NormalTok{(subventions, }\StringTok{"csv/subvention.csv"}\NormalTok{)}
+
+\CommentTok{\# Table 3 : ApeGen}
+\NormalTok{sous\_ensemble\_3 }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+
+
+\NormalTok{apegen}\OtherTok{\textless{}{-}}\NormalTok{sous\_ensemble\_3[, }\FunctionTok{c}\NormalTok{(}\StringTok{"ape"}\NormalTok{, }\StringTok{"ape\_name"}\NormalTok{, }\StringTok{"ape\_len"}\NormalTok{, }\StringTok{"ape\_division"}\NormalTok{, }\StringTok{"ape\_groupe"}\NormalTok{, }\StringTok{"ape\_classe"}\NormalTok{, }\StringTok{"ape\_sous\_classe"}\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(apegen, }\StringTok{"csv/apegen.csv"}\NormalTok{)}
+
+\CommentTok{\# Table 4 : Chiffre d\textquotesingle{}Affaires}
+\NormalTok{sous\_ensemble\_4}\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+\NormalTok{chiffre\_affaire}\OtherTok{\textless{}{-}}\NormalTok{sous\_ensemble\_4[,}\FunctionTok{c}\NormalTok{(}\StringTok{"siren"}\NormalTok{, }\StringTok{"Chiffres d’affaires nets"}\NormalTok{, }\StringTok{"Impôts, taxes et versements assimilés"}\NormalTok{)]}
+
+\FunctionTok{write\_csv}\NormalTok{(chiffre\_affaire, }\StringTok{"csv/chiffre\_affaire.csv"}\NormalTok{)}
+
+\CommentTok{\# Table 5 : Charges Chiffre}
+\NormalTok{sous\_ensemble\_5}\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+\NormalTok{charge\_chiffre }\OtherTok{\textless{}{-}}\NormalTok{ sous\_ensemble\_5[, }\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{,}
+  \StringTok{"siren"}\NormalTok{, }
+  \StringTok{"Reprises sur amortissements et provisions, transfert de charges"}\NormalTok{, }
+  \StringTok{"Reprises sur provisions et transferts de charges financier"}\NormalTok{, }
+  \StringTok{"Reprises sur provisions et transferts de charges exceptionnel"}\NormalTok{, }
+  \StringTok{"Achats de marchandises (y compris droits de douane)"}\NormalTok{, }
+  \StringTok{"Achats de matières premières et autres approvisionnements"}\NormalTok{, }
+  \StringTok{"Autres achats et charges externes"}\NormalTok{, }
+  \StringTok{"Salaires et traitements"}\NormalTok{, }
+  \StringTok{"Charges sociales"}
+\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(charge\_chiffre, }\StringTok{"csv/charge\_chiffre.csv"}\NormalTok{)}
+
+\CommentTok{\# Table 6 : Produits Chiffre}
+\NormalTok{sous\_ensemble\_6}\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+
+
+\NormalTok{produit\_chiffre }\OtherTok{\textless{}{-}}\NormalTok{ sous\_ensemble\_6[, }\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{,}
+  \StringTok{"siren"}\NormalTok{, }
+  \StringTok{"Total des produits d’exploitation"}\NormalTok{, }
+  \StringTok{"Total des produits financiers"}\NormalTok{, }
+  \StringTok{"Total des produits exceptionnels"}\NormalTok{, }
+  \StringTok{"Autres produits"}
+\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(produit\_chiffre, }\StringTok{"csv/produit\_chiffre.csv"}\NormalTok{)}
+\CommentTok{\# Table 7 : Compte de Résultat}
+\NormalTok{sous\_ensemble\_7}\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{  annee\_2012[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2013[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2014[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
+\NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
+\NormalTok{)}
+
+\NormalTok{compte\_resultat }\OtherTok{\textless{}{-}}\NormalTok{ sous\_ensemble\_7[, }\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{,}
+  \StringTok{"siren"}\NormalTok{, }
+  \StringTok{"Chiffres d’affaires nets"}\NormalTok{, }
+  \StringTok{"Impôts, taxes et versements assimilés"}\NormalTok{, }
+  \StringTok{"Résultat d\textquotesingle{}exploitation"}\NormalTok{, }
+  \StringTok{"Résultat financier"}\NormalTok{, }
+  \StringTok{"Résultat en cours avant impôts"}\NormalTok{, }
+  \StringTok{"Résultat exceptionnel"}\NormalTok{, }
+  \StringTok{"Bénéfices ou perte (Total des produits ‐ Total des charges)"}
+\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(compte\_resultat, }\StringTok{"csv/compte\_resultat.csv"}\NormalTok{)}
+\NormalTok{stock }\OtherTok{\textless{}{-}}\NormalTok{ sous\_ensemble\_7[ }\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{)]}
+\FunctionTok{write\_csv}\NormalTok{(stock, }\StringTok{"csv/stock.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\section*{\texorpdfstring{\textbf{Tables}}{Tables}}\label{tables}
+\addcontentsline{toc}{section}{\textbf{Tables}}
+
+Si vous avez des tableaux supplémentaires, vous pouvez les ajouter ici.
+
+Utiliser \url{https://www.tablesgenerator.com/markdown_tables} pour
+créer des tables Markdown simples, ou bien utiliser \LaTeX.
+
+\begin{longtable}[]{@{}lcr@{}}
+\caption{une légende au-dessus du tableau.
+\label{tab7.1}}\tabularnewline
+\toprule\noalign{}
+Les tables & sont & cool \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Les tables & sont & cool \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+col 1 est & alignée à gauche & \$1600 \\
+col 2 est & centrée & \$12 \\
+col 3 est & alignée à droite & \$1 \\
+\end{longtable}
+
+Aligner les nombres de la troisième colonne sur la droite permet
+d'afficher les unités au-dessus des unités, les dizaines au-dessus des
+dizaines, etc. Il faut toujours privilégier cette présentation.
+
+
+
+
+
+
+
+\end{document}
+
