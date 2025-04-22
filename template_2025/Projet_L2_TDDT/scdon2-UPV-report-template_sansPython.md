@@ -51,6 +51,7 @@ always_allow_html: True
 
 
 
+
 # Introduction {.label:s-intro}
 
 ## Présentation du projet
@@ -306,7 +307,7 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 - Pour le MCD, inclure une image réalisée avec le logiciel Mocodo \href{https://www.mocodo.net/?mcd=eNqNksFu2zAMhu96Ch0dQAOW7Zab67ZK2zTL4ixtcjEUh14FOJKhyFm3N_J9b-AX62_HaOMEAwb4Ay1SIvlLjMvNQRmvrRnxWDsywe3DQPD43R296MwRCw9Wu7AgMRzy2Ka6rnxdieGUwyfJsKMZNUsBpmrX2kj5z50ddvZLZ7-Kid5QniNNZLfEMoXyTTWUC7OM3EWpLpggiq2j0BgixhyldLClQ8uC945wnPkQ0u1_D49auYJfk7E7fdwjeNNKYfde5WJhf8GBZtlM_SYXvSj380w_b7tq_Ena3lNX5KzT05u9DcE1kOAePIIp-AZm4DuYM3bzWljnyc2c3ZbaX9btAv3CSzJbR01Il_97pi-g12sMFuAHWIIn8AxWYC24_PNp9cxGDN9Z5pMsEiLlA5gAiJUQKyFWQuwYlzG-AhHApaxvBF8h-WrNIrsrvNroXHtqH79Z05z2Ze5VTxm_nA1xoVX866VO0_bEz-uqdfqEXovcavxhQgIpe7FMG2VSTS6Qy4H48Ktm6hK9K-q_fh_Ip7OEKRVNNkN5ML5DbGExcUlxbHkfjCcDcXSlbc_wPGLXVV2Zusp0SklBGI5gPB2wN-SeTJ4=}{https://www.moc\\odo.net} telle que celle visible sur la Figure$~$\ref{MCD} ci-dessous :
   
-![MCD](MCD.png){#MCD width=8cm height=10cm }  
+![MCD](image_sql/MCD.png){#MCD width=8cm height=10cm }  
 
 - Pour le MOD, inclure les images réalisée avec le logiciel MySQL, telle que celles visible sur la Figure ci-dessous :
 
@@ -503,7 +504,7 @@ ORDER BY
 ```
 
 
-![Code posta](image_sql/sql_1_Serdar.png){#MCD width=5cm height=10cm}
+![Code postal](image_sql/sql_1_Serdar.png){ width=5cm height=10cm}
 
 \newpage
 
@@ -523,7 +524,7 @@ WHERE
 
 ```
 
-![Code posta](image_sql/sql_2_serdar.png){#MCD width=10cm height=10cm}
+![Code postal](image_sql/sql_2_serdar.png){ width=10cm height=10cm}
 
 
 
@@ -544,6 +545,7 @@ Nous avons utilisé ces logiciels lors de la réalisation de notre projet :
   - Pretraitment : Libre Office
   - Stocker Base Donnée : Mysql /MAMP
   - Traitment statistique et ecrit: R
+  - Correction/ replacement:  Regex
   - Version control : GitHUB
   - L'IA : OpenAI et MISTRAL
   
@@ -594,18 +596,158 @@ dans les catégories précédentes}
 
 
 
-## **Analyser s'il y a une différence entre les entreprises qui ont recours au refinancement et celles qui n'en ont pas besoin**
-\bigskip
-**Variables :**  indicateur de refinancement + chiffre d'affaires nets
+## **Analyse des subventions et du chiffre d'affaires**
+<!-- esteban -->
+\medskip
 
-### Étapes pour créer une visualisation :
-contuinee ;;;;;;;
+L'objectif de cette section est de comprendre si les subventions reçues par les entreprises françaises ont un impact sur leur chiffre d'affaires.
 
-#### Les catégories d’entreprises :
-\bigskip
-Créez deux groupes :
- Entreprises avec refinancement : Total des charges financières = 0
- Entreprises sans refinancement : Total des charges financières = 0
+Les montants des subventions et du chiffre d'affaires varient énormément entre les entreprises : certaines ne reçoivent presque rien, d'autres ont des montants très élevés. Pour rendre les données plus lisibles et éviter que quelques cas extrêmes ne faussent les résultats, on utilise une transformation logarithmique. Cela permet d'observer les tendances de manière plus équilibrée et de voir si, proportionnellement, plus de subventions entraîne plus de chiffre d'affaires.
+
+#### 1. Nettoyage et préparation des données
+
+\medskip
+
+Nous avons utilisé conncetion MySQL pour examiner cette party, voici le code R:
+
+\medskip
+
+
+\footnotesize
+
+``` r
+con <- dbConnect(
+  MySQL(),
+  user = "root",
+  password = "root", # même mot de passe créé plus haut
+  dbname = "projet_L_2",
+  host = "127.0.0.1",
+  port = 8889
+)
+
+# Vérifie immédiatement la connexion :
+#dbListTables(con)
+
+df <- dbGetQuery(con, "
+SELECT
+    s.siren,
+    s.denomination,
+    s.town,
+    s.ape,
+    a.ape_name,
+    cr.year,
+    cr.`Chiffres d’affaires nets` AS chiffre_affaires,
+    sb.`Subventions d’exploitation` AS subvention
+FROM projet_L_2.societe s
+JOIN projet_L_2.apegen a
+  ON s.ape = a.ape
+JOIN projet_L_2.compte_resultat cr
+  ON s.siren = cr.siren
+JOIN projet_L_2.subvention sb
+  ON s.siren = sb.siren AND cr.year = sb.year
+WHERE cr.`Chiffres d’affaires nets` IS NOT NULL
+  AND sb.`Subventions d’exploitation` IS NOT NULL
+")
+```
+\normalsize
+
+\newpage
+
+
+``` r
+library(dplyr)
+library(ggplot2)
+
+# Nettoyage
+df_clean <- df %>%
+  mutate(
+    chiffre_affaires = as.numeric(gsub("[^0-9]", "", chiffre_affaires)),
+    subvention = as.numeric(gsub("[^0-9]", "", subvention))
+  ) %>%
+  filter(!is.na(chiffre_affaires) & !is.na(subvention))
+
+# Création des colonnes logarithmiques
+df_log <- df_clean %>%
+  filter(chiffre_affaires > 0, subvention > 0) %>%
+  mutate(
+    log_CA = log10(chiffre_affaires),
+    log_subvention = log10(subvention)
+  )
+
+# Régression log-log
+modele_log <- lm(log_CA ~ log_subvention, data = df_log)
+summary(modele_log)
+```
+
+```
+## 
+## Call:
+## lm(formula = log_CA ~ log_subvention, data = df_log)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.35059 -0.46289  0.02854  0.46093  1.64308 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)     5.11391    0.31714  16.125  < 2e-16 ***
+## log_subvention  0.44712    0.08262   5.412 4.59e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.6789 on 96 degrees of freedom
+## Multiple R-squared:  0.2337,	Adjusted R-squared:  0.2258 
+## F-statistic: 29.28 on 1 and 96 DF,  p-value: 4.589e-07
+```
+\normalsize
+
+\newpage
+
+#### 2. Analyse univariée
+
+ <!-- **Distribution des subventions reçues** -->
+
+\medskip
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-7-1.pdf)<!-- --> 
+
+> La majorité des entreprises reçoivent de petites subventions. Quelques-unes, plus rares, touchent des montants bien plus élevés.
+
+<!-- **Distribution du chiffre d'affaires** -->
+
+\medskip
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-8-1.pdf)<!-- --> 
+
+> Le chiffre d'affaires est aussi très variable, certaines entreprises réalisant plusieurs dizaines de millions d'euros.
+
+\medskip
+
+#### 3. Analyse bivariée brute
+
+\medskip
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-9-1.pdf)<!-- --> 
+
+> À première vue, il n'y a pas de lien clair entre les subventions et le chiffre d'affaires. Le graphique montre beaucoup de dispersion, ce qui empêche une vraie lecture de tendance.
+
+\medskip
+
+#### 4. Régression log-log : Visualisation
+
+\medskip
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-10-1.pdf)<!-- --> 
+
+> Une fois les données transformées en logarithme, une tendance apparaît : les entreprises qui reçoivent plus de subventions ont, en moyenne, un chiffre d'affaires plus élevé. La relation est significative et le modèle indique qu'une augmentation de 10% des subventions correspond à une hausse d'environ 4,5% du chiffre d'affaires.
+
+\medskip
+
+#### Conclusion
+
+\medskip
+
+En conclusion, même si à l'échelle brute le lien entre subventions et chiffre d'affaires n'est pas visible, la transformation log-log montre qu’il existe une **relation proportionnelle significative**. Cela signifie que les subventions peuvent avoir un impact positif mesurable sur le développement économique des entreprises, en particulier si l'on considère les effets relatifs plutôt que les montants absolus. sans refinancement : Total des charges financières = 0
 
 
 \newpage
@@ -620,15 +762,15 @@ Créez deux groupes :
 
 
 
-## **Analyser la chiff des entreprises en fonction de leur localisation géographique** 
+## **Analyser des entreprises en fonction de leur localisation géographique** 
 <!-- Serdar VAROL -->
 \bigskip
 
-L’objectif de cette étude est d’analyser des entreprises en France à partir de données financières entre 2012 et 2016. Nous avons examiné **le chiffre d’affaires net**, **le résultat d’exploitation** et **la rentabilité**. La rentabilité a été calculée à partir du chiffre d’affaires net, du résultat d’exploitation . Des entreprises et a été examinée par **année** et par **region**. La base de données ne contenait que des codes postaux. Nous avons d’abord regroupé les départements puis les régions en fonction des deux chiffres du code postal.Nous avons examiné chaque année indépendamment. 
+L’objectif de cette étude est d’analyser des entreprises en France à partir de données financières entre 2012 et 2016. Nous avons examiné **le chiffre d’affaires net**, **le résultat d’exploitation**. Des entreprises et a été examinée par **année** et par **region**. La base de données ne contenait que des codes postaux. Nous avons d’abord regroupé les départements puis les régions en fonction des deux chiffres du code postal.Nous avons examiné chaque année indépendamment. 
 
 \medskip
 
-Dans ce chapite , nous allons presenter l'annes 2015 car l’année avec le plus de données est 2015. Nous avons constaté que les différences et les incohérences dans la taille des données selon les années et les régions constituaient un obstacle.
+Dans ce chapite pour analyse univarie, nous allons presenter l'annes 2015 car l’année avec le plus de données est 2015. Nous avons constaté que les différences et les incohérences dans la taille des données selon les années et les régions constituaient un obstacle.
 
 \medskip
 
@@ -646,19 +788,25 @@ Dans ce chapite , nous allons presenter l'annes 2015 car l’année avec le plus
 
 \normalsize
 
-2) Les Variables sont:
+2) Les Variables sont utilise:
 
-\begin{itemize}[label=$\circ$]
-    \item \textnormal{Year}
-    \item \textnormal{Siren}
-    \item \textnormal{résultat d'exploitation}
-    \item \textnormal{chiffres d’affaires nets}
-    \item \textnormal{code\_postal}
-    \item \textnormal{categorie\_rentabilite}
-    \item \textnormal{departement}
-    \item \textnormal{region}
-\end{itemize}
+|  Variable |source   |
+|---|---|
+|Year  |Datakagle.csv   |
+|Siren  |Datakagle.csv   |
+|résultat d'exploitation  |Datakagle.csv |
+|chiffres d’affaires nets  |Datakagle.csv   |
+|code_postal  |Datakagle.csv   |
+|rentabilite  |créé   |
+|categorie_rentabilite  |créé    |
+|Department  |créé    |
+|region  |créé    |
 
+
+
+\medskip
+
+3) Création d'une variable catégorielle : La valeur de rentabilité est divisée dans les classes suivantes :
 
 $$
       \text{rentabilité} = \frac{\text{résultat d'exploitation}}{\text{chiffres d’affaires nets}}
@@ -666,31 +814,35 @@ $$
 
 \medskip
 
-3) Création d'une variable catégorielle : La valeur de rentabilité est divisée dans les classes suivantes :
+Table: Classification des entreprises selon leur rentabilité
 
-\begin{itemize}[label=$\circ$]
-    \item \textnormal{Rentabilité $< 0$ : \og En perte\fg}
-    \item \textnormal{$0 \leq$ Rentabilité $< 0{,}1$ : \og Faible rentabilité\fg}
-    \item \textnormal{$0{,}1 \leq$ Rentabilité $< 0{,}3$ : \og Rentabilité moyenne\fg}
-    \item \textnormal{Rentabilité $\geq 0{,}3$ : \og Haute rentabilité\fg}
-\end{itemize}
-
-\newpage 
-
-#### Analyse Univarie
+| Intervalle de rentabilité | Catégorie |
+|---------------------------|-----------|
+| Rentabilité $< 0$         | En perte  |
+| $0 \leq$ Rentabilité $< 0{,}1$ | Faible rentabilité |
+| $0{,}1 \leq$ Rentabilité $< 0{,}3$ | Rentabilité moyenne |
+| Rentabilité $\geq 0{,}3$  | Haute rentabilité |
 
 \medskip
 
-  - Chifre d'afffaire
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/rentabilite-1.pdf)<!-- --> 
+
+\newpage 
+
+### Analyse Univarie
+
+\medskip
+
+#### Chifre d'afffaire
 
 
 \begin{longtable}[t]{lrrrrr}
-\caption{\label{tab:chiffre_affaire_summary_2015}Résumé des statistiques du chiffre d’affaires nets (en millions d'euros) – 2015}\\
+\caption{\label{tab:chiffre_affaire_summary_2015}Résumé des statistiques du chiffre d'affaires nets (en millions d'euros) – 2015}\\
 \toprule
 region & avarage & median & min & max & ecart\_type\\
 \midrule
 \endfirsthead
-\caption[]{Résumé des statistiques du chiffre d’affaires nets (en millions d'euros) – 2015 \textit{(continued)}}\\
+\caption[]{Résumé des statistiques du chiffre d'affaires nets (en millions d'euros) – 2015 \textit{(continued)}}\\
 \toprule
 region & avarage & median & min & max & ecart\_type\\
 \midrule
@@ -711,7 +863,7 @@ Nouvelle-Aquitaine & 3.51 & 0.44 & -0.05 & 1788.57 & 35.47\\
 Occitanie & 2.17 & 0.36 & -0.14 & 360.82 & 10.56\\
 Pays de la Loire & 10.93 & 0.78 & -0.01 & 2729.00 & 90.24\\
 \addlinespace
-Provence-Alpes-Côte d’Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
+Provence-Alpes-Côte d'Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
 Île-de-France & 3.91 & 0.35 & -0.31 & 6217.25 & 64.37\\*
 \end{longtable}
 
@@ -724,7 +876,7 @@ Provence-Alpes-Côte d’Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
 \newpage 
 
 
- - Resulta Explation 
+#### Resultat d'Explation 
 
 
 \begin{longtable}[t]{lrrrrr}
@@ -754,7 +906,7 @@ Nouvelle-Aquitaine & 3.51 & 0.44 & -0.05 & 1788.57 & 35.47\\
 Occitanie & 2.17 & 0.36 & -0.14 & 360.82 & 10.56\\
 Pays de la Loire & 10.93 & 0.78 & -0.01 & 2729.00 & 90.24\\
 \addlinespace
-Provence-Alpes-Côte d’Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
+Provence-Alpes-Côte d'Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
 Île-de-France & 3.91 & 0.35 & -0.31 & 6217.25 & 64.37\\*
 \end{longtable}
 
@@ -764,109 +916,80 @@ Provence-Alpes-Côte d’Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
 
 \newpage
 
-#### Analyse Bivarie
+### Analyse Bivarie
  \medskip
  
- - chiffre d’affaires nets et Résultat d'exploitation
+#### Chiffre d’affaires nets et Résultat d'exploitation
  
 ![](scdon2-UPV-report-template_sansPython_files/figure-latex/nuage_point_anness-1.pdf)<!-- --> 
-- Correlation 
+
+#### Coefficient de corrélation de Pearson
+ 
+\medskip
 
 
-```
-## [1] "Année 2012 : corrélation = -0.45"
-## [1] "Année 2013 : corrélation = 0.348"
-## [1] "Année 2014 : corrélation = 0.804"
-## [1] "Année 2015 : corrélation = 0.385"
-## [1] "Année 2016 : corrélation = 0.293"
-```
-Interpretation:
 
-2012 :
-2012 :
-2012 :
-2012 :
-2012 :
+
+| Année  | Corrélation (Pearson)  | Interprétation  |
+|--------|---|---|
+|2012|-0.45    |Corrélation négative modérée   |
+|2013|0.35     |Relation positive modérée   |
+|2014|0.80     |Forte corrélation positive    |
+|2015|0.38     |Tendance positive similaire à 2013   |
+|2016|0.29     |Corrélation positive mais faible   |
+
+\medskip
+
+
+La corrélation doit être comprise entre **-1 et 1**, donc les valeurs que nous avons trouvées sont correctes.
+On peut dire qu'en 2012, il existe une relation **négative** entre les deux variables.
+Pour les années 2013, 2015 et 2016, la corrélation est **faible mais positive** : cela signifie que lorsque le chiffre d'affaires augmente, le résultat d'exploitation a tendance à augmenter également.
+En 2014, on observe une **forte** corrélation positive, ce qui indique une relation claire entre les deux variables : elles ont tendance à évoluer dans le même sens, c’est-à-dire à augmenter en même temps.
 
 
 \newpage
 
-- Regreation droit
+#### Regreation droit
 
 
 ![](scdon2-UPV-report-template_sansPython_files/figure-latex/reg_droit-1.pdf)<!-- --> 
 
-
+\medskip
 
 **Formuler les hypothèses :**
 
 \bigskip
 
-- **Hypothèse nulle (H\textsubscript{0})** : La répartition des catégories de rentabilité (rentabilité) par département ne diffère pas.
-- **Hypothèse alternative (H\textsubscript{1})** : La distribution des catégories de rentabilité varie selon le département.
+- Hypothèse nulle (H\textsubscript{0}) : La répartition du chiffre d’affaires net et du résultat d'exploitation ne varie pas selon les régions.
+\medskip
+- Hypothèse alternative (H\textsubscript{1}) : Il existe une différence significative du chiffre d’affaires net et du résultat d'exploitation entre les régions.
 
 
 
 
-
-\bigskip
-
-\scriptsize
-\begin{longtable}{|p{1.2cm}|p{3.5cm}|p{2cm}|p{3cm}|p{4.2cm}|}
-\hline
-\textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\
-\hline \endfirsthead
-\hline \textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\ \hline \endhead
-2012 & Chi² (simulé) & 0.2474 & H\textsubscript{0} non rejetée & Échantillon insuffisant ou déséquilibré \\
-2013 & Chi² (simulé) & 0.0019 & H\textsubscript{0} rejetée & Différence significative entre départements \\
-2014 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
-2015 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Forte différence observée \\
-2016 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
-\hline
-\multicolumn{5}{l}{\textit{Note : L’année 2012 présente un faible nombre d’observations et des distributions déséquilibrées.}}
-\end{longtable}
-
+```
+##      Annee F_value     p_value   Decision
+## 2012  2012   11.49 0.000000000 H0 rejetée
+## 2013  2013    6.25 0.000000000 H0 rejetée
+## 2014  2014    3.77 0.000020167 H0 rejetée
+## 2015  2015    7.46 0.000000000 H0 rejetée
+## 2016  2016    2.76 0.001434238 H0 rejetée
+```
 
 \bigskip
 
 
-\scriptsize
-\begin{longtable}{|p{1.2cm}|p{3cm}|p{3.5cm}|p{6cm}|}
-\hline
-\textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\
-\hline \endfirsthead
-\hline \textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\ \hline \endhead
-2012 & 1 & Pas de différence significative & Faible volume de données \\
-2013 & \textless{} 0.001 & Différence significative & Rentabilité varie selon les départements \\
-2014 & 1 & Pas de différence significative & Rentabilité homogène \\
-2015 & 1 & Pas de différence significative & Rentabilité homogène \\
-2016 & 1 & Pas de différence significative & Rentabilité homogène \\
-\hline
-\multicolumn{4}{l}{\textit{Conclusion : Seule l’année 2013 présente une variation significative de la rentabilité selon les départements.}}
-\end{longtable}
 
-\newpage
+```
+##      Annee F_value p_value       Decision
+## 2012  2012    0.72  0.7195 H0 non rejetée
+## 2013  2013    0.61  0.8213 H0 non rejetée
+## 2014  2014    0.18  0.9987 H0 non rejetée
+## 2015  2015    1.95  0.0289     H0 rejetée
+## 2016  2016    0.44  0.9379 H0 non rejetée
+```
 
-
-\section*{Représentation cartographique}
-
-
-- Pour le MOD, inclure une image réalisée avec le logiciel MySQl
-\newline telle que celle visible sur la Figure$~$\ref{box_plot} ci-dessous :
-  
-![MOD_2](box_plot_par_anne.png){#box_plot width=15cm height=10cm }  
-
-
-
-
-
-
-
-
-
-
-
-
+#### Conclusion
 
 
 

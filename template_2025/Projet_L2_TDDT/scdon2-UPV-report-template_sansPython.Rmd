@@ -49,11 +49,46 @@ always_allow_html: True
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(knitr)
-library(kableExtra)
+# Paramètres généraux pour les chunks R
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+
+# Définir le miroir CRAN pour éviter les erreurs lors de l'installation des packages
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+
+# Liste des packages nécessaires pour le projet
+required_packages <- c(
+  "DBI", "RMySQL", "knitr", "kableExtra", "dplyr", "ggplot2", "readr", "stringr", "sqldf"
+)
+
+# Installer les packages manquants
+installed <- required_packages %in% rownames(installed.packages())
+if (any(!installed)) {
+  install.packages(required_packages[!installed])
+}
+
+# Charger tous les packages
+lapply(required_packages, library, character.only = TRUE)
+
+# Connexion à la base de données MySQL via MAMP (facultatif ici)
+# Peut être activée dans un chunk séparé si besoin.
+# con <- dbConnect(
+#   RMySQL::MySQL(),
+#   user = "root",
+#   password = "root",
+#   dbname = "projet_L_2",
+#   host = "127.0.0.1",
+#   port = 8889,
+#   socket = "/Applications/MAMP/tmp/mysql/mysql.sock"
+# )
+
+
 
 ```
+
 
 
 # Introduction {.label:s-intro}
@@ -311,7 +346,7 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 - Pour le MCD, inclure une image réalisée avec le logiciel Mocodo \href{https://www.mocodo.net/?mcd=eNqNksFu2zAMhu96Ch0dQAOW7Zab67ZK2zTL4ixtcjEUh14FOJKhyFm3N_J9b-AX62_HaOMEAwb4Ay1SIvlLjMvNQRmvrRnxWDsywe3DQPD43R296MwRCw9Wu7AgMRzy2Ka6rnxdieGUwyfJsKMZNUsBpmrX2kj5z50ddvZLZ7-Kid5QniNNZLfEMoXyTTWUC7OM3EWpLpggiq2j0BgixhyldLClQ8uC945wnPkQ0u1_D49auYJfk7E7fdwjeNNKYfde5WJhf8GBZtlM_SYXvSj380w_b7tq_Ena3lNX5KzT05u9DcE1kOAePIIp-AZm4DuYM3bzWljnyc2c3ZbaX9btAv3CSzJbR01Il_97pi-g12sMFuAHWIIn8AxWYC24_PNp9cxGDN9Z5pMsEiLlA5gAiJUQKyFWQuwYlzG-AhHApaxvBF8h-WrNIrsrvNroXHtqH79Z05z2Ze5VTxm_nA1xoVX866VO0_bEz-uqdfqEXovcavxhQgIpe7FMG2VSTS6Qy4H48Ktm6hK9K-q_fh_Ip7OEKRVNNkN5ML5DbGExcUlxbHkfjCcDcXSlbc_wPGLXVV2Zusp0SklBGI5gPB2wN-SeTJ4=}{https://www.moc\\odo.net} telle que celle visible sur la Figure$~$\ref{MCD} ci-dessous :
   
-![MCD](MCD.png){#MCD width=8cm height=10cm }  
+![MCD](image_sql/MCD.png){#MCD width=8cm height=10cm }  
 
 - Pour le MOD, inclure les images réalisée avec le logiciel MySQL, telle que celles visible sur la Figure ci-dessous :
 
@@ -550,7 +585,7 @@ ORDER BY
 ```
 
 
-![Code posta](image_sql/sql_1_Serdar.png){#MCD width=5cm height=10cm}
+![Code postal](image_sql/sql_1_Serdar.png){ width=5cm height=10cm}
 
 \newpage
 
@@ -571,7 +606,7 @@ WHERE
 
 ```
 
-![Code posta](image_sql/sql_2_serdar.png){#MCD width=10cm height=10cm}
+![Code postal](image_sql/sql_2_serdar.png){ width=10cm height=10cm}
 
 
 
@@ -592,6 +627,7 @@ Nous avons utilisé ces logiciels lors de la réalisation de notre projet :
   - Pretraitment : Libre Office
   - Stocker Base Donnée : Mysql /MAMP
   - Traitment statistique et ecrit: R
+  - Correction/ replacement:  Regex
   - Version control : GitHUB
   - L'IA : OpenAI et MISTRAL
   
@@ -642,18 +678,162 @@ dans les catégories précédentes}
 
 
 
-## **Analyser s'il y a une différence entre les entreprises qui ont recours au refinancement et celles qui n'en ont pas besoin**
-\bigskip
-**Variables :**  indicateur de refinancement + chiffre d'affaires nets
+## **Analyse des subventions et du chiffre d'affaires**
+<!-- esteban -->
+\medskip
 
-### Étapes pour créer une visualisation :
-contuinee ;;;;;;;
+L'objectif de cette section est de comprendre si les subventions reçues par les entreprises françaises ont un impact sur leur chiffre d'affaires.
 
-#### Les catégories d’entreprises :
-\bigskip
-Créez deux groupes :
- Entreprises avec refinancement : Total des charges financières = 0
- Entreprises sans refinancement : Total des charges financières = 0
+Les montants des subventions et du chiffre d'affaires varient énormément entre les entreprises : certaines ne reçoivent presque rien, d'autres ont des montants très élevés. Pour rendre les données plus lisibles et éviter que quelques cas extrêmes ne faussent les résultats, on utilise une transformation logarithmique. Cela permet d'observer les tendances de manière plus équilibrée et de voir si, proportionnellement, plus de subventions entraîne plus de chiffre d'affaires.
+
+#### 1. Nettoyage et préparation des données
+
+\medskip
+
+Nous avons utilisé conncetion MySQL pour examiner cette party, voici le code R:
+
+\medskip
+
+
+\footnotesize
+````{r,eval= TRUE, echo = TRUE, warning=FALSE, message=FALSE}
+
+con <- dbConnect(
+  MySQL(),
+  user = "root",
+  password = "root", # même mot de passe créé plus haut
+  dbname = "projet_L_2",
+  host = "127.0.0.1",
+  port = 8889
+)
+
+# Vérifie immédiatement la connexion :
+#dbListTables(con)
+
+df <- dbGetQuery(con, "
+SELECT
+    s.siren,
+    s.denomination,
+    s.town,
+    s.ape,
+    a.ape_name,
+    cr.year,
+    cr.`Chiffres d’affaires nets` AS chiffre_affaires,
+    sb.`Subventions d’exploitation` AS subvention
+FROM projet_L_2.societe s
+JOIN projet_L_2.apegen a
+  ON s.ape = a.ape
+JOIN projet_L_2.compte_resultat cr
+  ON s.siren = cr.siren
+JOIN projet_L_2.subvention sb
+  ON s.siren = sb.siren AND cr.year = sb.year
+WHERE cr.`Chiffres d’affaires nets` IS NOT NULL
+  AND sb.`Subventions d’exploitation` IS NOT NULL
+")
+````
+\normalsize
+
+\newpage
+
+```{r,eval= TRUE, echo = TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+
+# Nettoyage
+df_clean <- df %>%
+  mutate(
+    chiffre_affaires = as.numeric(gsub("[^0-9]", "", chiffre_affaires)),
+    subvention = as.numeric(gsub("[^0-9]", "", subvention))
+  ) %>%
+  filter(!is.na(chiffre_affaires) & !is.na(subvention))
+
+# Création des colonnes logarithmiques
+df_log <- df_clean %>%
+  filter(chiffre_affaires > 0, subvention > 0) %>%
+  mutate(
+    log_CA = log10(chiffre_affaires),
+    log_subvention = log10(subvention)
+  )
+
+# Régression log-log
+modele_log <- lm(log_CA ~ log_subvention, data = df_log)
+summary(modele_log)
+```
+\normalsize
+
+\newpage
+
+#### 2. Analyse univariée
+
+ <!-- **Distribution des subventions reçues** -->
+
+\medskip
+
+```{r,eval= TRUE, echo = FALSE, warning=FALSE, message=FALSE,fig.width=4,fig.height=3}
+ggplot(df_clean, aes(x = subvention)) +
+  geom_histogram(fill = "darkorange", bins = 30) +
+  labs(title = "Distribution des subventions reçues",
+       x = "Montant des subventions",
+       y = "Nombre d'entreprises")
+```
+
+> La majorité des entreprises reçoivent de petites subventions. Quelques-unes, plus rares, touchent des montants bien plus élevés.
+
+<!-- **Distribution du chiffre d'affaires** -->
+
+\medskip
+
+```{r,eval= TRUE, echo = FALSE, warning=FALSE, message=FALSE,fig.width=4,fig.height=3}
+ggplot(df_clean, aes(x = chiffre_affaires)) +
+  geom_histogram(fill = "steelblue", bins = 30) +
+  labs(title = "Distribution du chiffre d'affaires",
+       x = "Chiffre d'affaires",
+       y = "Nombre d'entreprises")
+```
+
+> Le chiffre d'affaires est aussi très variable, certaines entreprises réalisant plusieurs dizaines de millions d'euros.
+
+\medskip
+
+#### 3. Analyse bivariée brute
+
+\medskip
+
+```{r,eval= TRUE, echo = FALSE, warning=FALSE, message=FALSE,fig.width=4,fig.height=3}
+ggplot(df_clean, aes(x = subvention, y = chiffre_affaires)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Relation brute entre subventions et chiffre d'affaires",
+       x = "Subvention",
+       y = "Chiffre d'affaires")
+```
+
+> À première vue, il n'y a pas de lien clair entre les subventions et le chiffre d'affaires. Le graphique montre beaucoup de dispersion, ce qui empêche une vraie lecture de tendance.
+
+\medskip
+
+#### 4. Régression log-log : Visualisation
+
+\medskip
+
+```{r,eval= TRUE, echo = FALSE, warning=FALSE, message=FALSE,fig.width=4,fig.height=3}
+ggplot(df_log, aes(x = log_subvention, y = log_CA)) +
+  geom_point(color = "blue", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Relation log-log entre subventions et chiffre d'affaires",
+       x = "log10(Subvention)",
+       y = "log10(Chiffre d'affaires)")
+```
+
+> Une fois les données transformées en logarithme, une tendance apparaît : les entreprises qui reçoivent plus de subventions ont, en moyenne, un chiffre d'affaires plus élevé. La relation est significative et le modèle indique qu'une augmentation de 10% des subventions correspond à une hausse d'environ 4,5% du chiffre d'affaires.
+
+\medskip
+
+#### Conclusion
+
+\medskip
+
+En conclusion, même si à l'échelle brute le lien entre subventions et chiffre d'affaires n'est pas visible, la transformation log-log montre qu’il existe une **relation proportionnelle significative**. Cela signifie que les subventions peuvent avoir un impact positif mesurable sur le développement économique des entreprises, en particulier si l'on considère les effets relatifs plutôt que les montants absolus. sans refinancement : Total des charges financières = 0
 
 
 \newpage
@@ -668,15 +848,15 @@ Créez deux groupes :
 
 
 
-## **Analyser la chiff des entreprises en fonction de leur localisation géographique** 
+## **Analyser des entreprises en fonction de leur localisation géographique** 
 <!-- Serdar VAROL -->
 \bigskip
 
-L’objectif de cette étude est d’analyser des entreprises en France à partir de données financières entre 2012 et 2016. Nous avons examiné **le chiffre d’affaires net**, **le résultat d’exploitation** et **la rentabilité**. La rentabilité a été calculée à partir du chiffre d’affaires net, du résultat d’exploitation . Des entreprises et a été examinée par **année** et par **region**. La base de données ne contenait que des codes postaux. Nous avons d’abord regroupé les départements puis les régions en fonction des deux chiffres du code postal.Nous avons examiné chaque année indépendamment. 
+L’objectif de cette étude est d’analyser des entreprises en France à partir de données financières entre 2012 et 2016. Nous avons examiné **le chiffre d’affaires net**, **le résultat d’exploitation**. Des entreprises et a été examinée par **année** et par **region**. La base de données ne contenait que des codes postaux. Nous avons d’abord regroupé les départements puis les régions en fonction des deux chiffres du code postal.Nous avons examiné chaque année indépendamment. 
 
 \medskip
 
-Dans ce chapite , nous allons presenter l'annes 2015 car l’année avec le plus de données est 2015. Nous avons constaté que les différences et les incohérences dans la taille des données selon les années et les régions constituaient un obstacle.
+Dans ce chapite pour analyse univarie, nous allons presenter l'annes 2015 car l’année avec le plus de données est 2015. Nous avons constaté que les différences et les incohérences dans la taille des données selon les années et les régions constituaient un obstacle.
 
 \medskip
 
@@ -749,9 +929,9 @@ data_subset$departement <- substr(data_subset$code_postal, 1, 2)
 # 8. Département -> Région dönüşümü
 departement_to_region <- c(
   "01"="Auvergne-Rhône-Alpes", "02"="Hauts-de-France", "03"="Auvergne-Rhône-Alpes", 
-  "04"="Provence-Alpes-Côte d’Azur", "05"="Provence-Alpes-Côte d’Azur", "06"="Provence-Alpes-Côte d’Azur",
+  "04"="Provence-Alpes-Côte d'Azur", "05"="Provence-Alpes-Côte d'Azur", "06"="Provence-Alpes-Côte d'Azur",
   "07"="Auvergne-Rhône-Alpes", "08"="Grand Est", "09"="Occitanie", "10"="Grand Est", "11"="Occitanie",
-  "12"="Occitanie", "13"="Provence-Alpes-Côte d’Azur", "14"="Normandie", "15"="Auvergne-Rhône-Alpes",
+  "12"="Occitanie", "13"="Provence-Alpes-Côte d'Azur", "14"="Normandie", "15"="Auvergne-Rhône-Alpes",
   "16"="Nouvelle-Aquitaine", "17"="Nouvelle-Aquitaine", "18"="Centre-Val de Loire", "19"="Nouvelle-Aquitaine",
   "2A"="Corse", "2B"="Corse", "21"="Bourgogne-Franche-Comté", "22"="Bretagne", "23"="Nouvelle-Aquitaine",
   "24"="Nouvelle-Aquitaine", "25"="Bourgogne-Franche-Comté", "26"="Auvergne-Rhône-Alpes",
@@ -769,7 +949,7 @@ departement_to_region <- c(
   "72"="Pays de la Loire", "73"="Auvergne-Rhône-Alpes", "74"="Auvergne-Rhône-Alpes",
   "75"="Île-de-France", "76"="Normandie", "77"="Île-de-France", "78"="Île-de-France",
   "79"="Nouvelle-Aquitaine", "80"="Hauts-de-France", "81"="Occitanie", "82"="Occitanie",
-  "83"="Provence-Alpes-Côte d’Azur", "84"="Provence-Alpes-Côte d’Azur", "85"="Pays de la Loire",
+  "83"="Provence-Alpes-Côte d'Azur", "84"="Provence-Alpes-Côte d'Azur", "85"="Pays de la Loire",
   "86"="Nouvelle-Aquitaine", "87"="Nouvelle-Aquitaine", "88"="Grand Est", "89"="Bourgogne-Franche-Comté",
   "90"="Bourgogne-Franche-Comté", "91"="Île-de-France", "92"="Île-de-France", "93"="Île-de-France",
   "94"="Île-de-France", "95"="Île-de-France", "971"="Guadeloupe", "972"="Martinique",
@@ -786,19 +966,25 @@ write_csv(data_subset, "csv/resulta_data_kaggle_2012_2016_order.csv")
 ```
 \normalsize
 
-2) Les Variables sont:
+2) Les Variables sont utilise:
 
-\begin{itemize}[label=$\circ$]
-    \item \textnormal{Year}
-    \item \textnormal{Siren}
-    \item \textnormal{résultat d'exploitation}
-    \item \textnormal{chiffres d’affaires nets}
-    \item \textnormal{code\_postal}
-    \item \textnormal{categorie\_rentabilite}
-    \item \textnormal{departement}
-    \item \textnormal{region}
-\end{itemize}
+|  Variable |source   |
+|---|---|
+|Year  |Datakagle.csv   |
+|Siren  |Datakagle.csv   |
+|résultat d'exploitation  |Datakagle.csv |
+|chiffres d’affaires nets  |Datakagle.csv   |
+|code_postal  |Datakagle.csv   |
+|rentabilite  |créé   |
+|categorie_rentabilite  |créé    |
+|Department  |créé    |
+|region  |créé    |
 
+
+
+\medskip
+
+3) Création d'une variable catégorielle : La valeur de rentabilité est divisée dans les classes suivantes :
 
 $$
       \text{rentabilité} = \frac{\text{résultat d'exploitation}}{\text{chiffres d’affaires nets}}
@@ -806,24 +992,58 @@ $$
 
 \medskip
 
-3) Création d'une variable catégorielle : La valeur de rentabilité est divisée dans les classes suivantes :
+Table: Classification des entreprises selon leur rentabilité
 
-\begin{itemize}[label=$\circ$]
-    \item \textnormal{Rentabilité $< 0$ : \og En perte\fg}
-    \item \textnormal{$0 \leq$ Rentabilité $< 0{,}1$ : \og Faible rentabilité\fg}
-    \item \textnormal{$0{,}1 \leq$ Rentabilité $< 0{,}3$ : \og Rentabilité moyenne\fg}
-    \item \textnormal{Rentabilité $\geq 0{,}3$ : \og Haute rentabilité\fg}
-\end{itemize}
-
-\newpage 
-
-#### Analyse Univarie
+| Intervalle de rentabilité | Catégorie |
+|---------------------------|-----------|
+| Rentabilité $< 0$         | En perte  |
+| $0 \leq$ Rentabilité $< 0{,}1$ | Faible rentabilité |
+| $0{,}1 \leq$ Rentabilité $< 0{,}3$ | Rentabilité moyenne |
+| Rentabilité $\geq 0{,}3$  | Haute rentabilité |
 
 \medskip
 
-  - Chifre d'afffaire
+````{r rentabilite,eval=TRUE, echo=FALSE,message=FALSE,warning=FALSE,fig.width=5}
 
-```{r chiffre_affaire_summary_2015, echo=FALSE, message=FALSE, warning=FALSE ,fig.width=5, fig.height=3}
+
+# "Non numérique" hariç tutulur
+data_pie <- data_subset %>%
+  filter(categorie_rentabilite != "Non numérique") %>%
+  group_by(year, categorie_rentabilite) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  group_by(year) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+# Pasta (camembert) grafiklerini çiz
+ggplot(data_pie, aes(x = "", y = percentage, fill = categorie_rentabilite)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  facet_wrap(~ year) +
+  labs(
+    title = "Répartition des catégories de rentabilité par année",
+    fill = NULL
+  ) +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 9),
+    plot.title = element_text(hjust = 0.5, size = 14)
+  ) +
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE))
+
+
+
+````
+
+\newpage 
+
+### Analyse Univarie
+
+\medskip
+
+#### Chifre d'afffaire
+
+```{r chiffre_affaire_summary_2015, echo=FALSE, message=FALSE, warning=FALSE ,fig.width=4, fig.height=3}
 
 library(dplyr)
 library(kableExtra)
@@ -848,7 +1068,7 @@ summary_ca_fmt <- summary_ca %>%
 # latex tableau
 summary_ca_fmt %>%
   kable(format = "latex", booktabs = TRUE, longtable = TRUE,
-        caption = "Résumé des statistiques du chiffre d’affaires nets (en millions d'euros) – 2015") %>%
+        caption = "Résumé des statistiques du chiffre d'affaires nets (en millions d'euros) – 2015") %>%
   kable_styling(latex_options = c("scale_down", "repeat_header"))
 
 
@@ -859,7 +1079,7 @@ summary_ca_fmt %>%
 
 
 
-````{r chiffre_affaire_graph_2015, echo=FALSE, message=FALSE, warning=FALSE,fig.width=5, fig.height=4}
+````{r chiffre_affaire_graph_2015, echo=FALSE, message=FALSE, warning=FALSE,fig.width=4, fig.height=3}
 library(ggplot2)
 
 # Boxplot – Chiffre d'affaires (2015, max y = 4000)
@@ -867,9 +1087,9 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
        aes(x = region, y = ca / 1e6)) +
   geom_boxplot(outlier.color = "red") +
   coord_flip() +
-  ylim(0, 3000) +  # Y eksenini 0 ile 4000 milyon € arası sınırla
-  labs(title = "Boxplot du chiffre d’affaires par région (2015)",
-       y = "Chiffre d’affaires nets (millions €)", x = "Région") +
+  ylim(0, 3000) +  # Y max 3000
+  labs(title = "Boxplot du chiffre d'affaires par région (2015)",
+       y = "Chiffre d'affaires nets (millions euro)", x = "Région") +
   theme_minimal(base_size = 9)
 
 
@@ -880,7 +1100,7 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
 \newpage 
 
 
- - Resulta Explation 
+#### Resultat d'Explation 
 
 ````{r resultat_exp_summary_2015, echo=FALSE, message=FALSE, warning=FALSE}
 # 2. Résultat d'exploitation (resultat_exp) icin ozet tablo olusturma scripti
@@ -911,7 +1131,7 @@ summary_ca_fmt %>%
         caption = "Résumé des statistiques du Résultat d'exploitation (en millions d'euros) – 2015") %>%
   kable_styling(latex_options = c("scale_down", "repeat_header"))
 
-#write_csv(summary_table,"summary_test")
+#write_csv(summary_table,"csv/summary_test.csv")
 #View(summary_table)
 #print(summary_table)
 
@@ -924,7 +1144,7 @@ summary_ca_fmt %>%
 
 
 
-````{r resulta_graph_2015, echo=FALSE, message=FALSE, warning=FALSE,fig.width=5, fig.height=4}
+````{r resulta_graph_2015, echo=FALSE, message=FALSE, warning=FALSE,fig.width=4, fig.height=3}
 
 library(ggplot2)
 
@@ -935,7 +1155,7 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
   coord_flip() +
   ylim(0, 1500) +  # Y eksenini 0 ile 4000 milyon € arası sınırla
   labs(title = "Boxplot du Résultat d'exploitation par région (2015)",
-       y = "Résultat d'exploitation (millions €)", x = "Région") +
+       y = "Résultat d'exploitation (millions euro)", x = "Région") +
   theme_minimal(base_size = 9)
 
 
@@ -944,176 +1164,163 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
 
 \newpage
 
-#### Analyse Bivarie
+### Analyse Bivarie
  \medskip
  
- - chiffre d’affaires nets et Résultat d'exploitation
+#### Chiffre d’affaires nets et Résultat d'exploitation
  
-````{r nuage_point_anness,eval=TRUE, echo=FALSE,message=FALSE, warning=FALSE,fig.width=5, fig.height=4}
+````{r nuage_point_anness,eval=TRUE, echo=FALSE,message=FALSE, warning=FALSE,fig.width=5, fig.height=3}
 ggplot(data_subset, aes(x = ca/1e6, y = resultat_exp/1e6)) +
   geom_point(alpha = 0.4, color = "darkred") +
   facet_wrap(~year) +
   labs(
     title = "Relation entre Chiffre d'affaires et Résultat d'exploitation",
-    x = "Chiffre d'affaires (millions €)",
-    y = "Résultat d'exploitation (millions €)"
+    x = "Chiffre d'affaires (millions euro)",
+    y = "Résultat d'exploitation (millions euro)"
   ) +
   theme_minimal()
 
 ````
-- Correlation 
 
-````{r correlation_annee, eval=TRUE, echo=FALSE,message=FALSE, warning=FALSE,fig.width=5, fig.height=4}
+#### Coefficient de corrélation de Pearson
+ 
+\medskip
+
+````{r correlation_annee, eval=TRUE, echo=FALSE,message=FALSE, warning=FALSE,fig.width=5, fig.height=3}
 
 for (yr in unique(data_subset$year)) {
   df_year <- data_subset %>% filter(year == yr)
   cor_val <- cor(df_year$ca, df_year$resultat_exp, use = "complete.obs", method = "pearson")
-  print(paste("Année", yr, ": corrélation =", round(cor_val, 3)))
+  #print(paste("Année", yr, ": corrélation =", round(cor_val, 3)))
 }
 
 
 ````
-Interpretation:
 
-2012 :
-2012 :
-2012 :
-2012 :
-2012 :
+
+| Année  | Corrélation (Pearson)  | Interprétation  |
+|--------|---|---|
+|2012|-0.45    |Corrélation négative modérée   |
+|2013|0.35     |Relation positive modérée   |
+|2014|0.80     |Forte corrélation positive    |
+|2015|0.38     |Tendance positive similaire à 2013   |
+|2016|0.29     |Corrélation positive mais faible   |
+
+\medskip
+
+
+La corrélation doit être comprise entre **-1 et 1**, donc les valeurs que nous avons trouvées sont correctes.
+On peut dire qu'en 2012, il existe une relation **négative** entre les deux variables.
+Pour les années 2013, 2015 et 2016, la corrélation est **faible mais positive** : cela signifie que lorsque le chiffre d'affaires augmente, le résultat d'exploitation a tendance à augmenter également.
+En 2014, on observe une **forte** corrélation positive, ce qui indique une relation claire entre les deux variables : elles ont tendance à évoluer dans le même sens, c’est-à-dire à augmenter en même temps.
 
 
 \newpage
 
-- Regreation droit
+#### Regreation droit
 
 
-````{r reg_droit,eval= TRUE, echo=FALSE, message=FALSE,warning=FALSE,fig.width=5, fig.height=4}
+````{r reg_droit,eval= TRUE, echo=FALSE, message=FALSE,warning=FALSE,fig.width=5, fig.height=3}
 ggplot(data_subset, aes(x = ca/1e6, y = resultat_exp/1e6)) +
   geom_point(alpha = 0.3, color = "brown") +
   geom_smooth(method = "lm", color = "blue") +
   facet_wrap(~year) +
   labs(title = "Régression linéaire entre CA et Résultat d'exploitation",
-       x = "Chiffre d'affaires (millions €)", y = "Résultat (millions €)") +
+       x = "Chiffre d'affaires (millions euro)", y = "Résultat (millions euro)") +
   theme_minimal()
 
 
 ````
 
-
+\medskip
 
 **Formuler les hypothèses :**
 
 \bigskip
 
-- **Hypothèse nulle (H\textsubscript{0})** : La répartition des catégories de rentabilité (rentabilité) par département ne diffère pas.
-- **Hypothèse alternative (H\textsubscript{1})** : La distribution des catégories de rentabilité varie selon le département.
+- Hypothèse nulle (H\textsubscript{0}) : La répartition du chiffre d’affaires net et du résultat d'exploitation ne varie pas selon les régions.
+\medskip
+- Hypothèse alternative (H\textsubscript{1}) : Il existe une différence significative du chiffre d’affaires net et du résultat d'exploitation entre les régions.
 
 
 
-```{r, eval=FALSE,echo=FALSE}
-table_renta <- table( data_subset$departement, data_subset$categorie_rentabilite)x
-#View(table_renta) 
-
-
+```{r, eval=TRUE,echo=FALSE}
 years <- unique(data_subset$year)
 
 
-#chi^2 tesstt
-for (yr in years) {
-  cat("\n---- Chi² test pour l’année", yr, "----\n")
-  
-  df_year <- data_subset %>% filter(year == yr)
-  
-  # Tablo: Departman et categorie
-  tab <- table(df_year$departement, df_year$categorie_rentabilite)
-  
-  # Chi² test
-  test <- chisq.test(tab, simulate.p.value = TRUE, B = 10000)
-
-  
-  print(test)
-}
-
-#anova test
-
+# Listeyi başlat
+ca_anova_resume <- list()
 
 for (yr in years) {
-  cat("\n---- ANOVA pour l’année", yr, "----\n")
-  
   df_year <- data_subset %>%
-    filter(year == yr, !is.na(rentabilite), !is.na(departement))
-  
-  # departement faktör olmalı
-  df_year$departement <- as.factor(df_year$departement)
-  
-  # ANOVA modeli
-  anova_result <- aov(rentabilite ~ departement, data = df_year)
-  
-  # Sonuçları yazdır
-  print(summary(anova_result))
+    filter(year == yr, !is.na(ca), !is.na(region))
+
+  df_year$region <- as.factor(df_year$region)
+  model <- aov(ca ~ region, data = df_year)
+  s <- summary(model)
+
+  # F-değeri ve p-değeri
+  row <- s[[1]][1, c("F value", "Pr(>F)")]
+  f_val <- round(row[[1]], 2)
+  p_val <- formatC(row[[2]], format = "f", digits = 9)  # P değeri 4 haneli
+  decision <- ifelse(p_val < 0.05, "H0 rejetée", "H0 non rejetée")
+
+  ca_anova_resume[[as.character(yr)]] <- data.frame(
+    Annee = yr,
+    F_value = f_val,
+    p_value = p_val,
+    Decision = decision
+  )
 }
 
+# Listeyi birleştir
+ca_anova_resume <- do.call(rbind, ca_anova_resume)
+
+# Sonuçları göster
+
+ca_anova_resume
 
 ```
 
 \bigskip
 
-\scriptsize
-\begin{longtable}{|p{1.2cm}|p{3.5cm}|p{2cm}|p{3cm}|p{4.2cm}|}
-\hline
-\textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\
-\hline \endfirsthead
-\hline \textbf{Année} & \textbf{Type de test} & \textbf{Valeur p} & \textbf{Décision ($\alpha = 0{,}05$)} & \textbf{Remarque} \\ \hline \endhead
-2012 & Chi² (simulé) & 0.2474 & H\textsubscript{0} non rejetée & Échantillon insuffisant ou déséquilibré \\
-2013 & Chi² (simulé) & 0.0019 & H\textsubscript{0} rejetée & Différence significative entre départements \\
-2014 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
-2015 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Forte différence observée \\
-2016 & Chi² (simulé) & 9.999e-05 & H\textsubscript{0} rejetée & Différence significative entre départements \\
-\hline
-\multicolumn{5}{l}{\textit{Note : L’année 2012 présente un faible nombre d’observations et des distributions déséquilibrées.}}
-\end{longtable}
+
+```{r ,eval= TRUE,echo = FALSE}
+# Listeyi başlat
+resultat_anova_resume <- list()
+
+for (yr in years) {
+  df_year <- data_subset %>%
+    filter(year == yr, !is.na(resultat_exp), !is.na(region))
+
+  df_year$region <- as.factor(df_year$region)
+  model <- aov(resultat_exp ~ region, data = df_year)
+  s <- summary(model)
+
+  # F-değeri ve p-değeri
+  row <- s[[1]][1, c("F value", "Pr(>F)")]
+  f_val <- round(row[[1]], 2)
+  p_val <- formatC(row[[2]], format = "f", digits = 4)  # P değeri 4 haneli
+  decision <- ifelse(as.numeric(p_val) < 0.05, "H0 rejetée", "H0 non rejetée")
+
+  resultat_anova_resume[[as.character(yr)]] <- data.frame(
+    Annee = yr,
+    F_value = f_val,
+    p_value = p_val,
+    Decision = decision
+  )
+}
+
+# Listeyi birleştir
+resultat_anova_resume <- do.call(rbind, resultat_anova_resume)
+
+# Sonuçları göster
+print(resultat_anova_resume)
 
 
-\bigskip
+```
 
-
-\scriptsize
-\begin{longtable}{|p{1.2cm}|p{3cm}|p{3.5cm}|p{6cm}|}
-\hline
-\textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\
-\hline \endfirsthead
-\hline \textbf{Année} & \textbf{Valeur p} & \textbf{Décision} & \textbf{Interprétation} \\ \hline \endhead
-2012 & 1 & Pas de différence significative & Faible volume de données \\
-2013 & \textless{} 0.001 & Différence significative & Rentabilité varie selon les départements \\
-2014 & 1 & Pas de différence significative & Rentabilité homogène \\
-2015 & 1 & Pas de différence significative & Rentabilité homogène \\
-2016 & 1 & Pas de différence significative & Rentabilité homogène \\
-\hline
-\multicolumn{4}{l}{\textit{Conclusion : Seule l’année 2013 présente une variation significative de la rentabilité selon les départements.}}
-\end{longtable}
-
-\newpage
-
-
-\section*{Représentation cartographique}
-
-
-- Pour le MOD, inclure une image réalisée avec le logiciel MySQl
-\newline telle que celle visible sur la Figure$~$\ref{box_plot} ci-dessous :
-  
-![MOD_2](box_plot_par_anne.png){#box_plot width=15cm height=10cm }  
-
-
-
-
-
-
-
-
-
-
-
-
+#### Conclusion
 
 
 
