@@ -790,8 +790,6 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
           
-  
-
 
 \medskip
 
@@ -1234,37 +1232,11 @@ En 2014, on observe une **forte** corrélation positive, ce qui indique une rela
 #### Conclusion
 
 
-
-\newpage
-
-## **La variation de la rentabilité selon le secteur d'activité des entreprises**
-\bigskip
-**Variables** :  le code APE (le secteur d'activité des entreprises) + Chiffres d’affaires nets
-
-### Étapes pour créer une visualisation :
-
-#### Catégorisation des entreprises par secteur d'activité :
-
-#### Visualisation :
-
-**Boxplot** : Visualiser la distribution des chiffres d'affaires nets pour chaque secteur d'activité.\\
-**Diagramme en barres** : Montrer la moyenne des chiffres d'affaires nets par secteur d'activité.
-
-#### Test Statistique (ANOVA) :
-**Chauque un/e doit proposer son text :) **
-
-Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
-
-Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
-
-Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
-
+once upon a time in montpellier....
 
 
 
 \newpage
-
-
 
 
 # Discussion

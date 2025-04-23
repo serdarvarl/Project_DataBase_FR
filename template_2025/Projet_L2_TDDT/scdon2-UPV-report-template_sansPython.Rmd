@@ -1016,8 +1016,6 @@ summary(anova_result2016)
 
 ````
           
-  
-
 
 \medskip
 
@@ -1277,7 +1275,7 @@ library(readr)
 library(dplyr)
 library(stringr)
 
-# 1. Rentabilité fonksiyonu
+# 1. Rentabilité fonction
 fonction_rentabilite <- function(resultat_exp, ca) {
   if (is.na(resultat_exp) || is.na(ca) || ca == 0) {
     return(NA)
@@ -1286,7 +1284,7 @@ fonction_rentabilite <- function(resultat_exp, ca) {
   }
 }
 
-# 2. Rentabilité kategorisi fonksiyonu
+# categorise rentabilite 
 cat_rentabilite <- function(r) {
   if (is.na(r)) {
     return("Non numérique")
@@ -1301,10 +1299,10 @@ cat_rentabilite <- function(r) {
   }
 }
 
-# 3. Veriyi oku
+#read data 
 data_kaggle <- read_csv("csv/data_kaggle.csv")
 
-# 4. 2012-2016 verilerini filtrele ve seç
+# 2012 - 2016 filtre
 data_subset <- data_kaggle %>%
   filter(year >= 2012, year <= 2016) %>%
   select(year,
@@ -1313,21 +1311,21 @@ data_subset <- data_kaggle %>%
          ca = `Chiffres d’affaires nets`,
          postal_code = postal_code)
 
-# 5. Rentabilité hesapla
+# calcule rentabulite
 data_subset$rentabilite <- apply(data_subset, 1, function(row) {
   resultat_exp <- as.numeric(row["resultat_exp"])
   ca <- as.numeric(row["ca"])
   return(fonction_rentabilite(resultat_exp, ca))
 })
 
-# 6. Kategoriyi hesapla
+# categorise rentabilite posser dans la csv
 data_subset$categorie_rentabilite <- sapply(data_subset$rentabilite, cat_rentabilite)
 
-# 7. Code postal ve département ekle
+# ajouter code postal et department
 data_subset$code_postal <- str_pad(as.character(data_subset$postal_code), 5, side = "left", pad = "0")
 data_subset$departement <- substr(data_subset$code_postal, 1, 2)
 
-# 8. Département -> Région dönüşümü
+# Département -> Région convertir
 departement_to_region <- c(
   "01"="Auvergne-Rhône-Alpes", "02"="Hauts-de-France", "03"="Auvergne-Rhône-Alpes", 
   "04"="Provence-Alpes-Côte d'Azur", "05"="Provence-Alpes-Côte d'Azur", "06"="Provence-Alpes-Côte d'Azur",
@@ -1357,11 +1355,11 @@ departement_to_region <- c(
   "973"="Guyane", "974"="La Réunion", "976"="Mayotte"
 )
 
-# 9. Region ekle
+# ajouter region
 data_subset$departement <- as.character(data_subset$departement)
 data_subset$region <- departement_to_region[data_subset$departement]
 
-# 10. Son haliyle kaydet
+# save dernirer version csv
 write_csv(data_subset, "csv/resulta_data_kaggle_2012_2016_order.csv")
 #View(data_subset)
 ```
@@ -1407,7 +1405,7 @@ Table: Classification des entreprises selon leur rentabilité
 ````{r rentabilite,eval=TRUE, echo=FALSE,message=FALSE,warning=FALSE,fig.width=5}
 
 
-# "Non numérique" hariç tutulur
+# filtre non numerique
 data_pie <- data_subset %>%
   filter(categorie_rentabilite != "Non numérique") %>%
   group_by(year, categorie_rentabilite) %>%
@@ -1415,7 +1413,7 @@ data_pie <- data_subset %>%
   group_by(year) %>%
   mutate(percentage = count / sum(count) * 100)
 
-# Pasta (camembert) grafiklerini çiz
+# dessiner camembert 
 ggplot(data_pie, aes(x = "", y = percentage, fill = categorie_rentabilite)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar("y") +
@@ -1483,7 +1481,7 @@ summary_ca_fmt %>%
 ````{r chiffre_affaire_graph_2015, echo=FALSE, message=FALSE, warning=FALSE,fig.width=4, fig.height=3}
 library(ggplot2)
 
-#Boxplot – Chiffre d'affaires (2015, max y = 4000)
+#Boxplot  Chiffre d'affaires (2015, max y = 4000)
 
 ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
        aes(x = region, y = ca / 1e6)) +
@@ -1509,7 +1507,7 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
 #### Resultat d'Explation 
 
 ````{r resultat_exp_summary_2015, echo=FALSE, message=FALSE, warning=FALSE}
-# 2. Résultat d'exploitation (resultat_exp) icin ozet tablo olusturma scripti
+# Résultat d'exploitation (resultat_exp) pour tableu
 summary_resultat <- data_subset %>%
   filter(!is.na(region), year == 2015) %>%
   group_by(region) %>%
@@ -1527,11 +1525,11 @@ summary_resultat <- data_subset %>%
 
 
 
-# PDF için milyonlarla formatlama
+# PDF million 
 summary_Res_fmt <- summary_resultat %>%
   mutate(across(c(avarage, median, min, max, ecart_type), ~ round(. / 1e6, 2)))
 
-# Tabloyu LaTeX olarak yazdır
+# latex tableur sinon bordel qsdqsdqsdqsd
 summary_ca_fmt %>%
   kable(format = "latex", booktabs = TRUE, longtable = TRUE,
         caption = "Résumé des statistiques du Résultat d'exploitation (en millions d'euros) – 2015") %>%
@@ -1559,7 +1557,7 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
        aes(x = region, y = resultat_exp / 1e6)) +
   geom_boxplot(outlier.color = "red") +
   coord_flip() +
-  ylim(0, 1500) +  # Y eksenini 0 ile 4000 milyon € arası sınırla
+  ylim(0, 1500) +  # Y max 4000
   labs(title = "Boxplot du Résultat d'exploitation par région (2015)",
        y = "Résultat d'exploitation (millions euro)", x = "Région") +
   theme_minimal(base_size = 9)
@@ -1656,7 +1654,7 @@ ggplot(data_subset, aes(x = ca/1e6, y = resultat_exp/1e6)) +
 years <- unique(data_subset$year)
 
 
-# Listeyi başlat
+# trigger liste
 ca_anova_resume <- list()
 
 for (yr in years) {
@@ -1667,7 +1665,7 @@ for (yr in years) {
   model <- aov(ca ~ region, data = df_year)
   s <- summary(model)
 
-  # F-değeri ve p-değeri
+  # F et P value
   row <- s[[1]][1, c("F value", "Pr(>F)")]
   f_val <- round(row[[1]], 2)
   p_val <- formatC(row[[2]], format = "f", digits = 9)  # P değeri 4 haneli
@@ -1681,10 +1679,10 @@ for (yr in years) {
   )
 }
 
-# Listeyi birleştir
+# merging liste
 ca_anova_resume <- do.call(rbind, ca_anova_resume)
 
-# Sonuçları göster
+# afficer resume 
 
 ca_anova_resume
 
@@ -1694,7 +1692,7 @@ ca_anova_resume
 
 
 ```{r ,eval= TRUE,echo = FALSE}
-# Listeyi başlat
+# startin gliste
 resultat_anova_resume <- list()
 
 for (yr in years) {
@@ -1705,7 +1703,7 @@ for (yr in years) {
   model <- aov(resultat_exp ~ region, data = df_year)
   s <- summary(model)
 
-  # F-değeri ve p-değeri
+  # F et P value
   row <- s[[1]][1, c("F value", "Pr(>F)")]
   f_val <- round(row[[1]], 2)
   p_val <- formatC(row[[2]], format = "f", digits = 4)  # P değeri 4 haneli
@@ -1719,10 +1717,10 @@ for (yr in years) {
   )
 }
 
-# Listeyi birleştir
+# merging liste
 resultat_anova_resume <- do.call(rbind, resultat_anova_resume)
 
-# Sonuçları göster
+# afficer resume
 print(resultat_anova_resume)
 
 
@@ -1731,37 +1729,11 @@ print(resultat_anova_resume)
 #### Conclusion
 
 
-
-\newpage
-
-## **La variation de la rentabilité selon le secteur d'activité des entreprises**
-\bigskip
-**Variables** :  le code APE (le secteur d'activité des entreprises) + Chiffres d’affaires nets
-
-### Étapes pour créer une visualisation :
-
-#### Catégorisation des entreprises par secteur d'activité :
-
-#### Visualisation :
-
-**Boxplot** : Visualiser la distribution des chiffres d'affaires nets pour chaque secteur d'activité.\\
-**Diagramme en barres** : Montrer la moyenne des chiffres d'affaires nets par secteur d'activité.
-
-#### Test Statistique (ANOVA) :
-**Chauque un/e doit proposer son text :) **
-
-Dans cette partie, vous pourrez utiliser les outils et méthodes vus au semestre précédent pour analyser les liens entre les variables.
-
-Pour cela, vous pourrez utiliser les tests du $\chi^2$, test du coefficient de corrélation linéaire, test d'Anova, la droite de régression linéaire.
-
-Vous pourrez également proposer des modèles pour faire du clustering (k-means, CAH), de la classification (K plus proches voisins par exemple) comme vu en Science des données 1.  
-
+once upon a time in montpellier....
 
 
 
 \newpage
-
-
 
 
 # Discussion
