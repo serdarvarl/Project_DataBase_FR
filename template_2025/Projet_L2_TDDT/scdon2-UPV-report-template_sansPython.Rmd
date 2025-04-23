@@ -169,7 +169,7 @@ En répondant à ces questions, nous espérons identifier les principaux facteur
 # Base de données
 
 ## Provenance des données
-
+<!-- serdar varol -->
 
 Les données utilisées dans ce projet proviennent du jeu de données Kaggle :
 \medskip
@@ -343,7 +343,8 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 \newpage
 ## Modèles MCD et MOD
-
+<!-- serdar varol -->
+<!-- esteban beretti -->
 - Pour le MCD, inclure une image réalisée avec le logiciel Mocodo \href{https://www.mocodo.net/?mcd=eNqNksFu2zAMhu96Ch0dQAOW7Zab67ZK2zTL4ixtcjEUh14FOJKhyFm3N_J9b-AX62_HaOMEAwb4Ay1SIvlLjMvNQRmvrRnxWDsywe3DQPD43R296MwRCw9Wu7AgMRzy2Ka6rnxdieGUwyfJsKMZNUsBpmrX2kj5z50ddvZLZ7-Kid5QniNNZLfEMoXyTTWUC7OM3EWpLpggiq2j0BgixhyldLClQ8uC945wnPkQ0u1_D49auYJfk7E7fdwjeNNKYfde5WJhf8GBZtlM_SYXvSj380w_b7tq_Ena3lNX5KzT05u9DcE1kOAePIIp-AZm4DuYM3bzWljnyc2c3ZbaX9btAv3CSzJbR01Il_97pi-g12sMFuAHWIIn8AxWYC24_PNp9cxGDN9Z5pMsEiLlA5gAiJUQKyFWQuwYlzG-AhHApaxvBF8h-WrNIrsrvNroXHtqH79Z05z2Ze5VTxm_nA1xoVX866VO0_bEz-uqdfqEXovcavxhQgIpe7FMG2VSTS6Qy4H48Ktm6hK9K-q_fh_Ip7OEKRVNNkN5ML5DbGExcUlxbHkfjCcDcXSlbc_wPGLXVV2Zusp0SklBGI5gPB2wN-SeTJ4=}{https://www.moc\\odo.net} telle que celle visible sur la Figure$~$\ref{MCD} ci-dessous :
   
 ![MCD](image_sql/MCD.png){#MCD width=8cm height=10cm }  
@@ -385,7 +386,7 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 \bigskip
 ## Import des données 
-
+<!-- hazem inbmtar -->
 \bigskip
 
 Dans un premier temps, les données ont été chargées dans R à l'aide de la fonction $read\_csv()$.
@@ -564,7 +565,7 @@ L'objectif est de varier le type de requêtes et de répondre à votre probléma
 
 
 1) Pour comperer et trouver selon leur code postal 
-
+<!-- serdar varol -->
 
 
 ```{sql,eval=FALSE,echo=TRUE,}
@@ -651,11 +652,11 @@ Voici lien de github notre projet :  \href{https://github.com/serdarvarl/Project
 # Analyse et Résultats
 
 ## **Comparer les catégories d'entreprises en fonction des Chiffres d’affaires nets**
-\bigskip
-**Variables :** Chiffres d’affaires nets + catégories (Effectif moyen du personnel)
 
-### Étapes pour créer une visualisation :
-contuinee ;;;;;;;
+<!-- lydia Moutchachou -->
+
+\bigskip
+**Variables :** Chiffres d’affaires nets , catégories (Effectif moyen du personnel)
 
 #### Les catégories d’entreprises :
 \bigskip
@@ -674,12 +675,412 @@ dont le total de bilan n'excède pas 43 millions d'euros }
 \item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
 dans les catégories précédentes}
 \end{itemize}
+````{r pretraitment_lydia, eval=TRUE,echo=FALSE}
+
+#🟢 Lire le fichier CSV
+
+library(readr)
+data_kaggle <- read_csv("csv/data_kaggle.csv")
+
+#🟢 extraire information des colonnes : 
+
+library(dplyr)
+
+kaggle_new <- data_kaggle %>%
+  select(siren, ape, `Effectif moyen du personnel`, `Chiffres d’affaires nets`, year)
+
+#head(kaggle_new) # verifier les noms des colonnes 
+
+#🟢 suprimes toutes le ligne ou il y'a au moins une valeur manquante 
+
+kaggle_new <- na.omit(kaggle_new)
+
+#🟢 Séparer les données par année
+
+kaggle_2012 <- kaggle_new %>% filter(year == 2012)
+kaggle_2013 <- kaggle_new %>% filter(year == 2013)
+kaggle_2014 <- kaggle_new %>% filter(year == 2014)
+kaggle_2015 <- kaggle_new %>% filter(year == 2015)
+kaggle_2016 <- kaggle_new %>% filter(year == 2016)
+
+
+#🟢 Vérifier les premières lignes de chaque tableau
+
+#head(kaggle_2012)  # Affiche les 6 premières lignes du tableau de 2012
+#head(kaggle_2013)  # Affiche les 6 premières lignes du tableau de 2013
+#head(kaggle_2014)  # Affiche les 6 premières lignes du tableau de 2014
+#head(kaggle_2015)  # Affiche les 6 premières lignes du tableau de 2015
+#head(kaggle_2016)  # Affiche les 6 premières lignes du tableau de 2016
+
+
+#🟢 Renommer la colonne pour éviter les caractères spéciaux
+colnames(kaggle_2012)[colnames(kaggle_2012) == "Chiffres d’affaires nets"] <- "Chiffres_d_affaires_nets"
+colnames(kaggle_2013)[colnames(kaggle_2013) == "Chiffres d’affaires nets"] <- "Chiffres_d_affaires_nets"
+colnames(kaggle_2014)[colnames(kaggle_2014) == "Chiffres d’affaires nets"] <- "Chiffres_d_affaires_nets"
+colnames(kaggle_2015)[colnames(kaggle_2015) == "Chiffres d’affaires nets"] <- "Chiffres_d_affaires_nets"
+colnames(kaggle_2016)[colnames(kaggle_2016) == "Chiffres d’affaires nets"] <- "Chiffres_d_affaires_nets"
+
+#🟢 Créer une fonction pour ajouter la colonne 'categorie'
+ajouter_categorie <- function(data) {
+  data %>%
+    mutate(categorie = case_when(
+      `Effectif moyen du personnel` < 10 & `Chiffres_d_affaires_nets` <= 2000000 ~ "Microentreprise",
+      `Effectif moyen du personnel` < 250 & `Chiffres_d_affaires_nets` <= 50000000 ~ "PME",
+      `Effectif moyen du personnel` < 5000 & `Chiffres_d_affaires_nets` <= 1500000000 ~ "ETI",
+      TRUE ~ "Grande entreprise"
+    ))
+}
+
+#🟢 Appliquer cette fonction à chaque tableau annuel
+kaggle_2012 <- ajouter_categorie(kaggle_2012)
+kaggle_2013 <- ajouter_categorie(kaggle_2013)
+kaggle_2014 <- ajouter_categorie(kaggle_2014)
+kaggle_2015 <- ajouter_categorie(kaggle_2015)
+kaggle_2016 <- ajouter_categorie(kaggle_2016)
+
+#🟢 Vérifier les premières lignes de chaque tableau après modification
+
+#head(kaggle_2012)
+#head(kaggle_2013)
+#head(kaggle_2014)
+#head(kaggle_2015)
+#head(kaggle_2016)
+
+
+````
+
+\newpage
+
+### Test Statistique :  ANOVA
+
+\medskip
+
+#### **2012**
+
+\medskip
+
+````{r ,eval=TRUE,echo=FALSE}
+#Vérifier la structure des données de 2012
+  #str(kaggle_2012) # s'assurer que les colonnes sont bien au bon format avant d'appliquer le test l'ANOVA
+
+# Lancer l’ANOVA
+  anova_result2012 <- aov(`Chiffres_d_affaires_nets` ~ categorie, data = kaggle_2012)
+
+````
+
+````{r,eval=TRUE,echo=FALSE}
+# Afficher les résultats
+  summary(anova_result2012)
+
+````
+
+- Détail du test : 
+
+- **Df** : Cela indique les degrés de liberté pour chaque facteur (ici *categorie*) et les résidus.  
+Nous avons 2 degrés de liberté pour les catégories et 204 pour les résidus.
+
+- **Sum Sq** : La somme des carrés, qui mesure la variation expliquée par chaque facteur (ici, la variation expliquée par la catégorie d’entreprise) et par les résidus (erreur).
+
+- **Mean Sq** : La moyenne des carrés, obtenue en divisant la somme des carrés par les degrés de liberté. Cela permet d’avoir une idée de la variance.
+
+- **F value** : Le rapport entre la variance expliquée par les catégories et la variance résiduelle (erreur).  
+Un F élevé (ici 817.9) indique qu'il existe une grande différence entre les groupes.
+
+- **Pr(>F)** : La p-value associée au test F. Elle est ici inférieure à 2e-16, ce qui est très significatif.
+
+- **Test de Signification**  
+La p-value obtenue est extrêmement faible (< 2e-16), ce qui signifie que nous rejetons l'hypothèse nulle (H0) au seuil de signification de 5 % (0.05).  
+En d'autres termes, il y a une différence statistiquement significative entre les moyennes des Chiffres d’affaires nets des différentes catégories d’entreprises.
+
+- **Que signifie cette différence ?**   
+Cela signifie que les entreprises de catégories différentes (par exemple, Microentreprise, PME, ETI, Grande entreprise) ont des Chiffres d’affaires nets très différents.  
+Il est donc évident qu'une entreprise de type *Microentreprise* n'a pas la même performance en termes de chiffre d'affaires net qu'une PME ou une Grande entreprise.
+
+- **Résumé**  
+En 2012, les Chiffres d’affaires nets varient de manière significative en fonction de la catégorie d'entreprise.  
+Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affaires net que les PME ou les Grandes entreprises.
+
+
 \newpage
 
 
 
+#### **2013**
+
+\medskip
+
+````{r ,eval=TRUE,echo=FALSE}
+#Vérifier la structure des données de 2013
+#str(kaggle_2013) # s'assurer que les colonnes sont bien au bon format avant d'appliquer le test l'ANOVA
+          
+#Lancer l’ANOVA
+anova_result2013 <- aov(`Chiffres_d_affaires_nets` ~ categorie, data = kaggle_2013)
+          
+````
+
+````{r,eval=TRUE,echo=FALSE}
+# Afficher les résultats
+summary(anova_result2013)
+
+````
+
+\medskip
+
+- Détails du test  :
+
+\medskip
+    
+- **Df** (degrés de liberté) : categorie : 2 (ce qui correspond à 3 catégories de classification : Microentreprise, PME, Grande entreprise)
+ 
+- **Residuals** : 1102 (le nombre de données restantes après l application des catégories)
+
+
+- **Sum Sq** (somme des carrés) : Pour la variable categorie, la somme des carrés est de 2.160e+17. Cela représente la variation expliquée par les différences entre les catégories.Pour les résidus, la somme des carrés est de 2.423e+17. Cela représente la variation non expliquée, c est-à-dire celle qui est attribuée aux erreurs ou à des facteurs non pris en compte dans le modèle.
+
+- **Mean Sq** (moyenne des carrés) : Pour categorie, la moyenne des carrés est de 1.080e+17. Pour les résidus, la moyenne des carrés est de 2.198e+14.
+
+- **F value** : La valeur de F est de 491.2, ce qui est très élevé. Cela indique une forte variation entre les catégories par rapport à la variation résiduelle.
+
+- **Pr(>F)** : La valeur p associée à ce test est < 2e-16, ce qui est très inférieur à 0.05. Cela signifie que les différences entre les catégories sont statistiquement significatives.
+
+
+- **Interprétation des résultats** : Le test ANOVA montre que la variable "Chiffres d'affaires nets" varie de manière significative en fonction de la catégorie dentreprise (Microentreprise, PME, Grande entreprise). La valeur p très faible (< 2e-16) nous permet de conclure que les moyennes des chiffres daffaires nets sont significativement différentes selon les catégories dentreprises.En dautres termes, il y a des différences importantes dans les chiffres daffaires nets entre les différentes catégories d entreprises (Microentreprises, PME et Grandes entreprises) pour lannée 2013.
+
+
+
+- **Conclusion** : Le test ANOVA révèle que la taille de l entreprise (catégorie) est un facteur qui a un impact important sur le chiffre d affaires net des entreprises pour lannée 2013.
+
+\newpage
+
+ *Representation graphique boite a moustaches : *
+
+````{r ,eval=TRUE,echo=FALSE, fig.width=5, fig.heigth= 4}
+
+ ggplot(kaggle_2013, aes(x = categorie, y = Chiffres_d_affaires_nets, fill = categorie)) +
+            geom_boxplot() +
+            labs(
+              title = paste(strwrap("Boîte à moustaches des Chiffres d’affaires nets selon la catégorie (2013)", width = 40), collapse = "\n"),
+              x = "Catégorie d'entreprise",
+              y = "Chiffres d’affaires nets"
+            ) +
+            theme_minimal() +
+            theme(
+              plot.title = element_text(hjust = 0.5, face = "bold"),
+              axis.text.x = element_text(angle = 45, hjust = 1)
+            )
+
+
+````
+
+
+#### **2014**
+
+
+````{r ,eval=TRUE,echo=FALSE}
+#Vérifier la structure des données de 2013
+#str(kaggle_2013) # s'assurer que les colonnes sont bien au bon format avant d'appliquer le test l'ANOVA
+          
+#Lancer l’ANOVA
+anova_result2014 <- aov(`Chiffres_d_affaires_nets` ~ categorie, data = kaggle_2014)
+          
+````
+
+````{r,eval=TRUE,echo=FALSE}
+# Afficher les résultats
+summary(anova_result2014)
+````
+
+
+
+ - Détails du test :
+
+\medskip
+
+- **Df (degrés de liberté)** : La variable 'categorie' a 3 degrés de liberté, ce qui correspond à 4 catégories : Microentreprise, PME, ETI, et Grande entreprise. Les résidus ont 2716 degrés de liberté, correspondant au nombre de données restantes après l'application des catégories.
+
+- **Sum Sq (somme des carrés)** : Pour la variable 'categorie', la somme des carrés est de 5.252e+19, ce qui représente la variation expliquée par les différences entre les catégories. Pour les résidus, la somme des carrés est de 4.253e+19, représentant la variation non expliquée par le modèle.
+
+- **Mean Sq (moyenne des carrés)** : La moyenne des carrés pour 'categorie' est de 1.751e+19, La moyenne des carrés pour les résidus est de 1.566e+16.
+
+- **F value** : La valeur de F est très élevée, à 1118, ce qui montre qu'il existe une grande différence entre les groupes par rapport à la variation résiduelle. Une valeur de F élevée signifie que les différences entre les groupes sont beaucoup plus grandes que la variation interne à chaque groupe.
+
+- **Pr(>F)** : La valeur p associée à ce test est inférieure à 2e-16, ce qui est bien en dessous du seuil de 0.05.  Cela montre que les différences entre les catégories sont très significatives, ce qui nous permet de rejeter l'hypothèse nulle selon laquelle il n'y a pas de différence entre les catégories.
+
+- **Interprétation des résultats** : Le test ANOVA montre que la variable 'Chiffres_d_affaires_nets' varie de manière significative en fonction de la catégorie d'entreprise (Microentreprise, PME, ETI, Grande entreprise). La valeur p très faible (< 2e-16) indique que les moyennes des chiffres d'affaires nets sont statistiquement différentes selon les catégories d'entreprises. Cela signifie que l'appartenance à une catégorie d'entreprise (Microentreprise, PME, ETI, Grande entreprise) a un impact significatif sur les chiffres d'affaires nets pour l'année 2014.
+
+- **Conclusion** : Le test ANOVA confirme que la taille de l'entreprise (catégorie) influence le chiffre d'affaires net des entreprises en 2014. En comparant les moyennes des différentes catégories (Microentreprises, PME, ETI, et Grandes entreprises), on peut dire qu'il y a des différences marquées dans les chiffres d'affaires entre ces groupes.
+
+ - Representation graphique boite a moustaches : 
+    
+
+````{r ,eval=TRUE,echo=FALSE, fig.width=5, fig.heigth= 4}
+    
+    
+    ggplot(kaggle_2014, aes(x = categorie, y = Chiffres_d_affaires_nets, fill = categorie)) +
+      geom_boxplot() +
+      labs(
+        title = paste(strwrap("Boîte à moustaches des Chiffres d’affaires nets selon la catégorie (2014)", width = 40), collapse = "\n"),
+        x = "Catégorie d'entreprise",
+        y = "Chiffres d’affaires nets"
+      ) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+      )
+
+````
+\newpage
+
+#### **2015**
+
+
+````{r, eval=TRUE,echo=FALSE}
+          
+#  Vérifier la structure des données de 2015
+#str(kaggle_2015) # s'assurer que les colonnes sont bien au bon format avant d'appliquer le test l'ANOVA
+          
+# Lancer l’ANOVA
+  anova_result2015 <- aov(`Chiffres_d_affaires_nets` ~ categorie, data = kaggle_2015)
+
+````
+        
+````{R,eval=TRUE,echo=FALSE}
+
+#Afficher les résultats
+summary(anova_result2015)
+
+````
+          
+
+  
+ - Détails du test :
+
+\medskip
+
+- **Df (Degrés de liberté)** : Le facteur "categorie" a 3 degrés de liberté, et les résidus (erreurs) ont 9588 degrés de liberté. Cela reflète le nombre de groupes comparés (les différentes catégories d'entreprises) et la quantité de données disponibles pour les erreurs.
+
+- **Sum Sq (Somme des carrés)** : La somme des carrés représente la variation dans les données. La variation expliquée par la catégorie d'entreprise est de 2.864e+19, tandis que la variation résiduelle (l'erreur) est de 3.293e+19.
+
+- **Mean Sq (Moyenne des carrés)** : La moyenne des carrés est calculée en divisant la somme des carrés par les degrés de liberté. Pour la catégorie, la moyenne des carrés est de 9.546e+18, et pour les résidus, elle est de 3.434e+15.
+
+- **F value** : Le F-value est le rapport entre la variation expliquée par les catégories et celle des résidus. Ici, il est de 2780, ce qui est très élevé, indiquant une différence marquée entre les groupes.
+
+- **Pr(>F)** : La p-value associée au test F. Elle est inférieure à 2e-16, ce qui est très significatif. Cela montre que la probabilité que les différences observées soient dues au hasard est extrêmement faible.
+
+- **Test de Signification** : La p-value obtenue est extrêmement faible (< 2e-16), ce qui signifie que l'hypothèse nulle (H0), qui stipule qu'il n'y a pas de différence entre les groupes, est rejetée. Ainsi, au seuil de 5 % de signification, nous concluons qu'il existe une différence statistiquement significative entre les moyennes des chiffres d’affaires nets des différentes catégories d’entreprises.
+
+- **Que signifie cette différence ?** : Les entreprises de catégories différentes (comme les Microentreprises, PME, ETI, et Grandes entreprises) ont des chiffres d'affaires nets très différents. Par exemple, une Microentreprise n'a clairement pas les mêmes performances financières qu'une PME ou une Grande entreprise.
+
+- **Résumé** : En 2015, les chiffres d’affaires nets varient de manière significative selon la catégorie d'entreprise. Cela suggère que les petites entreprises (comme les Microentreprises) génèrent beaucoup moins de chiffre d'affaires net comparées aux entreprises plus grandes.
+
+  
+````{r ,eval=TRUE,echo=FALSE, fig.width=5, fig.heigth= 4}
+  #Créer la boîte à moustaches : 
+
+  #
+  ggplot(kaggle_2015, aes(x = categorie, y = Chiffres_d_affaires_nets, fill = categorie)) +
+    geom_boxplot() +
+    labs(
+      title = paste(strwrap("Boîte à moustaches des Chiffres d’affaires nets selon la catégorie (2015)", width = 40), collapse = "\n"),
+      x = "Catégorie d'entreprise",
+      y = "Chiffres d’affaires nets"
+    ) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold"),
+      axis.text.x = element_text(angle = 45, hjust = 1)
+    )
+
+````
+
+
+
+#### **2016**
+
+
+````{r, eval=TRUE,echo=FALSE}
+          
+#  Vérifier la structure des données de 2015
+#str(kaggle_2015) # s'assurer que les colonnes sont bien au bon format avant d'appliquer le test l'ANOVA
+          
+# Lancer l’ANOVA
+  anova_result2016 <- aov(`Chiffres_d_affaires_nets` ~ categorie, data = kaggle_2016)
+
+````
+        
+````{R,eval=TRUE,echo=FALSE}
+
+#Afficher les résultats
+summary(anova_result2016)
+
+````
+          
+  
+
+
+\medskip
+
+- Détails du test :
+
+\medskip
+
+- **Df (Degrés de liberté)** : Le facteur "categorie" a 3 degrés de liberté, et les résidus (erreurs) ont 1358 degrés de liberté. Cela représente le nombre de groupes comparés (les différentes catégories d'entreprises) et la quantité de données restantes pour l'erreur.
+
+- **Sum Sq (Somme des carrés)** : La somme des carrés représente la variation dans les données. La variation expliquée par la catégorie d'entreprise est de 1.092e+19, tandis que la variation résiduelle (l'erreur) est de 2.460e+19.
+
+- **Mean Sq (Moyenne des carrés)** : La moyenne des carrés est calculée en divisant la somme des carrés par les degrés de liberté. Pour la catégorie, la moyenne des carrés est de 3.639e+18, et pour les résidus, elle est de 1.812e+16.
+
+- **F value** : Le F-value est le rapport entre la variation expliquée par les catégories et celle des résidus. Ici, il est de 200.9, ce qui est relativement élevé, indiquant une différence entre les groupes.
+
+- **Pr(>F)** : La p-value associée au test F. Elle est inférieure à 2e-16, ce qui est extrêmement significatif. Cela montre que la probabilité que les différences observées soient dues au hasard est très faible.
+
+- **Test de Signification :** La p-value obtenue est extrêmement faible (< 2e-16), ce qui signifie que l'hypothèse nulle (H0), qui stipule qu'il n'y a pas de différence entre les groupes, est rejetée. Ainsi, au seuil de 5 % de signification, nous concluons qu'il existe une différence statistiquement significative entre les moyennes des chiffres d’affaires nets des différentes catégories d’entreprises.
+
+- **Que signifie cette différence ? :** Les entreprises de catégories différentes (comme les Microentreprises, PME, ETI, et Grandes entreprises) ont des chiffres d'affaires nets très différents. Une Microentreprise n'a pas les mêmes performances financières qu'une PME ou une Grande entreprise.
+
+- **Résumé** : En 2016, les chiffres d’affaires nets varient de manière significative en fonction de la catégorie d'entreprise. Cela suggère que les petites entreprises (comme les Microentreprises) génèrent beaucoup moins de chiffre d'affaires net comparées aux entreprises plus grandes.
+
+\medskip
+
+- Représentation graphique (boîte à moustaches):
+
+````{r ,eval=TRUE,echo=FALSE, fig.width=5, fig.heigth= 4}
+#  Créer la boîte à moustaches : 
+  
+  ggplot(kaggle_2016, aes(x = categorie, y = Chiffres_d_affaires_nets, fill = categorie)) +
+    geom_boxplot() +
+    labs(
+      title = "Boîte à moustaches des Chiffres d’affaires nets selon la catégorie (2016)",
+      x = "Catégorie d'entreprise",
+      y = "Chiffres d’affaires nets"
+    ) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold"),
+      axis.text.x = element_text(angle = 45, hjust = 1)
+    )
+
+
+````
+
+\newpage
+
+### Conclusion
+\medskip
+Dans cette analyse, nous avons examiné les différences de chiffre d'affaires net entre les différentes catégories d'entreprises **(Microentreprise, PME, ETI, Grande entreprise)** sur la période *2012-2016*. Les tests ANOVA ont permis de confirmer que les différences observées sont statistiquement significatives, ce qui montre que la taille de l'entreprise a un impact notable sur ses performances économiques.
+\medskip
+Les résultats ont montré que les Microentreprises génèrent des chiffres d'affaires nettement inférieurs à ceux des PME et des Grandes entreprises. Les boîtes à moustaches ont illustré visuellement ces différences, renforçant ainsi les conclusions des tests statistiques.
+\medskip
+En conclusion, cette analyse confirme que la taille de l'entreprise est un facteur déterminant dans ses résultats économiques. Ces résultats peuvent être utilisés pour guider des décisions politiques et stratégiques, notamment pour le soutien aux entreprises en fonction de leur taille.
+
+
+
+
+\newpage
+
 ## **Analyse des subventions et du chiffre d'affaires**
-<!-- esteban -->
+<!-- esteban beretti -->
 \medskip
 
 L'objectif de cette section est de comprendre si les subventions reçues par les entreprises françaises ont un impact sur leur chiffre d'affaires.
@@ -1082,8 +1483,9 @@ summary_ca_fmt %>%
 ````{r chiffre_affaire_graph_2015, echo=FALSE, message=FALSE, warning=FALSE,fig.width=4, fig.height=3}
 library(ggplot2)
 
-# Boxplot – Chiffre d'affaires (2015, max y = 4000)
-ggplot(data_subset %>% filter(year == 2015, !is.na(region)), 
+#Boxplot – Chiffre d'affaires (2015, max y = 4000)
+
+ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
        aes(x = region, y = ca / 1e6)) +
   geom_boxplot(outlier.color = "red") +
   coord_flip() +
@@ -1091,6 +1493,10 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
   labs(title = "Boxplot du chiffre d'affaires par région (2015)",
        y = "Chiffre d'affaires nets (millions euro)", x = "Région") +
   theme_minimal(base_size = 9)
+
+
+
+
 
 
 
@@ -1161,6 +1567,8 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
 
 
 ````
+
+
 
 \newpage
 

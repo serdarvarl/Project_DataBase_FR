@@ -718,13 +718,8 @@ nets}}{Comparer les catégories d'entreprises en fonction des Chiffres d'affaire
 
 \bigskip
 
-\textbf{Variables :} Chiffres d'affaires nets + catégories (Effectif
+\textbf{Variables :} Chiffres d'affaires nets , catégories (Effectif
 moyen du personnel)
-
-\subsection{Étapes pour créer une visualisation
-:}\label{uxe9tapes-pour-cruxe9er-une-visualisation}
-
-contuinee ;;;;;;;
 
 \subsubsection{Les catégories d'entreprises
 :}\label{les-catuxe9gories-dentreprises}
@@ -745,6 +740,386 @@ dont le total de bilan n'excède pas 43 millions d'euros }
 \item \textnormal{\textbf{La grande entreprise} est une entreprise qui ne peut pas être classée
 dans les catégories précédentes}
 \end{itemize}
+
+\newpage
+
+\subsection{Test Statistique : ANOVA}\label{test-statistique-anova}
+
+\medskip
+
+\subsubsection{\texorpdfstring{\textbf{2012}}{2012}}\label{section}
+
+\medskip
+
+\begin{verbatim}
+##              Df    Sum Sq   Mean Sq F value Pr(>F)    
+## categorie     2 3.406e+16 1.703e+16   817.9 <2e-16 ***
+## Residuals   204 4.248e+15 2.082e+13                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{itemize}
+\item
+  Détail du test :
+\item
+  \textbf{Df} : Cela indique les degrés de liberté pour chaque facteur
+  (ici \emph{categorie}) et les résidus.\\
+  Nous avons 2 degrés de liberté pour les catégories et 204 pour les
+  résidus.
+\item
+  \textbf{Sum Sq} : La somme des carrés, qui mesure la variation
+  expliquée par chaque facteur (ici, la variation expliquée par la
+  catégorie d'entreprise) et par les résidus (erreur).
+\item
+  \textbf{Mean Sq} : La moyenne des carrés, obtenue en divisant la somme
+  des carrés par les degrés de liberté. Cela permet d'avoir une idée de
+  la variance.
+\item
+  \textbf{F value} : Le rapport entre la variance expliquée par les
+  catégories et la variance résiduelle (erreur).\\
+  Un F élevé (ici 817.9) indique qu'il existe une grande différence
+  entre les groupes.
+\item
+  \textbf{Pr(\textgreater F)} : La p-value associée au test F. Elle est
+  ici inférieure à 2e-16, ce qui est très significatif.
+\item
+  \textbf{Test de Signification}\\
+  La p-value obtenue est extrêmement faible (\textless{} 2e-16), ce qui
+  signifie que nous rejetons l'hypothèse nulle (H0) au seuil de
+  signification de 5 \% (0.05).\\
+  En d'autres termes, il y a une différence statistiquement
+  significative entre les moyennes des Chiffres d'affaires nets des
+  différentes catégories d'entreprises.
+\item
+  \textbf{Que signifie cette différence ?}\\
+  Cela signifie que les entreprises de catégories différentes (par
+  exemple, Microentreprise, PME, ETI, Grande entreprise) ont des
+  Chiffres d'affaires nets très différents.\\
+  Il est donc évident qu'une entreprise de type \emph{Microentreprise}
+  n'a pas la même performance en termes de chiffre d'affaires net qu'une
+  PME ou une Grande entreprise.
+\item
+  \textbf{Résumé}\\
+  En 2012, les Chiffres d'affaires nets varient de manière significative
+  en fonction de la catégorie d'entreprise.\\
+  Cela signifie que les Microentreprises ne génèrent pas le même chiffre
+  d'affaires net que les PME ou les Grandes entreprises.
+\end{itemize}
+
+\newpage
+
+\subsubsection{\texorpdfstring{\textbf{2013}}{2013}}\label{section-1}
+
+\medskip
+
+\begin{verbatim}
+##               Df    Sum Sq   Mean Sq F value Pr(>F)    
+## categorie      2 2.160e+17 1.080e+17   491.2 <2e-16 ***
+## Residuals   1102 2.423e+17 2.198e+14                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\medskip
+
+\begin{itemize}
+\tightlist
+\item
+  Détails du test :
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+\item
+  \textbf{Df} (degrés de liberté) : categorie : 2 (ce qui correspond à 3
+  catégories de classification : Microentreprise, PME, Grande
+  entreprise)
+\item
+  \textbf{Residuals} : 1102 (le nombre de données restantes après l
+  application des catégories)
+\item
+  \textbf{Sum Sq} (somme des carrés) : Pour la variable categorie, la
+  somme des carrés est de 2.160e+17. Cela représente la variation
+  expliquée par les différences entre les catégories.Pour les résidus,
+  la somme des carrés est de 2.423e+17. Cela représente la variation non
+  expliquée, c est-à-dire celle qui est attribuée aux erreurs ou à des
+  facteurs non pris en compte dans le modèle.
+\item
+  \textbf{Mean Sq} (moyenne des carrés) : Pour categorie, la moyenne des
+  carrés est de 1.080e+17. Pour les résidus, la moyenne des carrés est
+  de 2.198e+14.
+\item
+  \textbf{F value} : La valeur de F est de 491.2, ce qui est très élevé.
+  Cela indique une forte variation entre les catégories par rapport à la
+  variation résiduelle.
+\item
+  \textbf{Pr(\textgreater F)} : La valeur p associée à ce test est
+  \textless{} 2e-16, ce qui est très inférieur à 0.05. Cela signifie que
+  les différences entre les catégories sont statistiquement
+  significatives.
+\item
+  \textbf{Interprétation des résultats} : Le test ANOVA montre que la
+  variable ``Chiffres d'affaires nets'' varie de manière significative
+  en fonction de la catégorie dentreprise (Microentreprise, PME, Grande
+  entreprise). La valeur p très faible (\textless{} 2e-16) nous permet
+  de conclure que les moyennes des chiffres daffaires nets sont
+  significativement différentes selon les catégories dentreprises.En
+  dautres termes, il y a des différences importantes dans les chiffres
+  daffaires nets entre les différentes catégories d entreprises
+  (Microentreprises, PME et Grandes entreprises) pour lannée 2013.
+\item
+  \textbf{Conclusion} : Le test ANOVA révèle que la taille de l
+  entreprise (catégorie) est un facteur qui a un impact important sur le
+  chiffre d affaires net des entreprises pour lannée 2013.
+\end{itemize}
+
+\newpage
+
+\emph{Representation graphique boite a moustaches : }
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{2014}}{2014}}\label{section-2}
+
+\begin{verbatim}
+##               Df    Sum Sq   Mean Sq F value Pr(>F)    
+## categorie      3 5.252e+19 1.751e+19    1118 <2e-16 ***
+## Residuals   2716 4.253e+19 1.566e+16                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Détails du test :
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+\item
+  \textbf{Df (degrés de liberté)} : La variable `categorie' a 3 degrés
+  de liberté, ce qui correspond à 4 catégories : Microentreprise, PME,
+  ETI, et Grande entreprise. Les résidus ont 2716 degrés de liberté,
+  correspondant au nombre de données restantes après l'application des
+  catégories.
+\item
+  \textbf{Sum Sq (somme des carrés)} : Pour la variable `categorie', la
+  somme des carrés est de 5.252e+19, ce qui représente la variation
+  expliquée par les différences entre les catégories. Pour les résidus,
+  la somme des carrés est de 4.253e+19, représentant la variation non
+  expliquée par le modèle.
+\item
+  \textbf{Mean Sq (moyenne des carrés)} : La moyenne des carrés pour
+  `categorie' est de 1.751e+19, La moyenne des carrés pour les résidus
+  est de 1.566e+16.
+\item
+  \textbf{F value} : La valeur de F est très élevée, à 1118, ce qui
+  montre qu'il existe une grande différence entre les groupes par
+  rapport à la variation résiduelle. Une valeur de F élevée signifie que
+  les différences entre les groupes sont beaucoup plus grandes que la
+  variation interne à chaque groupe.
+\item
+  \textbf{Pr(\textgreater F)} : La valeur p associée à ce test est
+  inférieure à 2e-16, ce qui est bien en dessous du seuil de 0.05. Cela
+  montre que les différences entre les catégories sont très
+  significatives, ce qui nous permet de rejeter l'hypothèse nulle selon
+  laquelle il n'y a pas de différence entre les catégories.
+\item
+  \textbf{Interprétation des résultats} : Le test ANOVA montre que la
+  variable `Chiffres\_d\_affaires\_nets' varie de manière significative
+  en fonction de la catégorie d'entreprise (Microentreprise, PME, ETI,
+  Grande entreprise). La valeur p très faible (\textless{} 2e-16)
+  indique que les moyennes des chiffres d'affaires nets sont
+  statistiquement différentes selon les catégories d'entreprises. Cela
+  signifie que l'appartenance à une catégorie d'entreprise
+  (Microentreprise, PME, ETI, Grande entreprise) a un impact
+  significatif sur les chiffres d'affaires nets pour l'année 2014.
+\item
+  \textbf{Conclusion} : Le test ANOVA confirme que la taille de
+  l'entreprise (catégorie) influence le chiffre d'affaires net des
+  entreprises en 2014. En comparant les moyennes des différentes
+  catégories (Microentreprises, PME, ETI, et Grandes entreprises), on
+  peut dire qu'il y a des différences marquées dans les chiffres
+  d'affaires entre ces groupes.
+\item
+  Representation graphique boite a moustaches :
+\end{itemize}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-12-1.pdf}
+\newpage
+
+\subsubsection{\texorpdfstring{\textbf{2015}}{2015}}\label{section-3}
+
+\begin{verbatim}
+##               Df    Sum Sq   Mean Sq F value Pr(>F)    
+## categorie      3 2.864e+19 9.546e+18    2780 <2e-16 ***
+## Residuals   9588 3.293e+19 3.434e+15                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Détails du test :
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+\item
+  \textbf{Df (Degrés de liberté)} : Le facteur ``categorie'' a 3 degrés
+  de liberté, et les résidus (erreurs) ont 9588 degrés de liberté. Cela
+  reflète le nombre de groupes comparés (les différentes catégories
+  d'entreprises) et la quantité de données disponibles pour les erreurs.
+\item
+  \textbf{Sum Sq (Somme des carrés)} : La somme des carrés représente la
+  variation dans les données. La variation expliquée par la catégorie
+  d'entreprise est de 2.864e+19, tandis que la variation résiduelle
+  (l'erreur) est de 3.293e+19.
+\item
+  \textbf{Mean Sq (Moyenne des carrés)} : La moyenne des carrés est
+  calculée en divisant la somme des carrés par les degrés de liberté.
+  Pour la catégorie, la moyenne des carrés est de 9.546e+18, et pour les
+  résidus, elle est de 3.434e+15.
+\item
+  \textbf{F value} : Le F-value est le rapport entre la variation
+  expliquée par les catégories et celle des résidus. Ici, il est de
+  2780, ce qui est très élevé, indiquant une différence marquée entre
+  les groupes.
+\item
+  \textbf{Pr(\textgreater F)} : La p-value associée au test F. Elle est
+  inférieure à 2e-16, ce qui est très significatif. Cela montre que la
+  probabilité que les différences observées soient dues au hasard est
+  extrêmement faible.
+\item
+  \textbf{Test de Signification} : La p-value obtenue est extrêmement
+  faible (\textless{} 2e-16), ce qui signifie que l'hypothèse nulle
+  (H0), qui stipule qu'il n'y a pas de différence entre les groupes, est
+  rejetée. Ainsi, au seuil de 5 \% de signification, nous concluons
+  qu'il existe une différence statistiquement significative entre les
+  moyennes des chiffres d'affaires nets des différentes catégories
+  d'entreprises.
+\item
+  \textbf{Que signifie cette différence ?} : Les entreprises de
+  catégories différentes (comme les Microentreprises, PME, ETI, et
+  Grandes entreprises) ont des chiffres d'affaires nets très différents.
+  Par exemple, une Microentreprise n'a clairement pas les mêmes
+  performances financières qu'une PME ou une Grande entreprise.
+\item
+  \textbf{Résumé} : En 2015, les chiffres d'affaires nets varient de
+  manière significative selon la catégorie d'entreprise. Cela suggère
+  que les petites entreprises (comme les Microentreprises) génèrent
+  beaucoup moins de chiffre d'affaires net comparées aux entreprises
+  plus grandes.
+\end{itemize}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\subsubsection{\texorpdfstring{\textbf{2016}}{2016}}\label{section-4}
+
+\begin{verbatim}
+##               Df    Sum Sq   Mean Sq F value Pr(>F)    
+## categorie      3 1.092e+19 3.639e+18   200.9 <2e-16 ***
+## Residuals   1358 2.460e+19 1.812e+16                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\medskip
+
+\begin{itemize}
+\tightlist
+\item
+  Détails du test :
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+\item
+  \textbf{Df (Degrés de liberté)} : Le facteur ``categorie'' a 3 degrés
+  de liberté, et les résidus (erreurs) ont 1358 degrés de liberté. Cela
+  représente le nombre de groupes comparés (les différentes catégories
+  d'entreprises) et la quantité de données restantes pour l'erreur.
+\item
+  \textbf{Sum Sq (Somme des carrés)} : La somme des carrés représente la
+  variation dans les données. La variation expliquée par la catégorie
+  d'entreprise est de 1.092e+19, tandis que la variation résiduelle
+  (l'erreur) est de 2.460e+19.
+\item
+  \textbf{Mean Sq (Moyenne des carrés)} : La moyenne des carrés est
+  calculée en divisant la somme des carrés par les degrés de liberté.
+  Pour la catégorie, la moyenne des carrés est de 3.639e+18, et pour les
+  résidus, elle est de 1.812e+16.
+\item
+  \textbf{F value} : Le F-value est le rapport entre la variation
+  expliquée par les catégories et celle des résidus. Ici, il est de
+  200.9, ce qui est relativement élevé, indiquant une différence entre
+  les groupes.
+\item
+  \textbf{Pr(\textgreater F)} : La p-value associée au test F. Elle est
+  inférieure à 2e-16, ce qui est extrêmement significatif. Cela montre
+  que la probabilité que les différences observées soient dues au hasard
+  est très faible.
+\item
+  \textbf{Test de Signification :} La p-value obtenue est extrêmement
+  faible (\textless{} 2e-16), ce qui signifie que l'hypothèse nulle
+  (H0), qui stipule qu'il n'y a pas de différence entre les groupes, est
+  rejetée. Ainsi, au seuil de 5 \% de signification, nous concluons
+  qu'il existe une différence statistiquement significative entre les
+  moyennes des chiffres d'affaires nets des différentes catégories
+  d'entreprises.
+\item
+  \textbf{Que signifie cette différence ? :} Les entreprises de
+  catégories différentes (comme les Microentreprises, PME, ETI, et
+  Grandes entreprises) ont des chiffres d'affaires nets très différents.
+  Une Microentreprise n'a pas les mêmes performances financières qu'une
+  PME ou une Grande entreprise.
+\item
+  \textbf{Résumé} : En 2016, les chiffres d'affaires nets varient de
+  manière significative en fonction de la catégorie d'entreprise. Cela
+  suggère que les petites entreprises (comme les Microentreprises)
+  génèrent beaucoup moins de chiffre d'affaires net comparées aux
+  entreprises plus grandes.
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+\tightlist
+\item
+  Représentation graphique (boîte à moustaches):
+\end{itemize}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\newpage
+
+\subsection{Conclusion}\label{conclusion}
+
+\medskip
+
+Dans cette analyse, nous avons examiné les différences de chiffre
+d'affaires net entre les différentes catégories d'entreprises
+\textbf{(Microentreprise, PME, ETI, Grande entreprise)} sur la période
+\emph{2012-2016}. Les tests ANOVA ont permis de confirmer que les
+différences observées sont statistiquement significatives, ce qui montre
+que la taille de l'entreprise a un impact notable sur ses performances
+économiques. \medskip Les résultats ont montré que les Microentreprises
+génèrent des chiffres d'affaires nettement inférieurs à ceux des PME et
+des Grandes entreprises. Les boîtes à moustaches ont illustré
+visuellement ces différences, renforçant ainsi les conclusions des tests
+statistiques. \medskip En conclusion, cette analyse confirme que la
+taille de l'entreprise est un facteur déterminant dans ses résultats
+économiques. Ces résultats peuvent être utilisés pour guider des
+décisions politiques et stratégiques, notamment pour le soutien aux
+entreprises en fonction de leur taille.
+
 \newpage
 
 \section{\texorpdfstring{\textbf{Analyse des subventions et du chiffre
@@ -873,7 +1248,7 @@ code R:
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 \begin{quote}
 La majorité des entreprises reçoivent de petites subventions.
@@ -882,7 +1257,7 @@ Quelques-unes, plus rares, touchent des montants bien plus élevés.
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-22-1.pdf}
 
 \begin{quote}
 Le chiffre d'affaires est aussi très variable, certaines entreprises
@@ -896,7 +1271,7 @@ brute}\label{analyse-bivariuxe9e-brute}
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf}
 
 \begin{quote}
 À première vue, il n'y a pas de lien clair entre les subventions et le
@@ -911,7 +1286,7 @@ Visualisation}\label{ruxe9gression-log-log-visualisation}
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 \begin{quote}
 Une fois les données transformées en logarithme, une tendance apparaît :
@@ -923,7 +1298,7 @@ une hausse d'environ 4,5\% du chiffre d'affaires.
 
 \medskip
 
-\subsubsection{Conclusion}\label{conclusion}
+\subsubsection{Conclusion}\label{conclusion-1}
 
 \medskip
 
@@ -1216,7 +1591,7 @@ dans le même sens, c'est-à-dire à augmenter en même temps.
 ## 2016  2016    0.44  0.9379 H0 non rejetée
 \end{verbatim}
 
-\subsubsection{Conclusion}\label{conclusion-1}
+\subsubsection{Conclusion}\label{conclusion-2}
 
 \newpage
 
@@ -1230,7 +1605,7 @@ entreprises}}{La variation de la rentabilité selon le secteur d'activité des e
 + Chiffres d'affaires nets
 
 \subsection{Étapes pour créer une visualisation
-:}\label{uxe9tapes-pour-cruxe9er-une-visualisation-1}
+:}\label{uxe9tapes-pour-cruxe9er-une-visualisation}
 
 \subsubsection{Catégorisation des entreprises par secteur d'activité
 :}\label{catuxe9gorisation-des-entreprises-par-secteur-dactivituxe9}
@@ -1242,7 +1617,8 @@ nets pour chaque secteur d'activité.\textbackslash{} \textbf{Diagramme
 en barres} : Montrer la moyenne des chiffres d'affaires nets par secteur
 d'activité.
 
-\subsubsection{Test Statistique (ANOVA) :}\label{test-statistique-anova}
+\subsubsection{Test Statistique (ANOVA)
+:}\label{test-statistique-anova-1}
 
 \textbf{Chauque un/e doit proposer son text :) }
 
