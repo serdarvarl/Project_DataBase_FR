@@ -393,7 +393,7 @@ l’année est égale à 2012.
 
 \medskip
 
-Nous avons ensuite appliqué la même méthode pour chaque année (**2013 à 2016**), puis extrait les 100 premières lignes de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles
+Nous avons ensuite appliqué la même méthode (voir le code\ref{codeR_slicing}) pour chaque année (**2013 à 2016**), puis extrait les 100 premières lignes de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles
 afin d’obtenir une table finale regroupant **500 lignes** (100 par année). Cette nouvelle table
 est ainsi mieux structurée pour les futures analyses et pourra être importée dans phpMyAdmin
 pour les étapes suivantes de notre projet.
@@ -402,15 +402,8 @@ pour les étapes suivantes de notre projet.
 
 Lors de l’importation de données sur phpMyAdmin, on a rencontré un petit problème : la colonne
 était trop longue pour être insérée dans la table. Du coup, on a modifié simplement le nom de
-la colonne. Elle était :
-« Produits des autres valeurs mobilières et créances de l’actif immobilisé » et on l’a changée pour : « Produits des autres valeurs mobilières ».
-
-
-
-
-
-
-
+la colonne. Elle était : **« Produits des autres valeurs mobilières et créances de l’actif immobilisé » ** 
+et on l’a changée pour : **« Produits des autres valeurs mobilières »**.
 
 \medskip
 
@@ -419,56 +412,6 @@ Nous avons ensuite appliqué la même méthode pour chaque année (2013 à 2016)
 
 \newpage
 
-<!-- apre voir
-Scatter plot log-log avec ggplot2 
-
-
-
-\medskip
-
-Après avoir fait le décopage de la base de données pour la manipuler plus facilement maintenat on va faire le test de corrélation avec le nuage de points entre les deux variables rentabilité et Impots , taxes et versements assimilés :
-
-
-### TEST de corrélation entre les chiffres d'affaires nets et l'impots,taxes
-
-\medskip
-
-On souhaiterai savoir le lien entre deux variables dans notre BD (test de corélation).On a trouvé que $r(xy)=0.8116802$
-
-\medskip
-
-
-**Hypothese:**  Chiffres d'affaires nets et Impots,taxes  sont non corrélées linéairement
-
-\medskip
-
-
-``` r
-n=27016
-alpha/2=1.9600
-alpha<-0.05
-quant<-qnorm(1-alpha/2)
-quant
-test<-quant/sqrt(27016-1)
-test
-R>test
-```
-
-\medskip
-
-On peut affirmer qu'il existe une corrélation linéaire entre la variale chiffres d'affaires nets et la taxe.
-
-D'après le test de corrélaion et le nuage de points on peut affirmer que le test et le nuage de points sont compatible donc il existe un nlien entre les deux variables.(Corrélation positive forte )  
-
-
-
-
-
-
-
-
--->
- 
 
 
 
@@ -515,7 +458,7 @@ SELECT
     s.siren,
     s.denomination,
     s.postal_code,
-    cr.`Chiffres d’affaires nets` AS chiffre_affaires_net
+    cr.`Chiffres d'affaires nets` AS chiffre_affaires_net
 FROM 
     societe s
 JOIN 
@@ -569,7 +512,7 @@ Voici lien de github notre projet :  \href{https://github.com/serdarvarl/Project
 
 # Analyse et Résultats
 
-## **Comparer les catégories d'entreprises en fonction des Chiffres d’affaires nets**
+## **Comparer les catégories d'entreprises en fonction des Chiffres d'affaires nets**
 
 <!-- lydia Moutchachou -->
 
@@ -692,7 +635,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 
  *Representation graphique boite a moustaches : *
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-9-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-8-1.pdf)<!-- --> 
 
 
 #### **2014**
@@ -732,7 +675,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
  - Representation graphique boite a moustaches : 
     
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-12-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-11-1.pdf)<!-- --> 
 \newpage
 
 #### **2015**
@@ -772,7 +715,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 - **Résumé** : En 2015, les chiffres d’affaires nets varient de manière significative selon la catégorie d'entreprise. Cela suggère que les petites entreprises (comme les Microentreprises) génèrent beaucoup moins de chiffre d'affaires net comparées aux entreprises plus grandes.
 
   
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-15-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-14-1.pdf)<!-- --> 
 
 
 
@@ -817,7 +760,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 
 - Représentation graphique (boîte à moustaches):
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-18-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-17-1.pdf)<!-- --> 
 
 \newpage
 
@@ -941,13 +884,13 @@ summary(modele_log)
 
 \newpage
 
-#### 2. Analyse univariée
+### 2. Analyse univariée
 
  <!-- **Distribution des subventions reçues** -->
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-21-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-20-1.pdf)<!-- --> 
 
 > La majorité des entreprises reçoivent de petites subventions. Quelques-unes, plus rares, touchent des montants bien plus élevés.
 
@@ -955,17 +898,17 @@ summary(modele_log)
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-22-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-21-1.pdf)<!-- --> 
 
 > Le chiffre d'affaires est aussi très variable, certaines entreprises réalisant plusieurs dizaines de millions d'euros.
 
 \medskip
 
-#### 3. Analyse bivariée brute
+### 3. Analyse bivariée brute
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-22-1.pdf)<!-- --> 
 
 > À première vue, il n'y a pas de lien clair entre les subventions et le chiffre d'affaires. Le graphique montre beaucoup de dispersion, ce qui empêche une vraie lecture de tendance.
 
@@ -975,7 +918,7 @@ summary(modele_log)
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-24-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf)<!-- --> 
 
 > Une fois les données transformées en logarithme, une tendance apparaît : les entreprises qui reçoivent plus de subventions ont, en moyenne, un chiffre d'affaires plus élevé. La relation est significative et le modèle indique qu'une augmentation de 10% des subventions correspond à une hausse d'environ 4,5% du chiffre d'affaires.
 
@@ -1239,6 +1182,195 @@ once upon a time in montpellier....
 \newpage
 
 
+
+
+
+## **Comparer  des Chiffres d’affaires net et Impôts, taxes et versements assimilés**
+
+\medskip
+
+Filtrer les valeurs strictement positives
+
+\medskip
+
+\scriptsize
+
+```
+##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max.       NA's 
+##  -32175143     123754     452565    5660321    1522934 7442405000      12756
+```
+\normalsize
+
+\medskip
+
+Minimum négatif (-32,2 M euro) : incohérent économiquement, un chiffre d'affaires ne peut pas être négatif.
+Ces données devraient être examinées, voire exclues pour les analyses statistiques et graphiques.
+Moyenne (5,66 M euro) bien supérieure à la médiane (452 565 euro) :
+Cela indique une distribution fortement asymétrique à droite, causée par des valeurs extrêmes très élevées (entreprises géantes).
+1er et 3e quartile (Q1 = 123 754 euro ; Q3 = 1 522 934 euro) :
+50 % des entreprises ont un CA net compris entre ces deux valeurs,
+ce qui reflète une forte concentration autour de la petite et moyenne entreprise.
+Maximum (7,44 milliards euro) : très élevé, reflétant une extrême hétérogénéité dans la taille des entreprises.
+Ce type de valeur influence fortement la moyenne (effet des outliers).
+Nombre de valeurs manquantes : 12 756 → à prendre en compte dans les analyses (traitement ou imputation).
+
+\medskip
+
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-28-1.pdf)<!-- --> 
+
+\medskip
+
+
+On peut remarquer que la fréquence est particulièrement élevée pour le chiffre d'affaires correspondant à la valeur 7 sur l’échelle logarithmique, ce qui équivaut à 10^7, soit 10 000 000 euros. 
+
+\medskip
+
+Cela indique que de nombreuses entreprises déclarent un chiffre d’affaires autour de 10 millions d’euros, ce qui montre l’importance de cette valeur dans la distribution de cette variable quantitative continue. 
+
+\medskip
+
+Cette concentration justifie une attention particulière dans l’analyse économique du dataset.
+
+\medskip
+
+Créer un boxplot en échelle log10
+
+\medskip
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-29-1.pdf)<!-- --> 
+
+\medskip
+
+
+```
+##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+## -47760732      1041      4472     77161     17566 230050738      9412
+```
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-30-1.pdf)<!-- --> 
+
+
+
+\medskip
+
+#### Chiffres d'affaires nets
+
+\medskip
+
+Pour le chiffres d'affaires on a gardé uniquement les valeurs strictement positives .La moyenne est éleves c'est pour ça on peut conclure que il y a des grandes entreprises dans notre base de données
+La médiane est plus faible que la moyenne montre que la distribution est asymétrique.
+L'écart type est très grand reflétant une forte hétérogénité
+
+\medskip
+#### Impots:
+
+\medskip
+
+\scriptsize
+
+```
+##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max.       NA's 
+##  -32175143     123754     452565    5660321    1522934 7442405000      12756
+```
+
+\normalsize
+
+Après avoir réalisé l'histogramme de la variable quantitative continue "Impôts, taxes et versements assimilés" (en euros), nous avons appliqué une échelle logarithmique afin d'améliorer la lisibilité du graphique et de faciliter l’interprétation des données.
+On observe alors que la fréquence la plus élevée correspond à la valeur 4 sur l’échelle logarithmique, ce qui équivaut à 10^4, soit 40 000 euros.Cela signifie qu’un grand nombre d’entreprises déclarent environ 40 000 euros au titre des impôts, taxes et versements assimilés.
+
+
+### Test de Correlation
+
+\medskip
+
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/graphe_hazem-1.pdf)<!-- --> 
+
+```
+## [1] 0.8116802
+```
+
+\medskip
+
+Après avoir fait le décopage de la base de données pour la manipuler plus facilement maintenat on va faire le test de corrélation avec le nuage de points entre les deux variables rentabilité et Impots , taxes et versements assimilés :
+
+\medskip
+#### Test de corrélation entre les chiffres d'affaires nets et l'impots,taxes
+
+\medskip
+
+On souhaiterai savoir le lien entre deux variables dans notre BD (test de corélation).On a trouvé que $r(xy)=0.8116802$
+
+\medskip
+
+
+**Hypothese:**  Chiffres d'affaires nets et Impots,taxes  sont non corrélées linéairement
+
+\medskip
+
+
+``` r
+n <- 27016
+alpha <- 0.05
+quant <- qnorm(1 - alpha / 2)
+quant
+```
+
+```
+## [1] 1.959964
+```
+
+``` r
+test <- quant / sqrt(n - 1)
+test
+```
+
+```
+## [1] 0.01192465
+```
+
+``` r
+#R>test
+```
+
+\medskip
+
+On peut affirmer qu'il existe une corrélation linéaire entre la variale chiffres d'affaires nets et la taxe.
+
+D'après le test de corrélaion et le nuage de points on peut affirmer que le test et le nuage de points sont compatible donc il existe un nlien entre les deux variables.(Corrélation positive forte )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Discussion
 
 Placer les résultats que vous avez obtenus dans le chapitre précédent en perspective par rapport au problème étudié.
@@ -1270,6 +1402,8 @@ Il faut utiliser les annexes de façon judicieuse. C'est ici que l'on place des 
 ## **Codes** {-}
 
 \tiny
+Code utilise pour sciliging
+\label{codeR_slicing}
 
 ``` r
 #Charger la bibliothèque
@@ -1290,7 +1424,7 @@ fonction_rentabilite <- function(resultat_financier, ca_net) {
 #Appliquer la fonction ligne par ligne
 data_kaggle$rentabilite <- apply(data_kaggle, 1, function(row) {
   resultat <- as.numeric(row["Résultat financier"])
-  ca <- as.numeric(row["Chiffres d’affaires nets"])
+  ca <- as.numeric(row["Chiffres d'affaires nets"])
   return(fonction_rentabilite(resultat, ca))
 })
 
@@ -1370,7 +1504,7 @@ sous_ensemble_4<- rbind(
   annee_2015[1:100, ],
   annee_2016[1:100, ]
 )
-chiffre_affaire<-sous_ensemble_4[,c("siren", "Chiffres d’affaires nets", "Impôts, taxes et versements assimilés")]
+chiffre_affaire<-sous_ensemble_4[,c("siren", "Chiffres d'affaires nets", "Impôts, taxes et versements assimilés")]
 
 write_csv(chiffre_affaire, "csv/chiffre_affaire.csv")
 
@@ -1424,7 +1558,7 @@ sous_ensemble_7<- rbind(
 
 compte_resultat <- sous_ensemble_7[, c("year",
   "siren", 
-  "Chiffres d’affaires nets", 
+  "Chiffres d'affaires nets", 
   "Impôts, taxes et versements assimilés", 
   "Résultat d'exploitation", 
   "Résultat financier", 

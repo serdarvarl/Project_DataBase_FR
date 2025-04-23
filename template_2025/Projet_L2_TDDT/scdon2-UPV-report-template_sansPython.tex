@@ -584,21 +584,22 @@ les lignes dont l'année est égale à 2012.
 
 \medskip
 
-Nous avons ensuite appliqué la même méthode pour chaque année
-(\textbf{2013 à 2016}), puis extrait les 100 premières lignes de chaque
-sous-ensemble. Enfin, nous avons combiné ces sous-ensembles afin
-d'obtenir une table finale regroupant \textbf{500 lignes} (100 par
-année). Cette nouvelle table est ainsi mieux structurée pour les futures
-analyses et pourra être importée dans phpMyAdmin pour les étapes
-suivantes de notre projet.
+Nous avons ensuite appliqué la même méthode (voir le
+code\ref{codeR_slicing}) pour chaque année (\textbf{2013 à 2016}), puis
+extrait les 100 premières lignes de chaque sous-ensemble. Enfin, nous
+avons combiné ces sous-ensembles afin d'obtenir une table finale
+regroupant \textbf{500 lignes} (100 par année). Cette nouvelle table est
+ainsi mieux structurée pour les futures analyses et pourra être importée
+dans phpMyAdmin pour les étapes suivantes de notre projet.
 
 \medskip
 
 Lors de l'importation de données sur phpMyAdmin, on a rencontré un petit
 problème : la colonne était trop longue pour être insérée dans la table.
-Du coup, on a modifié simplement le nom de la colonne. Elle était : «
-Produits des autres valeurs mobilières et créances de l'actif immobilisé
-» et on l'a changée pour : « Produits des autres valeurs mobilières ».
+Du coup, on a modifié simplement le nom de la colonne. Elle était :
+\textbf{« Produits des autres valeurs mobilières et créances de l'actif
+immobilisé » } et on l'a changée pour : \textbf{« Produits des autres
+valeurs mobilières »}.
 
 \medskip
 
@@ -662,13 +663,13 @@ problématique initiale.
 \NormalTok{    s.siren,}
 \NormalTok{    s.denomination,}
 \NormalTok{    s.postal\_code,}
-\NormalTok{    cr.\textasciigrave{}Chiffres d’affaires nets\textasciigrave{} }\KeywordTok{AS}\NormalTok{ chiffre\_affaires\_net}
-\KeywordTok{FROM} 
-\NormalTok{    societe s}
-\KeywordTok{JOIN} 
-\NormalTok{    compte\_resultat cr }\KeywordTok{ON}\NormalTok{ s.siren }\OperatorTok{=}\NormalTok{ cr.siren}
-\KeywordTok{WHERE} 
-    \KeywordTok{LEFT}\NormalTok{(s.postal\_code, }\DecValTok{2}\NormalTok{) }\OperatorTok{=} \StringTok{\textquotesingle{}44\textquotesingle{}}\NormalTok{;}
+\NormalTok{    cr.\textasciigrave{}Chiffres d}\StringTok{\textquotesingle{}affaires nets\textasciigrave{} AS chiffre\_affaires\_net}
+\StringTok{FROM }
+\StringTok{    societe s}
+\StringTok{JOIN }
+\StringTok{    compte\_resultat cr ON s.siren = cr.siren}
+\StringTok{WHERE }
+\StringTok{    LEFT(s.postal\_code, 2) = \textquotesingle{}}\DecValTok{44}\StringTok{\textquotesingle{};}
 \end{Highlighting}
 \end{Shaded}
 
@@ -879,7 +880,7 @@ dans les catégories précédentes}
 
 \emph{Representation graphique boite a moustaches : }
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \subsubsection{\texorpdfstring{\textbf{2014}}{2014}}\label{section-2}
 
@@ -949,7 +950,7 @@ dans les catégories précédentes}
   Representation graphique boite a moustaches :
 \end{itemize}
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-11-1.pdf}
 \newpage
 
 \subsubsection{\texorpdfstring{\textbf{2015}}{2015}}\label{section-3}
@@ -1018,7 +1019,7 @@ dans les catégories précédentes}
   plus grandes.
 \end{itemize}
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-15-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 \subsubsection{\texorpdfstring{\textbf{2016}}{2016}}\label{section-4}
 
@@ -1096,7 +1097,7 @@ dans les catégories précédentes}
   Représentation graphique (boîte à moustaches):
 \end{itemize}
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \newpage
 
@@ -1244,11 +1245,11 @@ code R:
 
 \newpage
 
-\subsubsection{2. Analyse univariée}\label{analyse-univariuxe9e}
+\subsection{2. Analyse univariée}\label{analyse-univariuxe9e}
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 \begin{quote}
 La majorité des entreprises reçoivent de petites subventions.
@@ -1257,7 +1258,7 @@ Quelques-unes, plus rares, touchent des montants bien plus élevés.
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 \begin{quote}
 Le chiffre d'affaires est aussi très variable, certaines entreprises
@@ -1266,12 +1267,11 @@ réalisant plusieurs dizaines de millions d'euros.
 
 \medskip
 
-\subsubsection{3. Analyse bivariée
-brute}\label{analyse-bivariuxe9e-brute}
+\subsection{3. Analyse bivariée brute}\label{analyse-bivariuxe9e-brute}
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-22-1.pdf}
 
 \begin{quote}
 À première vue, il n'y a pas de lien clair entre les subventions et le
@@ -1286,7 +1286,7 @@ Visualisation}\label{ruxe9gression-log-log-visualisation}
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-24-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf}
 
 \begin{quote}
 Une fois les données transformées en logarithme, une tendance apparaît :
@@ -1597,6 +1597,190 @@ once upon a time in montpellier\ldots.
 
 \newpage
 
+\section{\texorpdfstring{\textbf{Comparer des Chiffres d'affaires net et
+Impôts, taxes et versements
+assimilés}}{Comparer des Chiffres d'affaires net et Impôts, taxes et versements assimilés}}\label{comparer-des-chiffres-daffaires-net-et-impuxf4ts-taxes-et-versements-assimiluxe9s}
+
+\medskip
+
+Filtrer les valeurs strictement positives
+
+\medskip
+
+\scriptsize
+
+\begin{verbatim}
+##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max.       NA's 
+##  -32175143     123754     452565    5660321    1522934 7442405000      12756
+\end{verbatim}
+
+\normalsize
+
+\medskip
+
+Minimum négatif (-32,2 M euro) : incohérent économiquement, un chiffre
+d'affaires ne peut pas être négatif. Ces données devraient être
+examinées, voire exclues pour les analyses statistiques et graphiques.
+Moyenne (5,66 M euro) bien supérieure à la médiane (452 565 euro) : Cela
+indique une distribution fortement asymétrique à droite, causée par des
+valeurs extrêmes très élevées (entreprises géantes). 1er et 3e quartile
+(Q1 = 123 754 euro ; Q3 = 1 522 934 euro) : 50 \% des entreprises ont un
+CA net compris entre ces deux valeurs, ce qui reflète une forte
+concentration autour de la petite et moyenne entreprise. Maximum (7,44
+milliards euro) : très élevé, reflétant une extrême hétérogénéité dans
+la taille des entreprises. Ce type de valeur influence fortement la
+moyenne (effet des outliers). Nombre de valeurs manquantes : 12 756 → à
+prendre en compte dans les analyses (traitement ou imputation).
+
+\medskip
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\medskip
+
+On peut remarquer que la fréquence est particulièrement élevée pour le
+chiffre d'affaires correspondant à la valeur 7 sur l'échelle
+logarithmique, ce qui équivaut à 10\^{}7, soit 10 000 000 euros.
+
+\medskip
+
+Cela indique que de nombreuses entreprises déclarent un chiffre
+d'affaires autour de 10 millions d'euros, ce qui montre l'importance de
+cette valeur dans la distribution de cette variable quantitative
+continue.
+
+\medskip
+
+Cette concentration justifie une attention particulière dans l'analyse
+économique du dataset.
+
+\medskip
+
+Créer un boxplot en échelle log10
+
+\medskip
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+\medskip
+
+\begin{verbatim}
+##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+## -47760732      1041      4472     77161     17566 230050738      9412
+\end{verbatim}
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+\medskip
+
+\subsubsection{Chiffres d'affaires nets}\label{chiffres-daffaires-nets}
+
+\medskip
+
+Pour le chiffres d'affaires on a gardé uniquement les valeurs
+strictement positives .La moyenne est éleves c'est pour ça on peut
+conclure que il y a des grandes entreprises dans notre base de données
+La médiane est plus faible que la moyenne montre que la distribution est
+asymétrique. L'écart type est très grand reflétant une forte
+hétérogénité
+
+\medskip
+
+\subsubsection{Impots:}\label{impots}
+
+\medskip
+
+\scriptsize
+
+\begin{verbatim}
+##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max.       NA's 
+##  -32175143     123754     452565    5660321    1522934 7442405000      12756
+\end{verbatim}
+
+\normalsize
+
+Après avoir réalisé l'histogramme de la variable quantitative continue
+``Impôts, taxes et versements assimilés'' (en euros), nous avons
+appliqué une échelle logarithmique afin d'améliorer la lisibilité du
+graphique et de faciliter l'interprétation des données. On observe alors
+que la fréquence la plus élevée correspond à la valeur 4 sur l'échelle
+logarithmique, ce qui équivaut à 10\^{}4, soit 40 000 euros.Cela
+signifie qu'un grand nombre d'entreprises déclarent environ 40 000 euros
+au titre des impôts, taxes et versements assimilés.
+
+\subsection{Test de Correlation}\label{test-de-correlation}
+
+\medskip
+
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/graphe_hazem-1.pdf}
+
+\begin{verbatim}
+## [1] 0.8116802
+\end{verbatim}
+
+\medskip
+
+Après avoir fait le décopage de la base de données pour la manipuler
+plus facilement maintenat on va faire le test de corrélation avec le
+nuage de points entre les deux variables rentabilité et Impots , taxes
+et versements assimilés :
+
+\medskip
+
+\subsubsection{Test de corrélation entre les chiffres d'affaires nets et
+l'impots,taxes}\label{test-de-corruxe9lation-entre-les-chiffres-daffaires-nets-et-limpotstaxes}
+
+\medskip
+
+On souhaiterai savoir le lien entre deux variables dans notre BD (test
+de corélation).On a trouvé que \(r(xy)=0.8116802\)
+
+\medskip
+
+\textbf{Hypothese:} Chiffres d'affaires nets et Impots,taxes sont non
+corrélées linéairement
+
+\medskip
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{27016}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+\NormalTok{quant }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha }\SpecialCharTok{/} \DecValTok{2}\NormalTok{)}
+\NormalTok{quant}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.959964
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ quant }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
+\NormalTok{test}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.01192465
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#R\textgreater{}test}
+\end{Highlighting}
+\end{Shaded}
+
+\medskip
+
+On peut affirmer qu'il existe une corrélation linéaire entre la variale
+chiffres d'affaires nets et la taxe.
+
+D'après le test de corrélaion et le nuage de points on peut affirmer que
+le test et le nuage de points sont compatible donc il existe un nlien
+entre les deux variables.(Corrélation positive forte )
+
 \chapter{Discussion}\label{discussion}
 
 Placer les résultats que vous avez obtenus dans le chapitre précédent en
@@ -1646,6 +1830,8 @@ désireux d'en savoir plus.
 
 \tiny
 
+Code utilise pour sciliging \label{codeR_slicing}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\#Charger la bibliothèque}
@@ -1666,7 +1852,7 @@ désireux d'en savoir plus.
 \CommentTok{\#Appliquer la fonction ligne par ligne}
 \NormalTok{data\_kaggle}\SpecialCharTok{$}\NormalTok{rentabilite }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(data\_kaggle, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(row) \{}
 \NormalTok{  resultat }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(row[}\StringTok{"Résultat financier"}\NormalTok{])}
-\NormalTok{  ca }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(row[}\StringTok{"Chiffres d’affaires nets"}\NormalTok{])}
+\NormalTok{  ca }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(row[}\StringTok{"Chiffres d\textquotesingle{}affaires nets"}\NormalTok{])}
   \FunctionTok{return}\NormalTok{(}\FunctionTok{fonction\_rentabilite}\NormalTok{(resultat, ca))}
 \NormalTok{\})}
 
@@ -1746,7 +1932,7 @@ désireux d'en savoir plus.
 \NormalTok{  annee\_2015[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ],}
 \NormalTok{  annee\_2016[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, ]}
 \NormalTok{)}
-\NormalTok{chiffre\_affaire}\OtherTok{\textless{}{-}}\NormalTok{sous\_ensemble\_4[,}\FunctionTok{c}\NormalTok{(}\StringTok{"siren"}\NormalTok{, }\StringTok{"Chiffres d’affaires nets"}\NormalTok{, }\StringTok{"Impôts, taxes et versements assimilés"}\NormalTok{)]}
+\NormalTok{chiffre\_affaire}\OtherTok{\textless{}{-}}\NormalTok{sous\_ensemble\_4[,}\FunctionTok{c}\NormalTok{(}\StringTok{"siren"}\NormalTok{, }\StringTok{"Chiffres d\textquotesingle{}affaires nets"}\NormalTok{, }\StringTok{"Impôts, taxes et versements assimilés"}\NormalTok{)]}
 
 \FunctionTok{write\_csv}\NormalTok{(chiffre\_affaire, }\StringTok{"csv/chiffre\_affaire.csv"}\NormalTok{)}
 
@@ -1800,7 +1986,7 @@ désireux d'en savoir plus.
 
 \NormalTok{compte\_resultat }\OtherTok{\textless{}{-}}\NormalTok{ sous\_ensemble\_7[, }\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{,}
   \StringTok{"siren"}\NormalTok{, }
-  \StringTok{"Chiffres d’affaires nets"}\NormalTok{, }
+  \StringTok{"Chiffres d\textquotesingle{}affaires nets"}\NormalTok{, }
   \StringTok{"Impôts, taxes et versements assimilés"}\NormalTok{, }
   \StringTok{"Résultat d\textquotesingle{}exploitation"}\NormalTok{, }
   \StringTok{"Résultat financier"}\NormalTok{, }
