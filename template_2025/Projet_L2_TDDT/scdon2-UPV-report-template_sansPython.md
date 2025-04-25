@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "23 April 2025"
+date: "25 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -468,15 +468,82 @@ WHERE
 
 ```
 
-![Code postal](image_sql/sql_2_serdar.png){ width=10cm height=10cm}
+![Code postal](image_sql/sql_2_serdar.png){ width=10cm height=7cm}
+
+
+
+
+``` sql
+
+  SELECT 
+    s.siren, 
+    s.denomination, 
+    SUM(CAST(ca.`Chiffres d’affaires nets` AS DECIMAL)) 
+      AS total_chiffre_affaires
+  FROM societe AS s
+  JOIN chiffre_affaire AS ca 
+    ON s.siren = ca.siren
+  WHERE ca.`Chiffres d’affaires nets` <> 'NA'
+  GROUP BY s.siren, s.denomination
+  ORDER BY total_chiffre_affaires DESC
+  LIMIT 10;
+```
+
+![Max 10 Chiffre d'affaire](image_sql/max_10_CA.png){ width=10cm height=8cm}
+
+
+``` sql
+
+SELECT 
+  a.ape, 
+  a.ape_name, 
+  AVG(CAST(ca.`Chiffres d’affaires nets` AS DECIMAL)) 
+  AS chiffre_affaires_moyen 
+FROM 
+  societe s 
+  JOIN chiffre_affaire ca ON s.siren = ca.siren 
+  JOIN apegen a ON s.ape = a.ape 
+WHERE 
+  ca.`Chiffres d’affaires nets` != 'NA' 
+GROUP BY 
+  a.ape, 
+  a.ape_name 
+ORDER BY 
+  chiffre_affaires_moyen DESC;
+
+```
+
+
+![Comparer le chiffre d'affaires moyen par secteur d'activité (APE)](image_sql/compere_APE.png){ width=10cm height=5cm}
 
 
 
 
 
+``` sql
+SELECT 
+  a.ape, 
+  a.ape_name, 
+  ce.year, 
+  AVG(CAST(ce.`Salaires et traitements` AS DECIMAL)) AS moyenne_salaires 
+FROM societe s JOIN
+  charge_chiffre ce ON s.siren = ce.siren JOIN apegen a ON s.ape = a.ape WHERE ce.`Salaires et traitements` != 'NA' GROUP BY 
+  a.ape,
+  a.ape_name, 
+  ce.year 
+ORDER BY 
+  ce.year,
+  moyenne_salaires DESC
+
+```
+
+![Moyenne des salaires par secteur d'activité (APE) et par année)](image_sql/ape_moyen.png){ width=10cm height=5cm}
 
 
 
+
+
+\newpage
 
 
 # Matériel et Méthodes
@@ -501,13 +568,6 @@ Voici lien de github notre projet :  \href{https://github.com/serdarvarl/Project
  
 
 
-
-
-## Modélisation statistique
-
-
-
-<http://biostatisticien.eu/springeR/livreR.pdf>
 
 
 # Analyse et Résultats
@@ -635,7 +695,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 
  *Representation graphique boite a moustaches : *
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-8-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-11-1.pdf)<!-- --> 
 
 
 #### **2014**
@@ -675,7 +735,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
  - Representation graphique boite a moustaches : 
     
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-11-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-14-1.pdf)<!-- --> 
 \newpage
 
 #### **2015**
@@ -715,7 +775,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 - **Résumé** : En 2015, les chiffres d’affaires nets varient de manière significative selon la catégorie d'entreprise. Cela suggère que les petites entreprises (comme les Microentreprises) génèrent beaucoup moins de chiffre d'affaires net comparées aux entreprises plus grandes.
 
   
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-14-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-17-1.pdf)<!-- --> 
 
 
 
@@ -760,7 +820,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 
 - Représentation graphique (boîte à moustaches):
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-17-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-20-1.pdf)<!-- --> 
 
 \newpage
 
@@ -890,7 +950,7 @@ summary(modele_log)
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-20-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf)<!-- --> 
 
 > La majorité des entreprises reçoivent de petites subventions. Quelques-unes, plus rares, touchent des montants bien plus élevés.
 
@@ -898,7 +958,7 @@ summary(modele_log)
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-21-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-24-1.pdf)<!-- --> 
 
 > Le chiffre d'affaires est aussi très variable, certaines entreprises réalisant plusieurs dizaines de millions d'euros.
 
@@ -908,7 +968,7 @@ summary(modele_log)
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-22-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-25-1.pdf)<!-- --> 
 
 > À première vue, il n'y a pas de lien clair entre les subventions et le chiffre d'affaires. Le graphique montre beaucoup de dispersion, ce qui empêche une vraie lecture de tendance.
 
@@ -918,7 +978,7 @@ summary(modele_log)
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-26-1.pdf)<!-- --> 
 
 > Une fois les données transformées en logarithme, une tendance apparaît : les entreprises qui reçoivent plus de subventions ont, en moyenne, un chiffre d'affaires plus élevé. La relation est significative et le modèle indique qu'une augmentation de 10% des subventions correspond à une hausse d'environ 4,5% du chiffre d'affaires.
 
@@ -1147,35 +1207,54 @@ En 2014, on observe une **forte** corrélation positive, ce qui indique une rela
 \medskip
 - Hypothèse alternative (H\textsubscript{1}) : Il existe une différence significative du chiffre d’affaires net et du résultat d'exploitation entre les régions.
 
+\medskip
 
+- Test ANOVA pour Chiffre d’affaires net
+
+\medskip
 
 
 ```
-##      Annee F_value     p_value   Decision
-## 2012  2012   11.49 0.000000000 H0 rejetée
-## 2013  2013    6.25 0.000000000 H0 rejetée
-## 2014  2014    3.77 0.000020167 H0 rejetée
-## 2015  2015    7.46 0.000000000 H0 rejetée
-## 2016  2016    2.76 0.001434238 H0 rejetée
+##      F_value     p_value   Decision
+## 2012   11.49 0.000000000 H0 rejetée
+## 2013    6.25 0.000000000 H0 rejetée
+## 2014    3.77 0.000020167 H0 rejetée
+## 2015    7.46 0.000000000 H0 rejetée
+## 2016    2.76 0.001434238 H0 rejetée
 ```
 
 \bigskip
 
+- Test ANOVA pour Résultat d'exploitation
+\medskip
 
 
 ```
-##      Annee F_value p_value       Decision
-## 2012  2012    0.72  0.7195 H0 non rejetée
-## 2013  2013    0.61  0.8213 H0 non rejetée
-## 2014  2014    0.18  0.9987 H0 non rejetée
-## 2015  2015    1.95  0.0289     H0 rejetée
-## 2016  2016    0.44  0.9379 H0 non rejetée
+##      F_value p_value       Decision
+## 2012    0.72  0.7195 H0 non rejetée
+## 2013    0.61  0.8213 H0 non rejetée
+## 2014    0.18  0.9987 H0 non rejetée
+## 2015    1.95  0.0289     H0 rejetée
+## 2016    0.44  0.9379 H0 non rejetée
 ```
 
 #### Conclusion
 
+Cette étude a examiné s’il existe une relation entre les variables définies « ca » et « Re » indépendamment pour chaque année, selon les régions.
 
-once upon a time in montpellier....
+Le test Anova nous a donné les résultats suivants:
+
+ - **Chiffre d'affaires net (CA)**: Des différences significatives ont été constatées entre les régions pour chaque année. Cela montre que la localisation géographique a un effet significatif sur le chiffre d'affaires moyen des entreprises.
+
+\medskip
+
+ - **Résultat d'exploitation**: Les résultats sont plus contrastés. Si les différences entre les régions sont significatives certaines années (par exemple, 2015), elles ne le sont pas statistiquement pour d'autres années (par exemple, 2012, 2013 et 2014).
+
+Ces résultats suggèrent que les différences régionales sont significatives pour le chiffre d'affaires net, mais plus limitées pour le résultat d'exploitation. Cela suggère que le résultat d'exploitation pourrait être lié non seulement à la région, mais aussi à la taille de l'entreprise, à son secteur d'activité et à d'autres caractéristiques structurelles.
+
+En résumé, si les facteurs régionaux ont un effet significatif sur le chiffre d'affaires net, cet effet est plus faible sur le résultat d'exploitation. Il est conclu que des analyses multivariées sont nécessaires pour comprendre la performance des entreprises.
+
+once upon a time in montpellier....devam et
 
 
 
@@ -1186,7 +1265,7 @@ once upon a time in montpellier....
 
 
 ## **Comparer  des Chiffres d’affaires net et Impôts, taxes et versements assimilés**
-
+<!-- Hazem IBNMTAR -->
 \medskip
 
 Filtrer les valeurs strictement positives
@@ -1217,7 +1296,7 @@ Nombre de valeurs manquantes : 12 756 → à prendre en compte dans les analyses
 \medskip
 
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-28-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-31-1.pdf)<!-- --> 
 
 \medskip
 
@@ -1238,7 +1317,7 @@ Créer un boxplot en échelle log10
 
 \medskip
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-29-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-32-1.pdf)<!-- --> 
 
 \medskip
 
@@ -1248,7 +1327,7 @@ Créer un boxplot en échelle log10
 ## -47760732      1041      4472     77161     17566 230050738      9412
 ```
 
-![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-30-1.pdf)<!-- --> 
+![](scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-33-1.pdf)<!-- --> 
 
 
 
@@ -1572,21 +1651,4 @@ write_csv(stock, "csv/stock.csv")
 ```
 \normalsize
 
-
-
-## **Tables** {-}
-
-Si vous avez des tableaux supplémentaires, vous pouvez les ajouter ici.
-
-Utiliser https://www.tablesgenerator.com/markdown_tables pour créer des tables Markdown simples, ou bien utiliser \LaTeX.
-
-| Les tables   |        sont       |  cool |
-|--------------|:-----------------:|------:|
-| col 1 est    |  alignée à gauche | $1600 |
-| col 2 est    |     centrée       |   $12 |
-| col 3 est    | alignée à droite  |    $1 |
-
-Table: une légende au-dessus du tableau. \label{tab7.1}
-
-Aligner les nombres de la troisième colonne sur la droite permet d'afficher les unités au-dessus des unités, les dizaines au-dessus des dizaines, etc. Il faut toujours privilégier cette présentation.
 

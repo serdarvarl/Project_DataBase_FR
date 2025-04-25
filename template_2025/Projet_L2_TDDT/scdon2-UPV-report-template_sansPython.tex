@@ -675,9 +675,89 @@ problématique initiale.
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm,height=10cm]{image_sql/sql_2_serdar.png}
+\includegraphics[width=10cm,height=7cm]{image_sql/sql_2_serdar.png}
 \caption{Code postal}
 \end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+  \KeywordTok{SELECT} 
+\NormalTok{    s.siren, }
+\NormalTok{    s.denomination, }
+    \FunctionTok{SUM}\NormalTok{(}\FunctionTok{CAST}\NormalTok{(ca.\textasciigrave{}Chiffres d’affaires nets\textasciigrave{} }\KeywordTok{AS} \DataTypeTok{DECIMAL}\NormalTok{)) }
+      \KeywordTok{AS}\NormalTok{ total\_chiffre\_affaires}
+  \KeywordTok{FROM}\NormalTok{ societe }\KeywordTok{AS}\NormalTok{ s}
+  \KeywordTok{JOIN}\NormalTok{ chiffre\_affaire }\KeywordTok{AS}\NormalTok{ ca }
+    \KeywordTok{ON}\NormalTok{ s.siren }\OperatorTok{=}\NormalTok{ ca.siren}
+  \KeywordTok{WHERE}\NormalTok{ ca.\textasciigrave{}Chiffres d’affaires nets\textasciigrave{} }\OperatorTok{\textless{}\textgreater{}} \StringTok{\textquotesingle{}NA\textquotesingle{}}
+  \KeywordTok{GROUP} \KeywordTok{BY}\NormalTok{ s.siren, s.denomination}
+  \KeywordTok{ORDER} \KeywordTok{BY}\NormalTok{ total\_chiffre\_affaires }\KeywordTok{DESC}
+  \KeywordTok{LIMIT} \DecValTok{10}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm,height=8cm]{image_sql/max_10_CA.png}
+\caption{Max 10 Chiffre d'affaire}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\KeywordTok{SELECT} 
+\NormalTok{  a.ape, }
+\NormalTok{  a.ape\_name, }
+  \FunctionTok{AVG}\NormalTok{(}\FunctionTok{CAST}\NormalTok{(ca.\textasciigrave{}Chiffres d’affaires nets\textasciigrave{} }\KeywordTok{AS} \DataTypeTok{DECIMAL}\NormalTok{)) }
+  \KeywordTok{AS}\NormalTok{ chiffre\_affaires\_moyen }
+\KeywordTok{FROM} 
+\NormalTok{  societe s }
+  \KeywordTok{JOIN}\NormalTok{ chiffre\_affaire ca }\KeywordTok{ON}\NormalTok{ s.siren }\OperatorTok{=}\NormalTok{ ca.siren }
+  \KeywordTok{JOIN}\NormalTok{ apegen a }\KeywordTok{ON}\NormalTok{ s.ape }\OperatorTok{=}\NormalTok{ a.ape }
+\KeywordTok{WHERE} 
+\NormalTok{  ca.\textasciigrave{}Chiffres d’affaires nets\textasciigrave{} }\OperatorTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}} 
+\KeywordTok{GROUP} \KeywordTok{BY} 
+\NormalTok{  a.ape, }
+\NormalTok{  a.ape\_name }
+\KeywordTok{ORDER} \KeywordTok{BY} 
+\NormalTok{  chiffre\_affaires\_moyen }\KeywordTok{DESC}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm,height=5cm]{image_sql/compere_APE.png}
+\caption{Comparer le chiffre d'affaires moyen par secteur d'activité
+(APE)}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{SELECT} 
+\NormalTok{  a.ape, }
+\NormalTok{  a.ape\_name, }
+\NormalTok{  ce.}\DataTypeTok{year}\NormalTok{, }
+  \FunctionTok{AVG}\NormalTok{(}\FunctionTok{CAST}\NormalTok{(ce.\textasciigrave{}Salaires et traitements\textasciigrave{} }\KeywordTok{AS} \DataTypeTok{DECIMAL}\NormalTok{)) }\KeywordTok{AS}\NormalTok{ moyenne\_salaires }
+\KeywordTok{FROM}\NormalTok{ societe s }\KeywordTok{JOIN}
+\NormalTok{  charge\_chiffre ce }\KeywordTok{ON}\NormalTok{ s.siren }\OperatorTok{=}\NormalTok{ ce.siren }\KeywordTok{JOIN}\NormalTok{ apegen a }\KeywordTok{ON}\NormalTok{ s.ape }\OperatorTok{=}\NormalTok{ a.ape }\KeywordTok{WHERE}\NormalTok{ ce.\textasciigrave{}Salaires et traitements\textasciigrave{} }\OperatorTok{!=} \StringTok{\textquotesingle{}NA\textquotesingle{}} \KeywordTok{GROUP} \KeywordTok{BY} 
+\NormalTok{  a.ape,}
+\NormalTok{  a.ape\_name, }
+\NormalTok{  ce.}\DataTypeTok{year} 
+\KeywordTok{ORDER} \KeywordTok{BY} 
+\NormalTok{  ce.}\DataTypeTok{year}\NormalTok{,}
+\NormalTok{  moyenne\_salaires }\KeywordTok{DESC}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm,height=5cm]{image_sql/ape_moyen.png}
+\caption{Moyenne des salaires par secteur d'activité (APE) et par
+année)}
+\end{figure}
+
+\newpage
 
 \chapter{Matériel et Méthodes}\label{matuxe9riel-et-muxe9thodes}
 
@@ -706,10 +786,6 @@ Nous avons utilisé ces logiciels lors de la réalisation de notre projet
 
 Voici lien de github notre projet :
 \href{https://github.com/serdarvarl/Project_DataBase_FR.git}{TDDT github}
-
-\section{Modélisation statistique}\label{moduxe9lisation-statistique}
-
-\url{http://biostatisticien.eu/springeR/livreR.pdf}
 
 \chapter{Analyse et Résultats}\label{analyse-et-ruxe9sultats}
 
@@ -880,7 +956,7 @@ dans les catégories précédentes}
 
 \emph{Representation graphique boite a moustaches : }
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-11-1.pdf}
 
 \subsubsection{\texorpdfstring{\textbf{2014}}{2014}}\label{section-2}
 
@@ -950,7 +1026,7 @@ dans les catégories précédentes}
   Representation graphique boite a moustaches :
 \end{itemize}
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-14-1.pdf}
 \newpage
 
 \subsubsection{\texorpdfstring{\textbf{2015}}{2015}}\label{section-3}
@@ -1019,7 +1095,7 @@ dans les catégories précédentes}
   plus grandes.
 \end{itemize}
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \subsubsection{\texorpdfstring{\textbf{2016}}{2016}}\label{section-4}
 
@@ -1097,7 +1173,7 @@ dans les catégories précédentes}
   Représentation graphique (boîte à moustaches):
 \end{itemize}
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 \newpage
 
@@ -1249,7 +1325,7 @@ code R:
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf}
 
 \begin{quote}
 La majorité des entreprises reçoivent de petites subventions.
@@ -1258,7 +1334,7 @@ Quelques-unes, plus rares, touchent des montants bien plus élevés.
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 \begin{quote}
 Le chiffre d'affaires est aussi très variable, certaines entreprises
@@ -1271,7 +1347,7 @@ réalisant plusieurs dizaines de millions d'euros.
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-25-1.pdf}
 
 \begin{quote}
 À première vue, il n'y a pas de lien clair entre les subventions et le
@@ -1286,7 +1362,7 @@ Visualisation}\label{ruxe9gression-log-log-visualisation}
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-26-1.pdf}
 
 \begin{quote}
 Une fois les données transformées en logarithme, une tendance apparaît :
@@ -1571,29 +1647,83 @@ dans le même sens, c'est-à-dire à augmenter en même temps.
   entre les régions.
 \end{itemize}
 
+\medskip
+
+\begin{itemize}
+\tightlist
+\item
+  Test ANOVA pour Chiffre d'affaires net
+\end{itemize}
+
+\medskip
+
 \begin{verbatim}
-##      Annee F_value     p_value   Decision
-## 2012  2012   11.49 0.000000000 H0 rejetée
-## 2013  2013    6.25 0.000000000 H0 rejetée
-## 2014  2014    3.77 0.000020167 H0 rejetée
-## 2015  2015    7.46 0.000000000 H0 rejetée
-## 2016  2016    2.76 0.001434238 H0 rejetée
+##      F_value     p_value   Decision
+## 2012   11.49 0.000000000 H0 rejetée
+## 2013    6.25 0.000000000 H0 rejetée
+## 2014    3.77 0.000020167 H0 rejetée
+## 2015    7.46 0.000000000 H0 rejetée
+## 2016    2.76 0.001434238 H0 rejetée
 \end{verbatim}
 
 \bigskip
 
+\begin{itemize}
+\tightlist
+\item
+  Test ANOVA pour Résultat d'exploitation \medskip
+\end{itemize}
+
 \begin{verbatim}
-##      Annee F_value p_value       Decision
-## 2012  2012    0.72  0.7195 H0 non rejetée
-## 2013  2013    0.61  0.8213 H0 non rejetée
-## 2014  2014    0.18  0.9987 H0 non rejetée
-## 2015  2015    1.95  0.0289     H0 rejetée
-## 2016  2016    0.44  0.9379 H0 non rejetée
+##      F_value p_value       Decision
+## 2012    0.72  0.7195 H0 non rejetée
+## 2013    0.61  0.8213 H0 non rejetée
+## 2014    0.18  0.9987 H0 non rejetée
+## 2015    1.95  0.0289     H0 rejetée
+## 2016    0.44  0.9379 H0 non rejetée
 \end{verbatim}
 
 \subsubsection{Conclusion}\label{conclusion-2}
 
-once upon a time in montpellier\ldots.
+Cette étude a examiné s'il existe une relation entre les variables
+définies « ca » et « Re » indépendamment pour chaque année, selon les
+régions.
+
+Le test Anova nous a donné les résultats suivants:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Chiffre d'affaires net (CA)}: Des différences significatives
+  ont été constatées entre les régions pour chaque année. Cela montre
+  que la localisation géographique a un effet significatif sur le
+  chiffre d'affaires moyen des entreprises.
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Résultat d'exploitation}: Les résultats sont plus contrastés.
+  Si les différences entre les régions sont significatives certaines
+  années (par exemple, 2015), elles ne le sont pas statistiquement pour
+  d'autres années (par exemple, 2012, 2013 et 2014).
+\end{itemize}
+
+Ces résultats suggèrent que les différences régionales sont
+significatives pour le chiffre d'affaires net, mais plus limitées pour
+le résultat d'exploitation. Cela suggère que le résultat d'exploitation
+pourrait être lié non seulement à la région, mais aussi à la taille de
+l'entreprise, à son secteur d'activité et à d'autres caractéristiques
+structurelles.
+
+En résumé, si les facteurs régionaux ont un effet significatif sur le
+chiffre d'affaires net, cet effet est plus faible sur le résultat
+d'exploitation. Il est conclu que des analyses multivariées sont
+nécessaires pour comprendre la performance des entreprises.
+
+once upon a time in montpellier\ldots.devam et
 
 \newpage
 
@@ -1634,7 +1764,7 @@ prendre en compte dans les analyses (traitement ou imputation).
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-31-1.pdf}
 
 \medskip
 
@@ -1660,7 +1790,7 @@ Créer un boxplot en échelle log10
 
 \medskip
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 \medskip
 
@@ -1669,7 +1799,7 @@ Créer un boxplot en échelle log10
 ## -47760732      1041      4472     77161     17566 230050738      9412
 \end{verbatim}
 
-\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-30-1.pdf}
+\includegraphics{scdon2-UPV-report-template_sansPython_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 \medskip
 
@@ -2001,36 +2131,6 @@ Code utilise pour sciliging \label{codeR_slicing}
 \end{Shaded}
 
 \normalsize
-
-\section*{\texorpdfstring{\textbf{Tables}}{Tables}}\label{tables}
-\addcontentsline{toc}{section}{\textbf{Tables}}
-
-Si vous avez des tableaux supplémentaires, vous pouvez les ajouter ici.
-
-Utiliser \url{https://www.tablesgenerator.com/markdown_tables} pour
-créer des tables Markdown simples, ou bien utiliser \LaTeX.
-
-\begin{longtable}[]{@{}lcr@{}}
-\caption{une légende au-dessus du tableau.
-\label{tab7.1}}\tabularnewline
-\toprule\noalign{}
-Les tables & sont & cool \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Les tables & sont & cool \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-col 1 est & alignée à gauche & \$1600 \\
-col 2 est & centrée & \$12 \\
-col 3 est & alignée à droite & \$1 \\
-\end{longtable}
-
-Aligner les nombres de la troisième colonne sur la droite permet
-d'afficher les unités au-dessus des unités, les dizaines au-dessus des
-dizaines, etc. Il faut toujours privilégier cette présentation.
 
 
 
