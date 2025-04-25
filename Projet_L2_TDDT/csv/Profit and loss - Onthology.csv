@@ -1,0 +1,73 @@
+Columns of the profit and loss (FR),Columns of the profit and loss EN),Description (FR),Liasse (Id),Calcul
+year,publishing year of the income statement,année durant laquelle le compte de résultat a été publié ,,
+"Autres impôts, taxes et versements assimilés",,,9Z,
+Ventes de marchandises,sale of goods,action de d'acheter puis de vendre du matériel dans le même états (acheter puis vendre une pomme) ,FA,
+Production vendue biens,sold productions of goods,concerne la vente de bien produits ou transformé par l'entreprise,FD,
+Production vendue services,sold productions of services,concerne la vente de service fourni par l'entreprise,FG,
+Chiffres d’affaires nets,net turnover,somme des ventes de bien ou de services sur une période de temps donnée,FJ,
+Production stockée,stocked production,variation du stock sur une période de temps donnée,FM,
+Production immobilisée,immobilized productions,immobilisation produites par l'entreprise (commedes travaux pour des locaux),FN,
+Subventions d’exploitation,operating grants,subvention  octroyée a une entreprise pour faire face a certaines charges d'exploitation ou compenser l'insuffisance de certains produits (c'est une aide financière accordée a l'entreprise),FO,
+"Reprises sur amortissements et provisions, transfert de charges","recovery of amortization and provision, load transfert",,FP,
+Autres produits,other products,produits qui ne sont pas liés a la vente ou au service fournie par l'entreprise,FQ,
+Total des produits d’exploitation,total of exploitation product,somme de tout les produits d'exploitation,FR,FJ + FM + FN + FO + FP + FQ
+Achats de marchandises (y compris droits de douane),goods purchases (including custom duty),achats de biens fait par la société dans le but de les revendres tel quels,FS,
+Variation de stock (marchandises),stock variations (goods),différence entre le stock initial et le stock final,FT,
+Achats de matières premières et autres approvisionnements,raw materials purchases and others supply,achats des matières par l'entreprises permettant la création d'un produit vendu,FU,
+Variation de stock (matières premières et approvisionnements),stock variations (raw materials and supplies),différence entre le stock initial et le stock final,FV,
+Autres achats et charges externes,other purchases and external charges/expenses,"charges provenant de tiers (sous traitance , loyer) ",FW,
+"Impôts, taxes et versements assimilés","taxes , ands equivalent payment",versements obligatoires à l'état,FX,
+Salaires et traitements,wages and treatments,rémunérations perçues par des personnes liés a des employeurs,FY,
+Charges sociales,social charges,"prélèvement sur les salaires qui permettent de financer la protection sociale (maladie , maternité , accident de travail ) ",FZ,
+Autres charges,other charges,charges provenant de l'exploitation de l'entreprise mais qui apparaissent de manières ponctuelles,GE,
+Total des charges d’exploitation,total of exploitation charges,sommes des charges d'exploitation,GF,FS + FT + FU + FV + FW + FX + FY + FZ + (GA + GB +GC + GD) + GE 
+Résultat d'exploitation,operating result,indicateur permettant de mesurer la performance d'une entreprise,GG,FR + GF
+Bénéfice attribué ou perte transférée,attributed profit or transferred losses,,GH,
+Perte supportée ou bénéfice transféré,sustained/incurred losses or transferred profit,,GI,
+Produits financiers de participations,financial income of investements,,GJ,
+Produits des autres valeurs mobilières et créances de l’actif immobilisé,income from ohter securities and receivables from fixed assets,,GK,
+Autres intérêts et produits assimilés,other interest and assimilated goods,,GL,
+Reprises sur provisions et transferts de charges financier,recovery of supplies and transfer of financial charges,,GM,
+Différences positives de change,positive difference of exchange ,,GN,
+Produits nets sur cessions de valeurs mobilières de placement,net income on sales of marketable securities,,GO,
+Total des produits financiers,total financial income,,GP,GJ + GK + GL + GM + GN + GO 
+Dotations financières sur amortissements et provisions,financial endowents on amortization and provision,,GQ,
+Intérêts et charges assimilées,interest and assimilated charges,,GR,
+Différences négatives de change,negative difference of exchange,,GS,
+Charges nettes sur cessions de valeurs mobilières de placement,net charges on sales of marketable securities,,GT,
+Total des charges financières,total financial charges/load,,GU,GQ + GR +GS +GT
+Résultat financier,financial result,,GV,GP + GU
+Résultat en cours avant impôts,result in progress before taxes,,GW,GG + GV +GH +GI
+Produits exceptionnels sur opérations de gestion,exceptionnal income on management operations ,,HA,
+Produits exceptionnels sur opérations en capital,exceptionnal income on capital transactions  ,,HB,
+Reprises sur provisions et transferts de charges exceptionnel,recovery on provisions and transfer of exceptional charges/load,,HC,
+Total des produits exceptionnels,total exceptional products,,HD,HA + HB + HC
+Charges exceptionnelles sur opérations de gestion,exceptional charges on management operations ,,HE,
+Charges exceptionnelles sur opérations en capital,exceptional charges on capital,,HF,
+Dotations exceptionnelles aux amortissements et provisions,,,HG,
+Total des charges exceptionnelles,total exceptional charges,,HH,HE + HF + HG
+Résultat exceptionnel,exceptional result,,HI,HD + HH
+Participation des salariés aux résultats de l’entreprise,employee participation in company result,,HJ,
+Impôts sur les bénéfices,taxes on profit,,HK,
+Total des produits,total products,,HL,
+Total des charges,total charges/load,somme de toutes les charges ,HM,
+Bénéfices ou perte (Total des produits ‐ Total des charges),profit or losses (total product - total charges),,HN,GW + HI + HJ +HK
+Impôts différés (compte de résultat),deferred taxes,,R1,
+Résultat net des sociétés mises en équivalence,Net income from associates,,R4,
+Résultat net des entreprises intégrées,Net income from associates,,R5,
+Résultat Groupe (Résultat net consolidé),Group result (Consolidated net income),,R6,
+Part des intérêts minoritaires (Résultat hors groupe),Share of minority interests (Non-group result),,R7,
+Résultat net part du groupe (part de la société mère),"Net income, group share (parent company share)",,R8,
+Rémunération d’intermédiaires et honoraires (hors rétrocessions),remuneration of intermediariesand fees (excluding retrocessions),,SS,
+"Location, charges locatives et de copropriété","Rental, rental and condominium charges",,XQ,
+Effectif moyen du personnel,Average number of staff,,YP,
+Sous‐traitance,Subcontracting,,YT,
+Personnel extérieur à l’entreprise,Staff outside the company,,YU,
+"Rétrocessions d’honoraires, commissions et courtages","Retrocessions of fees, commissions and brokerage",,YV,
+Taxe professionnelle,Professional tax,,YW,
+Montant de la TVA. collectée,VAT amount. collected,,YY,
+Total TVA. déductible sur biens et services,"
+Total VAT. deductible on goods and services",,YZ,
+Dividendes,"
+Dividends",,ZE,
+siren,siren,,,
