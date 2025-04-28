@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "25 April 2025"
+date: "28 April 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -57,7 +57,7 @@ always_allow_html: True
 
 ## Présentation du projet
 
-Les données financières des entreprises jouent un rôle crucial dans la compréhension de leur santé économique. Ce projet se concentre sur l'analyse des performances financières des entreprises françaises entre 2018 et 2022, en utilisant les données fournies par le Registre National du Commerce et des Sociétés (RNCS).
+Les données financières des entreprises jouent un rôle crucial dans la compréhension de leur santé économique. Ce projet se concentre sur l'analyse des performances financières des entreprises françaises entre 2012 et 2016, en utilisant les données fournies par le Registre National du Commerce et des Sociétés (RNCS).
 
 
 \bigskip
@@ -348,6 +348,8 @@ Calcul & varchar & Méthode de calcul pour certaines valeurs dans les colonnes \
 
 \bigskip
 ## Import des données 
+
+### Import des données 
 <!-- hazem inbmtar -->
 \bigskip
 
@@ -394,7 +396,7 @@ l’année est égale à 2012.
 
 \medskip
 
-Nous avons ensuite appliqué la même méthode (voir le code\ref{codeR_slicing}) pour chaque année (**2013 à 2016**), puis extrait les 100 premières lignes de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles
+Nous avons ensuite appliqué la même méthode (voir le code\ref{codeR_slicing}) pour chaque année (**2012 à 2016**), puis extrait les 100 premières lignes de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles
 afin d’obtenir une table finale regroupant **500 lignes** (100 par année). Cette nouvelle table
 est ainsi mieux structurée pour les futures analyses et pourra être importée dans phpMyAdmin
 pour les étapes suivantes de notre projet.
@@ -411,6 +413,90 @@ et on l’a changée pour : **« Produits des autres valeurs mobilières »**.
    Cette commande retourne toutes les colonnes de la base data_kaggle pour les lignes dont l’année est **égale à 2012**.
 Nous avons ensuite appliqué la même méthode pour chaque année (2013 à 2016), puis extrait **les 100 premières lignes** de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles afin d’obtenir une **table finale regroupant 500 lignes (100 par année)**. Cette nouvelle table est ainsi mieux structurée pour les futures analyses et pourra être **importée dans phpMyAdmin** pour les étapes suivantes de notre projet.
 
+
+### Traitement des données
+
+Pour assurer la qualité et l'intégrité de nos données, plusieurs étapes de traitement ont été réalisées.
+
+Tout d'abord, afin de garantir l'unicité de chaque société dans la table `chiffre_affaire`, nous avons identifié les éventuels doublons grâce à la requête suivante :
+
+
+``` sql
+SELECT siren, COUNT(*) AS occurrences
+FROM chiffre_affaire
+GROUP BY siren
+HAVING COUNT(*) > 1;
+```
+
+Lorsque plusieurs occurrences pour un même `siren` étaient détectées, le processus suivant a été appliqué :
+
+- Ajout d'une colonne `id` pour identifier chaque ligne de façon unique :
+
+
+``` sql
+ALTER TABLE chiffre_affaire ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY;
+```
+
+- Suppression des doublons en conservant uniquement la première occurrence de chaque `siren` :
+
+
+``` sql
+DELETE FROM chiffre_affaire
+WHERE id NOT IN (
+    SELECT * FROM (
+        SELECT MIN(id)
+        FROM chiffre_affaire
+        GROUP BY siren
+    ) AS temp
+);
+```
+
+- Suppression de la colonne `id` devenue inutile après le nettoyage :
+
+
+``` sql
+ALTER TABLE chiffre_affaire DROP COLUMN id;
+```
+
+Ce nettoyage a permis de garantir que chaque `siren` est unique dans la table, condition indispensable pour la création de relations entre les tables.
+
+Ensuite, nous avons mis en place une table de référence `societe` regroupant toutes les entreprises. Les autres tables (`produit_chiffre`, `charge_chiffre`, `subvention`, `compte_resultat`, `chiffre_affaire`) ont été reliées à cette table par des clés étrangères, selon les commandes suivantes :
+
+\newpage
+
+
+``` sql
+ALTER TABLE produit_chiffre
+ADD CONSTRAINT fk_produit_chiffre_siren 
+FOREIGN KEY (siren) REFERENCES societe(siren);
+
+ALTER TABLE charge_chiffre
+ADD CONSTRAINT fk_charge_chiffre_siren 
+FOREIGN KEY (siren) REFERENCES societe(siren);
+
+ALTER TABLE subvention
+ADD CONSTRAINT fk_subvention_siren 
+FOREIGN KEY (siren) REFERENCES societe(siren);
+
+ALTER TABLE compte_resultat
+ADD CONSTRAINT fk_compte_resultat_siren 
+FOREIGN KEY (siren) REFERENCES societe(siren);
+
+ALTER TABLE chiffre_affaire
+ADD CONSTRAINT fk_chiffre_affaire_siren 
+FOREIGN KEY (siren) REFERENCES societe(siren);
+```
+
+\medskip
+
+
+**Grâce à ce travail, nous avons pu structurer une base de données fiable, cohérente, et robuste pour l'ensemble de nos analyses.**
+
+
+
+\newpage
+
+
 \newpage
 
 
@@ -421,12 +507,6 @@ Nous avons ensuite appliqué la même méthode pour chaque année (2013 à 2016)
 
 ## Requêtes réalisées
 
-
-Pour chaque requête, l'exprimer en langage naturel puis en SQL. Puis donner le résultat obtenu (ou un extrait) et expliquer ce résultat.
-
-L'objectif est de varier le type de requêtes et de répondre à votre problématique initiale.
-
-
 1) Pour comperer et trouver selon leur code postal 
 <!-- serdar varol -->
 
@@ -435,16 +515,16 @@ L'objectif est de varier le type de requêtes et de répondre à votre probléma
 ``` sql
 
 SELECT 
-    LEFT(postal_code, 2) AS departement,
-    COUNT(*) AS nombre_entreprises
+    LEFT(postal_code, 2) AS departement,  --Extraction du code département (2 premier )
+    COUNT(*) AS nombre_entreprises        -- Counter department
 FROM 
-    societe
+    societe -- table source
 WHERE 
-    postal_code IS NOT NULL
+    postal_code IS NOT NULL -- si null n'utilse pas
 GROUP BY 
-    departement
+    departement --regroper par department
 ORDER BY 
-    nombre_entreprises DESC;
+    nombre_entreprises DESC; --trie les resulta 
 
 ```
 
@@ -453,24 +533,40 @@ ORDER BY
 
 \newpage
 
+2) Regrouper nombre de entreprise par codepostal
+
 
 ``` sql
 SELECT 
     s.siren,
     s.denomination,
     s.postal_code,
-    cr.`Chiffres d'affaires nets` AS chiffre_affaires_net
+    cr."Chiffres d'affaires nets" AS chiffre_affaires_net
 FROM 
     societe s
 JOIN 
     compte_resultat cr ON s.siren = cr.siren
 WHERE 
-    LEFT(s.postal_code, 2) = '44';
+    LEFT(s.postal_code, 2) = "44";
 
 ```
 
 ![Code postal](image_sql/sql_2_serdar.png){ width=10cm height=7cm}
 
+\newpage
+
+3) Lister les entreprises les plus rentables (top 10)
+<!-- lydia MOUTCHACHOU -->
+ 
+\medskip
+
+| Étape                          | Description                                                        |
+|:-------------------------------|:-------------------------------------------------------------------|
+| **1. Sélection des colonnes**  | • **s.siren** : Identifiant de l’entreprise<br>• **s.denomination** : Nom de l’entreprise<br>• **total_chiffre_affaires** : `SUM(CAST(ca.Chiffres d’affaires nets AS DECIMAL))` |
+| **2. Jointure**                | Table `societe` jointe à `chiffre_affaire` sur le champ `siren`    |
+| **3. Condition WHERE**         | Exclusion de `ca.Chiffres d’affaires nets = 'NA'`                  |
+| **4. Groupement & Tri**        | `GROUP BY s.siren, s.denomination`<br>`ORDER BY total_chiffre_affaires DESC` |
+| **5. Limitation**              | `LIMIT 10`                                                         |
 
 
 
@@ -492,6 +588,19 @@ WHERE
 
 ![Max 10 Chiffre d'affaire](image_sql/max_10_CA.png){ width=10cm height=8cm}
 
+
+4) Comparer le chiffre d'affaires moyen par secteur d'activité (APE)
+ <!-- lydia MOUTCHACHOU -->
+\medskip
+
+| Étape                          | Description                                                        |
+|:-------------------------------|:-------------------------------------------------------------------|
+| **1. Sélection des colonnes**  | • **a.ape** : Code du secteur d'activité<br>• **a.ape_name** : Nom du secteur d'activité<br>• **chiffre_affaires_moyen** : `AVG(CAST(ca.Chiffres d’affaires nets AS DECIMAL))` |
+| **2. Jointures**               | • `societe` jointe à `chiffre_affaire` sur `siren`<br>• `societe` jointe à `apegen` sur `ape` |
+| **3. Condition WHERE**         | Exclusion de `ca.Chiffres d’affaires nets = 'NA'`                  |
+| **4. Groupement & Tri**        | `GROUP BY a.ape, a.ape_name`<br>`ORDER BY chiffre_affaires_moyen DESC` |
+
+\medskip
 
 ``` sql
 
@@ -518,6 +627,16 @@ ORDER BY
 ![Comparer le chiffre d'affaires moyen par secteur d'activité (APE)](image_sql/compere_APE.png){ width=10cm height=5cm}
 
 
+5)  Moyenne des salaires par secteur d'activité (APE) et par année
+<!-- lydia MOUTCHACHOU -->
+\medskip
+
+| Étape                          | Description                                                                                                    |
+|:-------------------------------|:---------------------------------------------------------------------------------------------------------------|
+| **1. Sélection des colonnes**  | • **a.ape** : Code du secteur d'activité<br>• **a.ape_name** : Nom du secteur d'activité<br>• **ce.year** : Année des données<br>• **moyenne_salaires** : `AVG(CAST(ce.Salaires et traitements AS DECIMAL))` |
+| **2. Jointures**               | • `societe` jointe à `charge_chiffre` sur `siren`<br>• `societe` jointe à `apegen` sur `ape`                    |
+| **3. Condition WHERE**         | Exclusion de `ce.Salaires et traitements = 'NA'`                                                               |
+| **4. Groupement & Tri**        | `GROUP BY a.ape, a.ape_name, ce.year`<br>`ORDER BY ce.year, moyenne_salaires DESC`                              |
 
 
 
@@ -540,12 +659,93 @@ ORDER BY
 
 ![Moyenne des salaires par secteur d'activité (APE) et par année)](image_sql/ape_moyen.png){ width=10cm height=5cm}
 
+\newpage
+
+6)Lister les entreprises qui ont des taxes élevées mais une faible rentabilité
+<!-- lydia MOUTCHACHOU -->
+\medskip
+
+| Étape                          | Description                                                                                                                         |
+|:-------------------------------|:------------------------------------------------------------------------------------------------------------------------------------|
+| **1. Sélection des colonnes**  | • **s.siren** : Identifiant de l’entreprise<br>• **s.denomination** : Nom de l’entreprise<br>• **perte** : `cr.Bénéfices ou perte (Total des produits – Total des charges) AS perte` |
+| **2. Jointure**                | `societe` jointe à `compte_resultat` sur le champ `siren`                                                                             |
+| **3. Conditions WHERE**        | • Exclusion de `cr.Bénéfices ou perte … = 'NA'`<br>• `CAST(cr.Bénéfices ou perte … AS SIGNED) < 0` (résultat net négatif)              |
+| **4. Tri**                     | `ORDER BY perte ASC`     
 
 
+``` sql
+SELECT 
+  s.siren, 
+  s.denomination, 
+  cr.`Bénéfices ou perte (Total des produits ‐ Total des charges)` AS perte
+FROM 
+  societe s
+JOIN 
+  compte_resultat cr 
+ON 
+  s.siren = cr.siren
+WHERE 
+  cr.`Bénéfices ou perte (Total des produits ‐ Total des charges)` != 'NA'
+  AND CAST(cr.`Bénéfices ou perte (Total des produits ‐ Total des charges)` AS SIGNED) < 0
+ORDER BY 
+  perte ASC;
+
+```
+
+![Lister les entreprises](image_sql/liste_taxe_faible){ width=10cm height=5cm}
+\newpage
+
+7) Les entreprises avec un chiffre d’affaires net > 100M€ : 
+\medskip
+
+| Étape                         | Description                                                                                                    |
+|:------------------------------|:---------------------------------------------------------------------------------------------------------------|
+| **1. Sélection des colonnes** | • **s.siren** : Identifiant de l'entreprise<br>• **s.denomination** : Nom de l'entreprise<br>• **chiffre_affaires** : `ca.Chiffres d’affaires nets` |
+| **2. Jointure**               | `societe` jointe à `chiffre_affaire` sur le champ `siren`                                                        |
+| **3. Conditions WHERE**       | • Exclusion de `ca.Chiffres d’affaires nets = 'NA'`<br>• `CAST(ca.Chiffres d’affaires nets AS DECIMAL) > 100000000` |
+| **4. Tri**                    | `ORDER BY chiffre_affaires DESC`                                                                                |
+
+
+
+
+
+``` sql
+
+SELECT s.siren, s.denomination, ca.`Chiffres d’affaires nets` 
+  AS chiffre_affaires 
+FROM societe s 
+  JOIN chiffre_affaire ca 
+  ON s.siren = ca.siren 
+WHERE
+ca.`Chiffres d’affaires nets` != 'NA' 
+  AND CAST(ca.`Chiffres d’affaires nets` 
+    AS DECIMAL) > 100000000 
+    ORDER BY chiffre_affaires DESC
+
+```
+![chiffre d’affaires net > 100M€](image_sql/yuzMilyon.png){ width=8cm height=5cm}
 
 
 \newpage
 
+8) Les entreprises qui paient le plus de TVA collectée
+\medskip
+
+| Étape                          | Description                                                                                                  |
+|:-------------------------------|:-------------------------------------------------------------------------------------------------------------|
+| **1. Sélection des colonnes**  | • **s.siren** : Identifiant de l’entreprise<br>• **s.denomination** : Nom de l’entreprise<br>• **tva_collectee** : `pc.Montant de la TVA collectée` |
+| **2. Jointure**                | `societe` jointe à `produit_chiffre` sur `siren`                                                             |
+| **3. Condition WHERE**         | Exclusion de `pc.Montant de la TVA collectée = 'NA'`                                                         |
+| **4. Tri & Limitation**        | `ORDER BY CAST(pc.Montant de la TVA collectée AS DECIMAL) DESC`<br>`LIMIT 10`                                |
+
+
+
+
+
+![TVA collectée](image_sql/tva_collecte.png){ width=8cm height=5cm}
+
+
+\newpage
 
 # Matériel et Méthodes
 
@@ -580,7 +780,7 @@ Voici lien de github notre projet :  \href{https://github.com/serdarvarl/Project
 \bigskip
 **Variables :** Chiffres d’affaires nets , catégories (Effectif moyen du personnel)
 
-#### Les catégories d’entreprises :
+### Les catégories d’entreprises :
 \bigskip
 \scriptsize
 \begin{quote}
@@ -601,6 +801,182 @@ dans les catégories précédentes}
 
 \newpage
 
+### Analyse Univariée des Catégories d'Entreprises
+
+\medskip
+
+Introduction :
+Dans cette section, nous réalisons une analyse univariée des catégories d'entreprises pour les années 2012 à 2016.
+L'objectif est de comprendre la répartition des entreprises selon leur taille, classée en quatre catégories :
+Microentreprises, PME (Petites et Moyennes Entreprises), ETI (Entreprises de Taille Intermédiaire), et Grandes Entreprises.
+
+\medskip
+
+Cette analyse permet de visualiser la distribution des entreprises et d'identifier les tendances au fil des années.
+\medskip
+
+
+Pour chaque année, nous comptons le nombre d'entreprises dans chaque catégorie et calculons les pourcentages correspondants.
+
+\medskip
+
+Deux types de visualisations sont utilisés :
+
+\medskip
+
+  - Diagramme en Barres : pour montrer le nombre absolu d'entreprises dans chaque catégorie.
+  - Diagramme Circulaire : pour illustrer la répartition en pourcentage des entreprises par catégorie.
+
+
+
+\newpage
+
+Appliquer la fonction à chaque année
+
+
+```
+## 
+##             ETI Microentreprise             PME 
+##               4             152              51 
+## 
+##             ETI Microentreprise             PME 
+##        1.932367       73.429952       24.637681
+```
+
+![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2012-1.pdf)<!-- --> 
+
+ 1) Année 2012 :
+    Répartition :
+    
+  - Microentreprises : 73.43%
+  - PME : 24.64%
+  - ETI : 1.93%
+
+  Interprétation :
+En 2012, la majorité des entreprises étaient des microentreprises, suivies par les PME. Les ETI représentaient une très petite proportion des entreprises.
+
+\medskip
+
+```
+## 
+##             ETI Microentreprise             PME 
+##              18             736             351 
+## 
+##             ETI Microentreprise             PME 
+##        1.628959       66.606335       31.764706
+```
+
+![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2013-1.pdf)<!-- --> 
+
+\medskip
+
+2) Année 2013 :
+
+  Répartition :
+  - Microentreprises : 66.61%
+  - PME : 31.76%
+  - ETI : 1.63%
+
+  Interprétation :
+
+\medskip
+  
+En 2013, bien que les microentreprises restent majoritaires, leur proportion a diminué par rapport à 2012, tandis que la part des PME a augmenté.
+
+\medskip
+
+```
+## 
+##               ETI Grande entreprise   Microentreprise               PME 
+##                59                 9              1726               926 
+## 
+##               ETI Grande entreprise   Microentreprise               PME 
+##         2.1691176         0.3308824        63.4558824        34.0441176
+```
+
+![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2014-1.pdf)<!-- --> 
+
+\medskip
+
+3) Année 2014 :
+Répartition :
+  - Microentreprises : 63.46%
+  - PME : 34.04%
+  - ETI : 2.17%
+  - Grandes Entreprises : 0.33%
+
+\medskip
+
+  Interprétation :
+  En 2014, la proportion de microentreprises a continué de diminuer, tandis que celle des PME a augmenté. Les grandes entreprises apparaissent pour la première fois dans cette analyse.
+
+\medskip
+
+
+```
+## 
+##               ETI Grande entreprise   Microentreprise               PME 
+##               173                 6              6071              3342 
+## 
+##               ETI Grande entreprise   Microentreprise               PME 
+##        1.80358632        0.06255213       63.29232694       34.84153461
+```
+
+![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2015-1.pdf)<!-- --> 
+
+\medskip
+
+4) Année 2015 :
+  Répartition :
+  - Microentreprises : 63.29%
+  - PME : 34.84%
+  - ETI : 1.80%
+  - Grandes Entreprises : 0.06%
+
+  Interprétation :
+  La tendance observée en 2014 se poursuit en 2015, avec une légère diminution des microentreprises et une augmentation des PME.
+
+\medskip
+
+
+```
+## 
+##               ETI Grande entreprise   Microentreprise               PME 
+##               114                 4               412               832 
+## 
+##               ETI Grande entreprise   Microentreprise               PME 
+##         8.3700441         0.2936858        30.2496329        61.0866373
+```
+
+![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2016-1.pdf)<!-- --> 
+
+\medskip
+
+6) Année 2016 :
+  Répartition :
+  - Microentreprises : 30.25%
+  - PME : 61.09%
+  - ETI : 8.37%
+  - Grandes Entreprises : 0.29%
+
+\medskip
+
+  Interprétation :
+  En 2016, il y a une augmentation significative de la proportion des PME, qui deviennent la catégorie majoritaire. Les ETI montrent également une augmentation notable.
+
+\medskip
+
+  Conclusion :
+  L'analyse univariée révèle des tendances intéressantes dans la répartition des entreprises par catégorie sur la période 2012-2016.
+  Alors que les microentreprises dominaient initialement, leur proportion a diminué au fil des ans, tandis que celle des PME a augmenté.
+  Les ETI et les grandes entreprises, bien que représentant une plus petite part du total, montrent des signes de croissance.
+  Ces résultats peuvent être utilisés pour orienter les politiques de soutien aux entreprises en fonction de leur taille et pour anticiper les besoins futurs des différentes catégories d'entreprises.
+
+
+
+
+
+\newpage
 ### Test Statistique :  ANOVA
 
 \medskip
@@ -696,7 +1072,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 
  *Representation graphique boite a moustaches : *
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-11-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-20-1.pdf)<!-- --> 
 
 
 #### **2014**
@@ -736,7 +1112,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
  - Representation graphique boite a moustaches : 
     
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-14-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-23-1.pdf)<!-- --> 
 \newpage
 
 #### **2015**
@@ -776,7 +1152,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 - **Résumé** : En 2015, les chiffres d’affaires nets varient de manière significative selon la catégorie d'entreprise. Cela suggère que les petites entreprises (comme les Microentreprises) génèrent beaucoup moins de chiffre d'affaires net comparées aux entreprises plus grandes.
 
   
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-17-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-26-1.pdf)<!-- --> 
 
 
 
@@ -821,7 +1197,7 @@ Cela signifie que les Microentreprises ne génèrent pas le même chiffre d'affa
 
 - Représentation graphique (boîte à moustaches):
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-20-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-29-1.pdf)<!-- --> 
 
 \newpage
 
@@ -837,6 +1213,7 @@ En conclusion, cette analyse confirme que la taille de l'entreprise est un facte
 
 
 \newpage
+
 
 ## **Analyse des subventions et du chiffre d'affaires**
 <!-- esteban beretti -->
@@ -951,7 +1328,7 @@ summary(modele_log)
 
 \medskip
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-23-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-32-1.pdf)<!-- --> 
 
 > La majorité des entreprises reçoivent de petites subventions. Quelques-unes, plus rares, touchent des montants bien plus élevés.
 
@@ -959,7 +1336,7 @@ summary(modele_log)
 
 \medskip
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-24-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-33-1.pdf)<!-- --> 
 
 > Le chiffre d'affaires est aussi très variable, certaines entreprises réalisant plusieurs dizaines de millions d'euros.
 
@@ -969,7 +1346,7 @@ summary(modele_log)
 
 \medskip
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-25-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-34-1.pdf)<!-- --> 
 
 > À première vue, il n'y a pas de lien clair entre les subventions et le chiffre d'affaires. Le graphique montre beaucoup de dispersion, ce qui empêche une vraie lecture de tendance.
 
@@ -979,7 +1356,7 @@ summary(modele_log)
 
 \medskip
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-26-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-35-1.pdf)<!-- --> 
 
 > Une fois les données transformées en logarithme, une tendance apparaît : les entreprises qui reçoivent plus de subventions ont, en moyenne, un chiffre d'affaires plus élevé. La relation est significative et le modèle indique qu'une augmentation de 10% des subventions correspond à une hausse d'environ 4,5% du chiffre d'affaires.
 
@@ -1269,6 +1646,7 @@ once upon a time in montpellier....devam et
 <!-- Hazem IBNMTAR -->
 \medskip
 
+### Analyse Univarie
 Filtrer les valeurs strictement positives
 
 \medskip
@@ -1297,7 +1675,7 @@ Nombre de valeurs manquantes : 12 756 → à prendre en compte dans les analyses
 \medskip
 
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-31-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-40-1.pdf)<!-- --> 
 
 \medskip
 
@@ -1318,7 +1696,7 @@ Créer un boxplot en échelle log10
 
 \medskip
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-32-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-41-1.pdf)<!-- --> 
 
 \medskip
 
@@ -1328,7 +1706,7 @@ Créer un boxplot en échelle log10
 ## -47760732      1041      4472     77161     17566 230050738      9412
 ```
 
-![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-33-1.pdf)<!-- --> 
+![](TDDT_projet_L_2_files/figure-latex/unnamed-chunk-42-1.pdf)<!-- --> 
 
 
 
@@ -1482,7 +1860,10 @@ Il faut utiliser les annexes de façon judicieuse. C'est ici que l'on place des 
 ## **Codes** {-}
 
 \tiny
-Code utilise pour sciliging
+Code utilise pour slicing
+
+\medskip
+
 \label{codeR_slicing}
 
 ``` r
