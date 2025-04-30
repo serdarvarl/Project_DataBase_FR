@@ -1446,7 +1446,7 @@ summary(anova_result2016)
 
 \newpage
 
-### Conclusion
+#### Conclusion Analyse Bivariée
 \medskip
 Dans cette analyse, nous avons examiné les différences de chiffre d'affaires net entre les différentes catégories d'entreprises **(Microentreprise, PME, ETI, Grande entreprise)** sur la période *2012-2016*. Les tests ANOVA ont permis de confirmer que les différences observées sont statistiquement significatives, ce qui montre que la taille de l'entreprise a un impact notable sur ses performances économiques.
 \medskip
@@ -1454,6 +1454,11 @@ Les résultats ont montré que les Microentreprises génèrent des chiffres d'af
 \medskip
 En conclusion, cette analyse confirme que la taille de l'entreprise est un facteur déterminant dans ses résultats économiques. Ces résultats peuvent être utilisés pour guider des décisions politiques et stratégiques, notamment pour le soutien aux entreprises en fonction de leur taille.
 
+
+### Conclusion de l'Analyse Univariée et Test ANOVA :
+
+
+L'ANOVA montre que les différences dans les chiffres d'affaires nets entre les catégories d'entreprises sont très significatives. Cela confirme que les microentreprises génèrent des revenus bien plus faibles par rapport aux PME et grandes entreprises. Ce résultat est en ligne avec la taille et la capacité de ces entreprises, qui varient considérablement en termes de ressources, d'échelle et de portée. En 2016, les PME ont dépassé les microentreprises en nombre, signalant un changement important dans la structure économique des petites entreprises en France.
 
 
 
@@ -2131,8 +2136,6 @@ Ces résultats suggèrent que les différences régionales sont significatives p
 
 En résumé, si les facteurs régionaux ont un effet significatif sur le chiffre d'affaires net, cet effet est plus faible sur le résultat d'exploitation. Il est conclu que des analyses multivariées sont nécessaires pour comprendre la performance des entreprises.
 
-once upon a time in montpellier....devam et
-
 
 
 \newpage
@@ -2388,15 +2391,31 @@ Placer les résultats que vous avez obtenus dans le chapitre précédent en pers
 
 # Conclusion et perspectives {.label:ccl}
 
-Quelles sont les conclusions principales? Quelles sont vos recommandations pour le commanditaire? Quelles analyses subséquentes pourraient être faites dans le futur?
+\medskip
 
-\bigskip
+Ce projet nous a permis de comprendre ce qui influence vraiment la réussite financière des entreprises françaises entre 2012 et 2016. Nous avons d’abord vu que la taille compte : les PME et les grandes entreprises gagnent beaucoup plus que les microentreprises.
 
-On attend de vous deux types de perspectives : des perspectives à court terme pour améliorer rapidement votre approche et des perspectives à plus long terme qu'elles soient liées à la science des données ou au domaine métier pour lequel vous avez travaillé.
+\medskip
 
-\bigskip
+Nous avons aussi remarqué que payer moins d’impôts aiderait surtout les plus petites structures, car plus les taxes sont élevées, plus leur bénéfice diminue. Par ailleurs, les aides publiques (subventions) boostent concrètement le chiffre d’affaires lorsqu’elles augmentent.
 
-Lister également les difficultés rencontrées dans la partie BD (e.g., taille de la base, manque de données, ...) et dans la partie statistique.
+\medskip
+
+Enfin, il existe de vraies différences selon les régions : les entreprises d’Île-de-France, de Bretagne et des Pays de la Loire font régulièrement de meilleurs résultats.
+
+\medskip
+
+En clair, pour améliorer la rentabilité des entreprises, il faut :
+
+  - soutenir les petites entreprises en réduisant leurs impôts,
+
+  - continuer à verser des subventions lorsque c’est utile,
+
+  - adapter les aides aux besoins de chaque région.
+
+\medskip
+
+Cette approche simple montre comment aider au mieux les entreprises françaises à grandir de façon équilibrée.
 
 # Bibliographie {-}
 
