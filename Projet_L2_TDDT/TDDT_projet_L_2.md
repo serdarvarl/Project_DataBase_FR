@@ -1457,7 +1457,7 @@ Table: Classification des entreprises selon leur rentabilité
 
 \medskip
 
-#### Chifre d'afffaire
+#### Chiffre d’affaires nets
 
 
 \begin{longtable}[t]{lrrrrr}
@@ -1495,8 +1495,13 @@ Provence-Alpes-Côte d'Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
 
 
 ![](TDDT_projet_L_2_files/figure-latex/chiffre_affaire_graph_2015-1.pdf)<!-- --> 
+\medskip
 
-
+\tiny
+| **Écart-type vs médiane**                                                                                       | **Asymétrie et outliers**                                                                                                                                         | **Valeurs négatives**                                                                                                                                               |
+|:---------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| En Bretagne et dans les Pays de la Loire, la moyenne dépasse nettement la médiane, indiquant l’impact de quelques très grands comptes. | Les maxima particulièrement élevés en Île-de-France, Bretagne et Pays de la Loire révèlent une distribution très à droite et la présence d’outliers (grandes entreprises, opérations exceptionnelles, etc.). | Les chiffres d’affaires négatifs observés en Provence-Alpes-Côte d’Azur témoignent de sociétés en perte, dont le secteur d’activité et la structure financière méritent un examen approfondi. |
+\normalsize
 \newpage 
 
 
@@ -1538,7 +1543,12 @@ Provence-Alpes-Côte d'Azur & 1.46 & 0.35 & -6.59 & 366.13 & 7.17\\
 
 ![](TDDT_projet_L_2_files/figure-latex/resulta_graph_2015-1.pdf)<!-- --> 
 
+\tiny
+| **Écart-type vs médiane**                                                                                                                                                    | **Asymétrie et outliers**                                                                                                                                                                      | **Résultats négatifs**                                                                                                                                                                                                                  |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| En Bretagne (moy. 11,6 vs méd. 0,74) et dans les Pays de la Loire ( 10,9 vs 0,78), la moyenne dépasse très largement la médiane, signe que quelques très grands comptes concentrent l’essentiel du résultat d’exploitation. | Plusieurs régions (Île-de-France, Nouvelle-Aquitaine, Pays de la Loire) présentent des valeurs maximales supérieures à 800 – voire dépassant 1 200 – révélant une forte dissymétrie et la présence d’outliers (grandes opérations ponctuelles, entreprises majeures, etc.). | Des minima négatifs, notamment en Provence-Alpes-Côte d’Azur (–6,6) mais aussi en Centre-Val de Loire, Hauts-de-France ou Auvergne-Rhône-Alpes, attestent de sociétés en perte dont le profil sectoriel et financier mériterait une analyse ciblée. |
 
+\normalsize
 
 \newpage
 
@@ -1636,8 +1646,6 @@ Le test Anova nous a donné les résultats suivants:
 Ces résultats suggèrent que les différences régionales sont significatives pour le chiffre d'affaires net, mais plus limitées pour le résultat d'exploitation. Cela suggère que le résultat d'exploitation pourrait être lié non seulement à la région, mais aussi à la taille de l'entreprise, à son secteur d'activité et à d'autres caractéristiques structurelles.
 
 En résumé, si les facteurs régionaux ont un effet significatif sur le chiffre d'affaires net, cet effet est plus faible sur le résultat d'exploitation. Il est conclu que des analyses multivariées sont nécessaires pour comprendre la performance des entreprises.
-
-once upon a time in montpellier....devam et
 
 
 

@@ -1828,7 +1828,7 @@ ggplot(data_pie, aes(x = "", y = percentage, fill = categorie_rentabilite)) +
 
 \medskip
 
-#### Chifre d'afffaire
+#### Chiffre d’affaires nets
 
 ```{r chiffre_affaire_summary_2015, echo=FALSE, message=FALSE, warning=FALSE ,fig.width=4, fig.height=3}
 
@@ -1887,8 +1887,13 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
 
 
 ````
+\medskip
 
-
+\tiny
+| **Écart-type vs médiane**                                                                                       | **Asymétrie et outliers**                                                                                                                                         | **Valeurs négatives**                                                                                                                                               |
+|:---------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| En Bretagne et dans les Pays de la Loire, la moyenne dépasse nettement la médiane, indiquant l’impact de quelques très grands comptes. | Les maxima particulièrement élevés en Île-de-France, Bretagne et Pays de la Loire révèlent une distribution très à droite et la présence d’outliers (grandes entreprises, opérations exceptionnelles, etc.). | Les chiffres d’affaires négatifs observés en Provence-Alpes-Côte d’Azur témoignent de sociétés en perte, dont le secteur d’activité et la structure financière méritent un examen approfondi. |
+\normalsize
 \newpage 
 
 
@@ -1917,7 +1922,7 @@ summary_resultat <- data_subset %>%
 summary_Res_fmt <- summary_resultat %>%
   mutate(across(c(avarage, median, min, max, ecart_type), ~ round(. / 1e6, 2)))
 
-# latex tableur sinon bordel qsdqsdqsdqsd
+# latex tableur sinon ga qsdqsdqsdqsd
 summary_ca_fmt %>%
   kable(format = "latex", booktabs = TRUE, longtable = TRUE,
         caption = "Résumé des statistiques du Résultat d'exploitation (en millions d'euros) – 2015") %>%
@@ -1945,7 +1950,7 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
        aes(x = region, y = resultat_exp / 1e6)) +
   geom_boxplot(outlier.color = "red") +
   coord_flip() +
-  ylim(0, 1500) +  # Y max 4000
+  ylim(0, 1500) +  # Y max 1500
   labs(title = "Boxplot du Résultat d'exploitation par région (2015)",
        y = "Résultat d'exploitation (millions euro)", x = "Région") +
   theme_minimal(base_size = 9)
@@ -1954,7 +1959,12 @@ ggplot(data_subset %>% filter(year == 2015, !is.na(region)),
 
 ````
 
+\tiny
+| **Écart-type vs médiane**                                                                                                                                                    | **Asymétrie et outliers**                                                                                                                                                                      | **Résultats négatifs**                                                                                                                                                                                                                  |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| En Bretagne (moy. 11,6 vs méd. 0,74) et dans les Pays de la Loire ( 10,9 vs 0,78), la moyenne dépasse très largement la médiane, signe que quelques très grands comptes concentrent l’essentiel du résultat d’exploitation. | Plusieurs régions (Île-de-France, Nouvelle-Aquitaine, Pays de la Loire) présentent des valeurs maximales supérieures à 800 – voire dépassant 1 200 – révélant une forte dissymétrie et la présence d’outliers (grandes opérations ponctuelles, entreprises majeures, etc.). | Des minima négatifs, notamment en Provence-Alpes-Côte d’Azur (–6,6) mais aussi en Centre-Val de Loire, Hauts-de-France ou Auvergne-Rhône-Alpes, attestent de sociétés en perte dont le profil sectoriel et financier mériterait une analyse ciblée. |
 
+\normalsize
 
 \newpage
 
