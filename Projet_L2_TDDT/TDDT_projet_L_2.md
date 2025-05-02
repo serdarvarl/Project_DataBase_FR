@@ -1,7 +1,7 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author: ""
-date: "01 May 2025"
+date: "02 May 2025"
 output:
   pdf_document:
     fig_caption: yes
@@ -42,7 +42,7 @@ team: TDDT
 groupeTD : TD1 
 Abstract: |
   
-  Notre projet vise à analyser les performances financières des entreprises françaises entre 2018 et 2022 à partir des données du Registre National du Commerce et des Sociétés (RNCS). Nous cherchons à comprendre quels sont les facteurs qui influencent la rentabilité des entreprises et comment ces dernières évoluent en fonction de leur secteur d’activité. Plus précisément, nous allons :
+  Notre projet vise à analyser les performances financières des entreprises françaises entre 2012 et 2016 à partir des données du Registre National du Commerce et des Sociétés (RNCS). Nous cherchons à comprendre quels sont les facteurs qui influencent la rentabilité des entreprises et comment ces dernières évoluent en fonction de leur secteur d’activité. Plus précisément, nous allons :
   - Comparer les performances des entreprises selon leur chiffre d'affaires et leur rentabilité.
   - Étudier l’impact de la fiscalité sur la profitabilité des entreprises.
   - Analyser l’évolution des ventes, des stocks et des taxes pour identifier des tendances économiques.
@@ -76,13 +76,13 @@ Les données financières des entreprises jouent un rôle crucial dans la compr�
 
 \medskip
 
-MOUTCHACHOU Lydia : Étudiant n°22212656
+MOUTCHACHOU Lydia : N°Étudiant 22212656
 
-IBNMTAR Hazem : Étudiant n°22309227
+IBNMTAR Hazem :N°Étudiant 22309227
 
-BERETTI--PRENANT Esteban : Étudiant n°22208752
+BERETTI--PRENANT Esteban : N°Étudiant 22208752
 
-VAROL Serdar : Étudiant n°22009668
+VAROL Serdar : N°Étudiant 22009668
 
 
 
@@ -90,7 +90,7 @@ VAROL Serdar : Étudiant n°22009668
 \bigskip
 ## Objectifs et questions de recherche
 
-Notre projet vise à analyser les performances financières des entreprises françaises entre 2018 et 2022. Pour ce faire, nous allons examiner plusieurs facteurs qui pourraient influencer la rentabilité des entreprises. Les questions spécifiques que nous allons aborder sont les suivantes :
+Notre projet vise à analyser les performances financières des entreprises françaises entre 2012 et 2016. Pour ce faire, nous allons examiner plusieurs facteurs qui pourraient influencer la rentabilité des entreprises. Les questions spécifiques que nous allons aborder sont les suivantes :
 
 \medskip
 
@@ -121,10 +121,12 @@ Notre projet vise à analyser les performances financières des entreprises fran
  a. Comment la rentabilité des entreprises a-t-elle évolué entre 2012 et 2016 ?
 
  b. Peut-on identifier des tendances spécifiques ou des périodes de croissance/déclin dans les performances financières des entreprises ?
-
+ 
 
 \medskip
-En répondant à ces questions, nous espérons identifier les principaux facteurs influençant la rentabilité des entreprises françaises et fournir des insights précieux pour les décideurs économiques et les gestionnaires d'entreprises.
+En répondant à ces questions, pour des raisons de temps, nous avons dû restreindre le nombre de questions étudiées et sélectionner quelques facteurs clés, afin de proposer une diversité de graphiques, de points de vue et de représentations. À travers cette approche, nous espérons identifier les principaux facteurs influençant la rentabilité des entreprises françaises
+
+\medskip
 
 
 
@@ -411,7 +413,7 @@ et on l’a changée pour : **« Produits des autres valeurs mobilières »**.
 \medskip
 
    Cette commande retourne toutes les colonnes de la base data_kaggle pour les lignes dont l’année est **égale à 2012**.
-Nous avons ensuite appliqué la même méthode pour chaque année (2013 à 2016), puis extrait **les 100 premières lignes** de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles afin d’obtenir une **table finale regroupant 500 lignes (100 par année)**. Cette nouvelle table est ainsi mieux structurée pour les futures analyses et pourra être **importée dans phpMyAdmin** pour les étapes suivantes de notre projet.
+Nous avons ensuite appliqué la même méthode pour chaque année (2012 à 2016), puis extrait **les 100 premières lignes** de chaque sous-ensemble. Enfin, nous avons combiné ces sous-ensembles afin d’obtenir une **table finale regroupant 500 lignes (100 par année)**. Cette nouvelle table est ainsi mieux structurée pour les futures analyses et pourra être **importée dans phpMyAdmin** pour les étapes suivantes de notre projet.
 
 
 ### Traitement des données
@@ -760,6 +762,7 @@ Nous avons utilisé ces logiciels lors de la réalisation de notre projet :
   - Correction/ replacement:  Regex
   - Version control : GitHUB
   - L'IA : OpenAI et MISTRAL
+  - Vidéo et présentation : CANVA 
   
 
 
@@ -819,12 +822,9 @@ Cette analyse permet de visualiser la distribution des entreprises et d'identifi
 Pour chaque année, nous comptons le nombre d'entreprises dans chaque catégorie et calculons les pourcentages correspondants.
 
 \medskip
-
-Deux types de visualisations sont utilisés :
-
+On répresente par :
 \medskip
 
-  - Diagramme en Barres : pour montrer le nombre absolu d'entreprises dans chaque catégorie.
   - Diagramme Circulaire : pour illustrer la répartition en pourcentage des entreprises par catégorie.
 
 
@@ -833,6 +833,9 @@ Deux types de visualisations sont utilisés :
 
 Appliquer la fonction à chaque année
 
+\medskip 
+
+1) Année 2012 :
 
 ```
 ## 
@@ -845,9 +848,7 @@ Appliquer la fonction à chaque année
 
 ![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2012-1.pdf)<!-- --> 
 
- 1) Année 2012 :
-    Répartition :
-    
+Répartition :
   - Microentreprises : 73.43%
   - PME : 24.64%
   - ETI : 1.93%
@@ -856,6 +857,9 @@ Appliquer la fonction à chaque année
 En 2012, la majorité des entreprises étaient des microentreprises, suivies par les PME. Les ETI représentaient une très petite proportion des entreprises.
 
 \medskip
+
+2) Année 2013 :
+
 
 ```
 ## 
@@ -869,9 +873,6 @@ En 2012, la majorité des entreprises étaient des microentreprises, suivies par
 ![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2013-1.pdf)<!-- --> 
 
 \medskip
-
-2) Année 2013 :
-
   Répartition :
   - Microentreprises : 66.61%
   - PME : 31.76%
@@ -885,6 +886,9 @@ En 2013, bien que les microentreprises restent majoritaires, leur proportion a d
 
 \medskip
 
+3) Année 2014 :
+
+
 ```
 ## 
 ##               ETI Grande entreprise   Microentreprise               PME 
@@ -896,9 +900,6 @@ En 2013, bien que les microentreprises restent majoritaires, leur proportion a d
 
 ![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2014-1.pdf)<!-- --> 
 
-\medskip
-
-3) Année 2014 :
 Répartition :
   - Microentreprises : 63.46%
   - PME : 34.04%
@@ -912,6 +913,7 @@ Répartition :
 
 \medskip
 
+4) Année 2015 :
 
 ```
 ## 
@@ -925,8 +927,6 @@ Répartition :
 ![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2015-1.pdf)<!-- --> 
 
 \medskip
-
-4) Année 2015 :
   Répartition :
   - Microentreprises : 63.29%
   - PME : 34.84%
@@ -938,6 +938,7 @@ Répartition :
 
 \medskip
 
+6) Année 2016 :
 
 ```
 ## 
@@ -950,9 +951,7 @@ Répartition :
 
 ![](TDDT_projet_L_2_files/figure-latex/analyse_univariee_2016-1.pdf)<!-- --> 
 
-\medskip
 
-6) Année 2016 :
   Répartition :
   - Microentreprises : 30.25%
   - PME : 61.09%
@@ -1808,21 +1807,7 @@ test
 
 On peut affirmer qu'il existe une corrélation linéaire entre la variale chiffres d'affaires nets et la taxe.
 
-D'après le test de corrélaion et le nuage de points on peut affirmer que le test et le nuage de points sont compatible donc il existe un nlien entre les deux variables.(Corrélation positive forte )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+D'après le test de corrélaion et le nuage de points on peut affirmer que le test et le nuage de points sont compatible donc il existe un lien entre les deux variables.(Corrélation positive forte )
 
 
 
@@ -1844,7 +1829,35 @@ D'après le test de corrélaion et le nuage de points on peut affirmer que le te
 
 # Discussion
 
-Placer les résultats que vous avez obtenus dans le chapitre précédent en perspective par rapport au problème étudié.
+Au départ, la base de données était disponible sous forme d'un bloc unique. Afin d’en faciliter l'exploitation, nous avons décidé d’effectuer un slicing, ce qui nous a permis de diviser la base en sept tables distinctes.
+
+\medskip
+
+Lors de l’importation des données dans phpMyAdmin, nous avons rencontré certaines contraintes techniques :
+En raison de la limite de capacité de phpMyAdmin, il n'était pas possible d'importer les 100 000 lignes en une seule fois. Nous avons donc sélectionné 100 lignes par année pour garantir une importation réussie tout en conservant une représentativité temporelle des données.
+Un autre problème est survenu concernant une colonne dont le nom était trop long pour être inséré correctement dans la table. Initialement intitulée :« Produits des autres valeurs mobilières et créances de l’actif immobilisé », nous l’avons renommée de manière plus concise en : « Produits des autres valeurs mobilières ».
+
+\medskip
+
+Par ailleurs, nous disposions également d'une table annexe expliquant les abréviations utilisées pour nommer les variables dans notre Modèle Conceptuel de Données (MCD). Cette table de correspondance nous a été précieuse pour interpréter et documenter les variables au cours de l’analyse.
+
+\medskip
+
+### Nettoyage et traitement des données manquantes
+\medskip
+Notre base de données étant très réaliste, elle comportait un certain nombre de valeurs manquantes. Pour prendre en compte cette spécificité dans nos analyses bivariées, nous avons utilisé la méthode suivante dans R : use = "complete.obs"
+Cette option permet de ne conserver que les observations complètes, sans tenir compte des données manquantes lors du calcul des statistiques.
+Étant donné que chaque année, le nombre de sociétés restait identique, les résultats obtenus lors des premières analyses n’étaient pas toujours significatifs. Afin de mieux visualiser les variations et rendre les analyses plus lisibles, nous avons décidé d’utiliser une échelle logarithmique.
+\medskip
+
+### Gestion des différences de ponctuation
+\medskip
+Un problème technique supplémentaire est apparu lors de la rédaction du code : il existait des différences entre les symboles de ponctuation français et ceux utilisés par R (par exemple pour le point-virgule ;). Pour corriger automatiquement ces erreurs de syntaxe, nous avons employé des expressions régulières (regex), ce qui nous a permis d'uniformiser rapidement les fichiers.
+Organisation du travail
+\medskip
+Dès le début du projet, le travail a été clairement structuré et réparti. Chaque membre de l'équipe avait des tâches définies, ce qui nous a permis de progresser efficacement et de respecter les délais fixés.
+
+
 
 # Conclusion et perspectives {.label:ccl}
 
@@ -1874,12 +1887,6 @@ En clair, pour améliorer la rentabilité des entreprises, il faut :
 
 Cette approche simple montre comment aider au mieux les entreprises françaises à grandir de façon équilibrée.
 
-# Bibliographie {-}
-
-<div id="refs"></div>
-
-\bibliographystyle{elsarticle-harv}
-\bibliography{references}
 
 # Annexes {-}
 

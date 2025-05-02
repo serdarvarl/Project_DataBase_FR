@@ -106,7 +106,6 @@ de groupe des UE \newline  Bases de données + Sciences des Données 2}
 
 \prefacesection{Déclaration de non plagiat}
 
-\textcolor{red}{À compléter avant la remise du rapport.}
 
 \vskip 2pc \noindent Nous déclarons que ce rapport est le fruit de notre seul travail, à part lorsque cela est indiqué  explicitement. 
 
@@ -133,11 +132,13 @@ Signature: \rule{7cm}{0.25pt} \hfill Date: \rule{4cm}{0.25pt} \\[1cm]
 
 \prefacesection{Remerciements}
 
-\textcolor{red}{À compléter avant la remise du rapport.}
 
-{\bigskip}Nos plus sincères remerciements vont à notre encadrant
-pédagogique pour les conseils avisés sur notre travail.\\[1cm] Nous
-remercions aussi \ldots{}\\[1cm] 
+
+{\bigskip}  Nos plus sincères remerciements vont à notre encadrant
+pédagogique pour les conseils avisés sur notre travail.\\[1cm]
+  Nous remercions aussi \ldots{}\\[1cm]
+
+Sandra Bringay et Marine Demangeot et Matthieu De Castelbajac
 
 {\bigskip\bigskip\bigskip\noindent} \today
 
@@ -148,7 +149,7 @@ remercions aussi \ldots{}\\[1cm]
 \prefacesection{Résumé}
 
 Notre projet vise à analyser les performances financières des
-entreprises françaises entre 2018 et 2022 à partir des données du
+entreprises françaises entre 2012 et 2016 à partir des données du
 Registre National du Commerce et des Sociétés (RNCS). Nous cherchons à
 comprendre quels sont les facteurs qui influencent la rentabilité des
 entreprises et comment ces dernières évoluent en fonction de leur
@@ -206,13 +207,13 @@ l'équipe}\label{responsabilituxe9s-et-composition-de-luxe9quipe}
 
 \medskip
 
-MOUTCHACHOU Lydia : Étudiant n°22212656
+MOUTCHACHOU Lydia : N°Étudiant 22212656
 
-IBNMTAR Hazem : Étudiant n°22309227
+IBNMTAR Hazem :N°Étudiant 22309227
 
-BERETTI--PRENANT Esteban : Étudiant n°22208752
+BERETTI--PRENANT Esteban : N°Étudiant 22208752
 
-VAROL Serdar : Étudiant n°22009668
+VAROL Serdar : N°Étudiant 22009668
 
 \bigskip
 
@@ -220,7 +221,7 @@ VAROL Serdar : Étudiant n°22009668
 recherche}\label{objectifs-et-questions-de-recherche}
 
 Notre projet vise à analyser les performances financières des
-entreprises françaises entre 2018 et 2022. Pour ce faire, nous allons
+entreprises françaises entre 2012 et 2016. Pour ce faire, nous allons
 examiner plusieurs facteurs qui pourraient influencer la rentabilité des
 entreprises. Les questions spécifiques que nous allons aborder sont les
 suivantes :
@@ -278,10 +279,14 @@ suivantes :
 
 \medskip
 
-En répondant à ces questions, nous espérons identifier les principaux
-facteurs influençant la rentabilité des entreprises françaises et
-fournir des insights précieux pour les décideurs économiques et les
-gestionnaires d'entreprises.
+En répondant à ces questions, pour des raisons de temps, nous avons dû
+restreindre le nombre de questions étudiées et sélectionner quelques
+facteurs clés, afin de proposer une diversité de graphiques, de points
+de vue et de représentations. À travers cette approche, nous espérons
+identifier les principaux facteurs influençant la rentabilité des
+entreprises françaises
+
+\medskip
 
 \chapter{Base de données}\label{base-de-donnuxe9es}
 
@@ -607,7 +612,7 @@ valeurs mobilières »}.
 
 Cette commande retourne toutes les colonnes de la base data\_kaggle pour
 les lignes dont l'année est \textbf{égale à 2012}. Nous avons ensuite
-appliqué la même méthode pour chaque année (2013 à 2016), puis extrait
+appliqué la même méthode pour chaque année (2012 à 2016), puis extrait
 \textbf{les 100 premières lignes} de chaque sous-ensemble. Enfin, nous
 avons combiné ces sous-ensembles afin d'obtenir une \textbf{table finale
 regroupant 500 lignes (100 par année)}. Cette nouvelle table est ainsi
@@ -1154,6 +1159,8 @@ Nous avons utilisé ces logiciels lors de la réalisation de notre projet
   Version control : GitHUB
 \item
   L'IA : OpenAI et MISTRAL
+\item
+  Vidéo et présentation : CANVA
 \end{itemize}
 
 \bigskip
@@ -1216,15 +1223,10 @@ catégorie et calculons les pourcentages correspondants.
 
 \medskip
 
-Deux types de visualisations sont utilisés :
-
-\medskip
+On répresente par : \medskip
 
 \begin{itemize}
 \tightlist
-\item
-  Diagramme en Barres : pour montrer le nombre absolu d'entreprises dans
-  chaque catégorie.
 \item
   Diagramme Circulaire : pour illustrer la répartition en pourcentage
   des entreprises par catégorie.
@@ -1233,6 +1235,15 @@ Deux types de visualisations sont utilisés :
 \newpage
 
 Appliquer la fonction à chaque année
+
+\medskip
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Année 2012 :
+\end{enumerate}
 
 \begin{verbatim}
 ## 
@@ -1245,28 +1256,22 @@ Appliquer la fonction à chaque année
 
 \includegraphics{TDDT_projet_L_2_files/figure-latex/analyse_univariee_2012-1.pdf}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\tightlist
-\item
-  Année 2012 : Répartition :
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  Microentreprises : 73.43\%
-\item
-  PME : 24.64\%
-\item
-  ETI : 1.93\%
-\end{itemize}
+Répartition : - Microentreprises : 73.43\% - PME : 24.64\% - ETI :
+1.93\%
 
 Interprétation : En 2012, la majorité des entreprises étaient des
 microentreprises, suivies par les PME. Les ETI représentaient une très
 petite proportion des entreprises.
 
 \medskip
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Année 2013 :
+\end{enumerate}
 
 \begin{verbatim}
 ## 
@@ -1281,14 +1286,6 @@ petite proportion des entreprises.
 
 \medskip
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Année 2013 :
-\end{enumerate}
-
 Répartition : - Microentreprises : 66.61\% - PME : 31.76\% - ETI :
 1.63\%
 
@@ -1302,6 +1299,14 @@ augmenté.
 
 \medskip
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Année 2014 :
+\end{enumerate}
+
 \begin{verbatim}
 ## 
 ##               ETI Grande entreprise   Microentreprise               PME 
@@ -1313,27 +1318,8 @@ augmenté.
 
 \includegraphics{TDDT_projet_L_2_files/figure-latex/analyse_univariee_2014-1.pdf}
 
-\medskip
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Année 2014 : Répartition :
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  Microentreprises : 63.46\%
-\item
-  PME : 34.04\%
-\item
-  ETI : 2.17\%
-\item
-  Grandes Entreprises : 0.33\%
-\end{itemize}
+Répartition : - Microentreprises : 63.46\% - PME : 34.04\% - ETI :
+2.17\% - Grandes Entreprises : 0.33\%
 
 \medskip
 
@@ -1342,6 +1328,14 @@ de diminuer, tandis que celle des PME a augmenté. Les grandes
 entreprises apparaissent pour la première fois dans cette analyse.
 
 \medskip
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Année 2015 :
+\end{enumerate}
 
 \begin{verbatim}
 ## 
@@ -1356,30 +1350,21 @@ entreprises apparaissent pour la première fois dans cette analyse.
 
 \medskip
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Année 2015 : Répartition :
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  Microentreprises : 63.29\%
-\item
-  PME : 34.84\%
-\item
-  ETI : 1.80\%
-\item
-  Grandes Entreprises : 0.06\%
-\end{itemize}
+Répartition : - Microentreprises : 63.29\% - PME : 34.84\% - ETI :
+1.80\% - Grandes Entreprises : 0.06\%
 
 Interprétation : La tendance observée en 2014 se poursuit en 2015, avec
 une légère diminution des microentreprises et une augmentation des PME.
 
 \medskip
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Année 2016 :
+\end{enumerate}
 
 \begin{verbatim}
 ## 
@@ -1392,27 +1377,8 @@ une légère diminution des microentreprises et une augmentation des PME.
 
 \includegraphics{TDDT_projet_L_2_files/figure-latex/analyse_univariee_2016-1.pdf}
 
-\medskip
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi})}
-\setcounter{enumi}{5}
-\tightlist
-\item
-  Année 2016 : Répartition :
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  Microentreprises : 30.25\%
-\item
-  PME : 61.09\%
-\item
-  ETI : 8.37\%
-\item
-  Grandes Entreprises : 0.29\%
-\end{itemize}
+Répartition : - Microentreprises : 30.25\% - PME : 61.09\% - ETI :
+8.37\% - Grandes Entreprises : 0.29\%
 
 \medskip
 
@@ -2599,13 +2565,69 @@ On peut affirmer qu'il existe une corrélation linéaire entre la variale
 chiffres d'affaires nets et la taxe.
 
 D'après le test de corrélaion et le nuage de points on peut affirmer que
-le test et le nuage de points sont compatible donc il existe un nlien
+le test et le nuage de points sont compatible donc il existe un lien
 entre les deux variables.(Corrélation positive forte )
 
 \chapter{Discussion}\label{discussion}
 
-Placer les résultats que vous avez obtenus dans le chapitre précédent en
-perspective par rapport au problème étudié.
+Au départ, la base de données était disponible sous forme d'un bloc
+unique. Afin d'en faciliter l'exploitation, nous avons décidé
+d'effectuer un slicing, ce qui nous a permis de diviser la base en sept
+tables distinctes.
+
+\medskip
+
+Lors de l'importation des données dans phpMyAdmin, nous avons rencontré
+certaines contraintes techniques : En raison de la limite de capacité de
+phpMyAdmin, il n'était pas possible d'importer les 100 000 lignes en une
+seule fois. Nous avons donc sélectionné 100 lignes par année pour
+garantir une importation réussie tout en conservant une représentativité
+temporelle des données. Un autre problème est survenu concernant une
+colonne dont le nom était trop long pour être inséré correctement dans
+la table. Initialement intitulée :« Produits des autres valeurs
+mobilières et créances de l'actif immobilisé », nous l'avons renommée de
+manière plus concise en : « Produits des autres valeurs mobilières ».
+
+\medskip
+
+Par ailleurs, nous disposions également d'une table annexe expliquant
+les abréviations utilisées pour nommer les variables dans notre Modèle
+Conceptuel de Données (MCD). Cette table de correspondance nous a été
+précieuse pour interpréter et documenter les variables au cours de
+l'analyse.
+
+\medskip
+
+\subsection{Nettoyage et traitement des données
+manquantes}\label{nettoyage-et-traitement-des-donnuxe9es-manquantes}
+
+\medskip
+
+Notre base de données étant très réaliste, elle comportait un certain
+nombre de valeurs manquantes. Pour prendre en compte cette spécificité
+dans nos analyses bivariées, nous avons utilisé la méthode suivante dans
+R : use = ``complete.obs'' Cette option permet de ne conserver que les
+observations complètes, sans tenir compte des données manquantes lors du
+calcul des statistiques. Étant donné que chaque année, le nombre de
+sociétés restait identique, les résultats obtenus lors des premières
+analyses n'étaient pas toujours significatifs. Afin de mieux visualiser
+les variations et rendre les analyses plus lisibles, nous avons décidé
+d'utiliser une échelle logarithmique. \medskip
+
+\subsection{Gestion des différences de
+ponctuation}\label{gestion-des-diffuxe9rences-de-ponctuation}
+
+\medskip
+
+Un problème technique supplémentaire est apparu lors de la rédaction du
+code : il existait des différences entre les symboles de ponctuation
+français et ceux utilisés par R (par exemple pour le point-virgule ;).
+Pour corriger automatiquement ces erreurs de syntaxe, nous avons employé
+des expressions régulières (regex), ce qui nous a permis d'uniformiser
+rapidement les fichiers. Organisation du travail \medskip Dès le début
+du projet, le travail a été clairement structuré et réparti. Chaque
+membre de l'équipe avait des tâches définies, ce qui nous a permis de
+progresser efficacement et de respecter les délais fixés.
 
 \chapter{Conclusion et perspectives}\label{conclusion-et-perspectives}
 
@@ -2646,16 +2668,6 @@ En clair, pour améliorer la rentabilité des entreprises, il faut :
 
 Cette approche simple montre comment aider au mieux les entreprises
 françaises à grandir de façon équilibrée.
-
-\chapter*{Bibliographie}\label{bibliographie}
-\addcontentsline{toc}{chapter}{Bibliographie}
-
-\phantomsection\label{refs}
-\begin{CSLReferences}{0}{1}
-\end{CSLReferences}
-
-\bibliographystyle{elsarticle-harv}
-\bibliography{references}
 
 \chapter*{Annexes}\label{annexes}
 \addcontentsline{toc}{chapter}{Annexes}
